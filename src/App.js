@@ -40,12 +40,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-// postData = async () => {
-// 	const menu = ["home", "service", "shop", "clinic", "blog"];
-
-// 	axios
-// 		.post(`${API_URL}/menu.json`, menu)
-// 		.then((response) => console.log("response", response))
-// 		.catch((err) => console.log("err", err));
-// };
