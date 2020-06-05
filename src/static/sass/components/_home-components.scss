@@ -1,0 +1,12 @@
+.banner {
+	overflow: hidden;
+}
+
+.home-categories {
+	width: 90%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-gap: 3rem;
+	margin-top: 10rem;
+}

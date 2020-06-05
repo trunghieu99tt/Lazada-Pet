@@ -1,0 +1,110 @@
+.header {
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+
+	&-logo {
+		width: 15rem;
+		height: 6rem;
+		flex-shrink: 0;
+		margin-right: 5rem;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&-main {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-grow: 1;
+	}
+
+	&-nav {
+		&__list {
+			display: flex;
+		}
+
+		&__item {
+			display: block;
+			padding: 2rem;
+			clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+			overflow: hidden;
+			position: relative;
+
+			&::after {
+				position: absolute;
+				content: "";
+				top: 50%;
+				left: 0;
+				width: 100%;
+				height: 50%;
+				transform: translateY(-50%);
+				clip-path: circle(0);
+				transform-origin: center;
+				background: #fff;
+				z-index: -1;
+			}
+
+			&:hover {
+				.header-nav__link {
+					color: $red-color;
+				}
+			}
+
+			&:hover::after {
+				clip-path: circle(150%);
+				transition: 0.5s;
+			}
+		}
+
+		&__link {
+			font-size: 1.8rem;
+			line-height: 2.3rem;
+			text-transform: capitalize;
+			font-weight: 700;
+			color: #fff;
+			position: relative;
+		}
+	}
+
+	&-shop {
+		display: flex;
+	}
+
+	&-search,
+	&-cart {
+		position: relative;
+		cursor: pointer;
+
+		span:first-child {
+			display: flex;
+			font-size: 2.1rem;
+			color: #fff;
+			font-weight: 700;
+
+			img {
+				width: 2.6rem;
+				height: 3rem;
+				margin: 0 1.5rem;
+
+				&:hover {
+					animation: shakeIcon 0.5s ease-in-out;
+				}
+			}
+		}
+
+		span:nth-child(2) {
+			color: #fff;
+			position: absolute;
+			top: -5px;
+			right: 10%;
+			background: red;
+			padding: 5px;
+			border-radius: 50%;
+		}
+	}
+}

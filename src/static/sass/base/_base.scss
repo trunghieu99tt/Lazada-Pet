@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+* {
+	font-family: "Nunito", sans-serif;
+}
+
+html {
+	// This defines what 1rem is
+	font-size: 62.5%; // 1rem = 10px;
+
+	@include respond(big-desktop) {
+		font-size: 62.5%; // 1rem = 12px
+	}
+
+	@include respond(tab-land) {
+		font-size: 56.25%; // 1rem = 9px ,
+	}
+
+	@include respond(tab-port) {
+		font-size: 50%; // 1rem = 8px
+	}
+}
+
+body {
+	box-sizing: border-box;
+	// background: #010b10;
+	position: relative;
+}
+
+li {
+	list-style: none;
+}
+
+a:hover {
+	text-decoration: none;
+}

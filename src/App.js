@@ -1,42 +1,45 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import BaseView from "./layout/BaseView";
+import HomePage from "./pages/HomePage";
 import * as actionTypes from "./redux/web/webs.types";
+import "./static/css/main.min.css";
+// import { API_URL } from "./variables";
+// import axios from 'axios'
 
 class App extends Component {
-	state = {};
-
-	componentDidMount() {
-		this.getData();
-	}
-
-	getData = async () => {
-		const { fetchMenu } = this.props;
-		fetchMenu();
-	};
+	componentDidMount() {}
 
 	render() {
-		const { web } = this.props;
-
-		const menuData = web?.menu && web.menu[Object.keys(web.menu)[0]];
-
-		const menuDom =
-			menuData?.length > 0 &&
-			menuData.map((item) => {
-				return <p>{item}</p>;
-			});
-
-		return <React.Fragment>{menuDom}</React.Fragment>;
+		return (
+			<React.Fragment>
+				<Switch>
+					<Route exact="/" component={HomePage}></Route>
+				</Switch>
+			</React.Fragment>
+		);
 	}
 }
 
 const mapStateToProps = (state) => ({
-	web: state.web,
+	menu: state.web.menu,
+	logo: state.web.logo,
+	slides: state.web.slides,
+	categories: state.web.categories,
+	isLoadingHomePage: state.web.isLoadingHomePage,
 });
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		fetchMenu: () => dispatch({ type: actionTypes.FETCH_MENU_DATA }),
+		fetchLogo: () => dispatch({ type: actionTypes.FETCH_LOGO_DATA }),
+		fetchCategories: () =>
+			dispatch({ type: actionTypes.FETCH_CATEGORIES_DATA }),
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(BaseView(App));
