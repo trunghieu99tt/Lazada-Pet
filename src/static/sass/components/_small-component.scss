@@ -1,0 +1,129 @@
+.rating {
+	font-size: 1.5rem;
+	margin: 1rem 0;
+}
+
+.product-modal {
+	&-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: rgba(256, 256, 256, 0.7);
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: all 0.3s;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	&-container.active {
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: initial;
+	}
+
+	&-mask {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	&-inner {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+		border-radius: 10px;
+		background: #fff;
+	}
+
+	&-image-container {
+		margin-bottom: 0;
+		padding-left: 0;
+	}
+
+	&-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 10px;
+	}
+
+	&-quantity {
+		position: relative;
+		display: inline-block;
+		margin-right: 2rem;
+	}
+
+	&-text {
+		padding: 5%;
+
+		.rating {
+			font-size: 1.8rem !important;
+			margin: 2rem 0 !important;
+		}
+
+		.component-heading {
+			text-align: left;
+		}
+
+		input,
+		span {
+			font-family: "Amatic SC", cursive;
+		}
+
+		input {
+			padding: 1rem;
+			border: none;
+			background: #f7f7f5;
+			font-size: 2.5rem;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type="number"] {
+			-moz-appearance: textfield;
+		}
+	}
+
+	&__name {
+		text-align: left;
+	}
+
+	&__description {
+		text-align: left;
+		font-size: 1.5rem;
+		margin: 2rem 0;
+	}
+
+	&__price {
+		font-size: 2rem;
+		color: $red-color;
+		font-weight: 900;
+	}
+
+	&-quantity__change-buttons {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 2rem;
+
+		> * {
+			margin-bottom: 0;
+			cursor: pointer;
+		}
+	}
+}

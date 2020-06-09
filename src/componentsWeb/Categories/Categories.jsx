@@ -21,8 +21,6 @@ class Categories extends Component {
 		const { categories } = this.props;
 		const categoriesData = parseData(categories);
 
-		console.log("categoriesData", categoriesData);
-
 		return (
 			<section className="home-categories">
 				{categoriesData &&

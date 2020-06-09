@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
 
 *,
 *::after,
@@ -43,4 +44,8 @@ li {
 
 a:hover {
 	text-decoration: none;
+}
+
+#root {
+	position: relative;
 }

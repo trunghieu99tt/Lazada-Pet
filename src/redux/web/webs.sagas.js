@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import {
 	queryCategoires as queryCategories,
+	queryLatestProducts,
 	queryLogo,
 	queryMenu,
 	querySlides,
@@ -82,12 +83,8 @@ export function* fetchSlides() {
 
 // Fetch Categories
 function* fetchCategoriesData() {
-	console.log("Go here\n");
-
 	try {
 		const response = yield call(queryCategories);
-
-		console.log("response", response);
 
 		if (response) {
 			yield put({
@@ -107,4 +104,33 @@ function* fetchCategoriesData() {
 
 export function* fetchCategories() {
 	yield takeEvery(actionTypes.FETCH_CATEGORIES_DATA, fetchCategoriesData);
+}
+
+function* fetchLatestProductsData(params) {
+	const { payload } = params;
+
+	try {
+		const response = yield call(queryLatestProducts, payload);
+
+		if (response) {
+			yield put({
+				type: actionTypes.FETCH_LATEST_PRODUCTS_SUCCESS,
+				payload: response?.data || {},
+			});
+		}
+	} catch (error) {
+		put({
+			type: actionTypes.FETCH_LATEST_PRODUCTS_FAIL,
+			payload: {
+				message: error,
+			},
+		});
+	}
+}
+
+export function* fetchLatestProducts() {
+	yield takeEvery(
+		actionTypes.FETCH_LATEST_PRODUCTS_DATA,
+		fetchLatestProductsData
+	);
 }

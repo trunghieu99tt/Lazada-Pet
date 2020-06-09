@@ -15,3 +15,7 @@ export const fetchSlides = () => {
 export const fetchCategories = () => {
 	return { type: actionTypes.FETCH_CATEGORIES_DATA };
 };
+
+export const fetchLatestProducts = (payload) => {
+	return { type: actionTypes.FETCH_LATEST_PRODUCTS_DATA, payload };
+};

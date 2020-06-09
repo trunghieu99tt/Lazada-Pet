@@ -10,3 +10,14 @@
 	grid-gap: 3rem;
 	margin-top: 10rem;
 }
+
+.latest-products {
+	&-container {
+		margin-top: 8rem;
+	}
+
+	&-header {
+		width: 50%;
+		margin: 0 auto;
+	}
+}

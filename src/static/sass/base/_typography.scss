@@ -1,6 +1,6 @@
 .text-effect-1 {
 	display: block;
-	padding: 2rem;
+	padding: 1rem;
 	clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
 	overflow: hidden;
 	position: relative;
@@ -26,5 +26,19 @@
 	&:hover::after {
 		clip-path: circle(150%);
 		transition: 0.5s;
+	}
+}
+
+.component {
+	&-heading {
+		font-size: 5rem;
+		font-weight: 900;
+		text-align: center;
+	}
+
+	&-description {
+		color: $gray-color;
+		font-size: 2rem;
+		text-align: center;
 	}
 }

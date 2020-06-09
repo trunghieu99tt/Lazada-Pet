@@ -36,3 +36,15 @@ export async function queryCategoires() {
 
 	return categories;
 }
+export async function queryLatestProducts(params) {
+	const { limit, orderBy } = params;
+
+	const latestProducts = await axios({
+		method: "GET",
+		url: `${API_URL}/products.json?orderBy="$key"&limitToFirst=${
+			limit || 20
+		}`,
+	});
+
+	return latestProducts;
+}

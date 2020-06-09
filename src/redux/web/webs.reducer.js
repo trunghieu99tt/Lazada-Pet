@@ -6,12 +6,14 @@ const INITIAL_STATE_WEBS = {
 	logo: null,
 	slides: [],
 	categories: [],
+	latestProducts: [],
 
 	// Error Message
 	fetchMenuFailMessage: null,
 	fetchLogoFailMessage: null,
 	fetchSlidesFailMessage: null,
 	fetchCategoriesFailMessage: null,
+	fetchLatestProductsFailMessage: null,
 
 	// Loading
 	isLoadingHomePage: true,
@@ -67,6 +69,19 @@ const reducer = (state = INITIAL_STATE_WEBS, action) => {
 			return {
 				...state,
 				fetchCategoriesFailMessage: action.message,
+			};
+
+		case actionTypes.FETCH_LATEST_PRODUCTS_SUCCESS:
+			return {
+				...state,
+				latestProducts: action.payload,
+				isLoadingHomePage: false,
+			};
+
+		case actionTypes.FETCH_LATEST_PRODUCTS_FAIL:
+			return {
+				...state,
+				fetchLatestProductsFailMessage: action.message,
 			};
 
 		default:
