@@ -1,25 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actionTypes from "../../redux/web/webs.types";
-import LatestProductCard from "../Cards/LatestProductCard";
+import LatestProductCard from "../Cards/Card2";
 import Modal from "../Modal/Modal";
 
 class LatestProducts extends Component {
 	state = {
 		isOpenModal: false,
 		product: null,
-	};
-
-	componentDidMount() {
-		const { latestProducts } = this.props;
-		if (!latestProducts || latestProducts.length === 0) {
-			this.getLatestProductsData();
-		}
-	}
-
-	getLatestProductsData = () => {
-		const { fetchLatestProducts } = this.props;
-		fetchLatestProducts({ limit: 8 });
 	};
 
 	toggleShowModal = (open = true) => {
@@ -47,8 +33,6 @@ class LatestProducts extends Component {
 	render() {
 		const { latestProducts } = this.props;
 		const { product } = this.state;
-
-		console.log("product", product);
 
 		const latestProductsData =
 			latestProducts && Object.values(latestProducts);
@@ -86,13 +70,4 @@ class LatestProducts extends Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	latestProducts: state.web.latestProducts,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	fetchLatestProducts: (payload) =>
-		dispatch({ type: actionTypes.FETCH_LATEST_PRODUCTS_DATA, payload }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(LatestProducts);
+export default LatestProducts;

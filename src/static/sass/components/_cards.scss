@@ -1,4 +1,4 @@
-.categories-card {
+.card1 {
 	min-height: 20rem;
 	position: relative;
 
@@ -30,13 +30,13 @@
 	}
 }
 
-.latest-product-card {
+.card2 {
 	&-image-container {
 		height: 30.2rem;
 		position: relative;
 
 		&:hover {
-			.latest-product-card-menu {
+			.card2-menu {
 				opacity: 1;
 				pointer-events: initial;
 			}
@@ -121,5 +121,149 @@
 		font-size: 2rem;
 		color: $red-color;
 		font-weight: 900;
+	}
+}
+
+$card3-before-width: 4rem;
+$card3-before-height: 6rem;
+
+.card3 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 10%;
+	opacity: 0;
+	pointer-events: none;
+	text-align: center;
+
+	&:nth-of-type(1) {
+		background-color: $red-color;
+	}
+	&:nth-of-type(2) {
+		background-color: $red-color-1;
+	}
+	&:nth-of-type(3) {
+		background-color: $red-color-2;
+	}
+
+	&.active {
+		opacity: 1;
+		pointer-events: initial;
+	}
+
+	&__name {
+		font-size: 7rem;
+		font-weight: 900;
+		background: #fff;
+		color: #f04336;
+		-webkit-clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+		clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
+		text-align: center;
+		border-radius: 10px;
+		display: inline-block;
+		padding: 0 2rem;
+		animation: appearText1 0.5s ease-in-out forwards;
+	}
+
+	&__subName {
+		font-size: 5rem;
+		font-weight: 900;
+		animation: appearText2 0.5s ease-in-out forwards;
+	}
+
+	&__description {
+		font-size: 1.9rem;
+		animation: appearText2 0.7s ease-in-out forwards;
+	}
+
+	.button--1 {
+		background: #fff;
+		color: $red-color;
+	}
+
+	&::before {
+		position: absolute;
+		top: 0;
+	}
+}
+
+.card4 {
+	position: relative;
+
+	&__image-container {
+		height: 36.8rem;
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__extra-image {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: none;
+	}
+
+	&:hover &__extra-image {
+		display: block;
+	}
+}
+
+.card5 {
+	.button--1 {
+		padding: 0;
+		background: #fff;
+		color: #f04336;
+		margin-top: 2.5rem;
+	}
+
+	&__image-container {
+		overflow: hidden;
+		border-radius: 10px;
+
+		&:hover .card5__image {
+			transform: translateX(10px);
+		}
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: all 0.3s;
+	}
+
+	&__title {
+		font-size: 2.4rem;
+		font-weight: 900;
+		color: #000;
+		transition: all 0.3s;
+		margin-top: 1rem;
+
+		&:hover {
+			color: $red-color;
+		}
+	}
+
+	&__shortDescription {
+		font-size: 15px;
+		line-height: 25px;
+		color: $gray-color;
+		@include truncateLine(3);
+		margin-top: 2rem;
+	}
+
+	&-hashtag {
+		&-element {
+			span {
+				font-size: 15px;
+			}
+		}
 	}
 }

@@ -1,22 +1,8 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actionTypes from "../../redux/web/webs.types";
 import { parseData } from "../../utils/helper";
-import CategoriesCard from "../Cards/CategoriesCard";
+import CategoriesCard from "../Cards/Card1";
 
 class Categories extends Component {
-	componentDidMount() {
-		const { categories } = this.props;
-		if (!categories || categories.length === 0) {
-			this.getCategoriesData();
-		}
-	}
-
-	getCategoriesData = () => {
-		const { fetchCategories } = this.props;
-		fetchCategories();
-	};
-
 	render() {
 		const { categories } = this.props;
 		const categoriesData = parseData(categories);
@@ -42,13 +28,4 @@ class Categories extends Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
-	categories: state.web.categories,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	fetchCategories: () =>
-		dispatch({ type: actionTypes.FETCH_CATEGORIES_DATA }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Categories);
+export default Categories;

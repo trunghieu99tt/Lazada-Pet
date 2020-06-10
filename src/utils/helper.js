@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-expressions */
 import axios from "axios";
 import { API_URL } from "../variables";
 
-const resetAnimation = (item) => {
-	if (item && item.style) {
-		item.style.animation = "none";
-		item.offsetHeight();
-		item.style.animation = null;
+const resetAnimation = (el) => {
+	if (el && el.style) {
+		el.style.animation = "none";
+		el.offsetHeight; /* trigger reflow */
+		el.style.animation = null;
 	}
 };
 
@@ -230,6 +231,8 @@ const splitImageData = (images) => images.split(",");
 
 const parseData = (data) => (data && data[Object.keys(data)]) || [];
 
+const parseData2 = (data) => data && Object.values(data);
+
 const uploadData = async (name, data) => {
 	return await axios.post(`${API_URL}/${name}.json`, data);
 };
@@ -265,4 +268,5 @@ export {
 	parseData,
 	uploadData,
 	getRandomNumber,
+	parseData2,
 };

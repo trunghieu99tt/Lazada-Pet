@@ -39,6 +39,7 @@
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
 		border-radius: 10px;
 		background: #fff;
+		position: relative;
 	}
 
 	&-image-container {
@@ -125,5 +126,13 @@
 			margin-bottom: 0;
 			cursor: pointer;
 		}
+	}
+
+	&__close-btn {
+		position: absolute;
+		right: 5%;
+		top: 5%;
+		cursor: pointer;
+		z-index: 2;
 	}
 }

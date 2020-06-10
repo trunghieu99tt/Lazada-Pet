@@ -5,25 +5,27 @@ import { Link } from "react-router-dom";
 import { encodeStr } from "../../utils/helper";
 import Rating from "../Rating";
 
-const LatestProductCard = (props) => {
+// Card của product
+
+const Card2 = (props) => {
 	const { imageURL, name, rating, price, viewProduct } = props;
 
 	return (
-		<article className="latest-product-card">
+		<article className="card2">
 			<Link to={`/product/${encodeStr(name || "")}`}>
-				<figure className="latest-product-card-image-container">
+				<figure className="card2-image-container">
 					<img
 						src={imageURL}
 						alt={name}
-						className="latest-product-card__image"
+						className="card2__image"
 					></img>
 
-					<figcaption className="latest-product-card-menu">
+					<figcaption className="card2-menu">
 						<Link to={`/product`}>
 							<div className="button--1">Add to cart</div>
 						</Link>
 
-						<nav className="latest-product-card-menu__option">
+						<nav className="card2-menu__option">
 							<FontAwesomeIcon
 								icon={faEye}
 								onClick={() => viewProduct(props)}
@@ -34,16 +36,16 @@ const LatestProductCard = (props) => {
 				</figure>
 			</Link>
 
-			<div className="latest-product-card-detail">
+			<div className="card2-detail">
 				<Link to={`/product/${encodeStr(name || "")}`}>
-					<p className="latest-product-card__name">{name} </p>
+					<p className="card2__name">{name} </p>
 				</Link>
 
 				<Rating rating={rating} />
-				<p className="latest-product-card__price">${price}</p>
+				<p className="card2__price">${price}</p>
 			</div>
 		</article>
 	);
 };
 
-export default LatestProductCard;
+export default Card2;

@@ -2,18 +2,45 @@
 	position: fixed;
 	z-index: 1;
 	width: 100%;
+	transition: background 0.3s;
 
-	&-logo {
+	&.header-scroll {
+		background: #fff;
+
+		.header-nav__link {
+			color: #000;
+		}
+
+		.header-nav__item:hover .header-nav__link {
+			color: #fff;
+		}
+
+		.header-nav__item::after {
+			background: $red-color;
+		}
+
+		.header-cart__image,
+		.header-search__image {
+			filter: invert(1);
+		}
+
+		.header-search__text,
+		.header-cart__text {
+			color: #000;
+		}
+	}
+
+	&-logo-container {
 		width: 15rem;
 		height: 6rem;
 		flex-shrink: 0;
 		margin-right: 5rem;
+	}
 
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
-		}
+	&-logo {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
 	}
 
 	&-main {

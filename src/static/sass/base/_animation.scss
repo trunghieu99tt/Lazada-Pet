@@ -11,3 +11,27 @@
 		transform: rotate(0deg);
 	}
 }
+
+@keyframes appearText1 {
+	0% {
+		opacity: 0;
+		transform: scaleX(0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scaleX(1);
+	}
+}
+
+@keyframes appearText2 {
+	0% {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}

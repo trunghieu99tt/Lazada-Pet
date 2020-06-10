@@ -6,9 +6,9 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import BaseView from "./layout/BaseView";
 import HomePage from "./pages/HomePage";
-import * as actionTypes from "./redux/web/webs.types";
+import * as actionTypes from "./redux/web/homepage/homepage.types";
 import "./static/css/main.min.css";
-// import { getRandomNumber, uploadData } from "./utils/helper";
+import { uploadData } from "./utils/helper";
 // import { API_URL } from "./variables";
 // import axios from 'axios'
 
@@ -17,30 +17,17 @@ class App extends Component {
 		// this.postData();
 	}
 
-	// postData = async () => {
-	// 	const data = [...Array(100)].map((_, index) => {
-	// 		const rating = getRandomNumber(0, 5);
-	// 		const price = getRandomNumber(0, 999);
-	// 		const imageURL =
-	// 			"https://pawfriends.qodeinteractive.com/wp-content/uploads/2019/07/shop-img-1-269x300.jpg";
-	// 		const name = "Product";
-	// 		const description =
-	// 			"Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus non atque officia vitae dolore incidunt autem consequatur nulla asperiores voluptatem eaque recusandae tempore eos voluptatum quae a, illum, vel ipsam.";
-
-	// 		return {
-	// 			name,
-	// 			price,
-	// 			rating,
-	// 			imageURL,
-	// 			id: index,
-	// 			description,
-	// 		};
-	// 	});
-
-	// 	data.forEach(async (item) => await uploadData("products", item));
-	// };
+	postData = async () => {
+		const data = [
+			"https://pawfriends.qodeinteractive.com/wp-content/uploads/2019/09/logo-final-2-white.png",
+			"https://pawfriends.qodeinteractive.com/wp-content/uploads/2019/09/logo-final-2.png",
+		];
+		data.forEach(async (item) => await uploadData("logos", item));
+	};
 
 	render() {
+	
+
 		return (
 			<React.Fragment>
 				<Switch>
@@ -52,11 +39,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	menu: state.web.menu,
-	logo: state.web.logo,
-	slides: state.web.slides,
-	categories: state.web.categories,
-	isLoadingHomePage: state.web.isLoadingHomePage,
+	menu: state.homepage.menu,
+	logo: state.homepage.logo,
+	slides: state.homepage.slides,
+	categories: state.homepage.categories,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -69,22 +55,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseView(App));
-
-// postData = async () => {
-// 	const data = [...Array(100)].map((_, index) => {
-// 		const rating = getRandomNumber(0, 5);
-// 		const price = getRandomNumber(0, 999);
-// 		const imageURL =
-// 			"https://pawfriends.qodeinteractive.com/wp-content/uploads/2019/07/shop-img-1-269x300.jpg";
-// 		const name = "Product";
-// 		return {
-// 			name,
-// 			price,
-// 			rating,
-// 			imageURL,
-// 			id: index,
-// 		};
-// 	});
-
-// 	await uploadData("products", data);
-// };

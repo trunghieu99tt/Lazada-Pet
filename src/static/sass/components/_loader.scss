@@ -1,16 +1,3 @@
-// * {
-// 	margin: 0;
-// 	padding: 0;
-// }
-
-// body {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	min-height: 100vh;
-// 	background: #010b10;
-// }
-
 svg {
 	width: 0;
 	height: 0;
@@ -19,7 +6,9 @@ svg {
 .loader-container {
 	width: 100%;
 	height: 100vh;
-	position: relative;
+	position: absolute;
+	z-index: 9999;
+	background: #000;
 }
 
 .loader {

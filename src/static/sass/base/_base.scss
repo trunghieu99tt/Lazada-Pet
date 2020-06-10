@@ -49,3 +49,10 @@ a:hover {
 #root {
 	position: relative;
 }
+
+.component {
+	&-header {
+		width: 50%;
+		margin: 5rem auto;
+	}
+}

@@ -22,10 +22,6 @@ const BaseView = (WrappedComponent, props) => {
 		render() {
 			const { menu, logo, isLoadingHomePage } = this.props;
 
-			// if (isLoadingHomePage) {
-			// 	return <Loader />;
-			// }
-
 			return (
 				<React.Fragment>
 					<Header menu={menu} logo={logo} />

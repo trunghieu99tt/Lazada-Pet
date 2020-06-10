@@ -1,12 +1,15 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import {
-	queryCategoires as queryCategories,
+	queryCategories,
+	queryLatestNews,
 	queryLatestProducts,
 	queryLogo,
 	queryMenu,
+	queryPopularServices,
+	querySalesAds,
 	querySlides,
-} from "./webs.queries";
-import * as actionTypes from "./webs.types";
+} from "./homepage.queries";
+import * as actionTypes from "./homepage.types";
 
 // Fetch Logo
 
@@ -133,4 +136,81 @@ export function* fetchLatestProducts() {
 		actionTypes.FETCH_LATEST_PRODUCTS_DATA,
 		fetchLatestProductsData
 	);
+}
+
+function* fetchSalesAdsData() {
+	try {
+		const response = yield call(querySalesAds);
+		if (response) {
+			yield put({
+				type: actionTypes.FETCH_SALESADS_SUCCESS,
+				payload: response?.data || {},
+			});
+		}
+	} catch (error) {
+		put({
+			type: actionTypes.FETCH_SALESADS_FAIL,
+			payload: {
+				message: error,
+			},
+		});
+	}
+}
+
+export function* fetchSalesAds() {
+	yield takeEvery(actionTypes.FETCH_SALESADS_DATA, fetchSalesAdsData);
+}
+
+function* fetchPopularServicesData(params) {
+	const { payload } = params;
+
+	try {
+		const response = yield call(queryPopularServices, payload);
+
+		if (response) {
+			yield put({
+				type: actionTypes.FETCH_POPULAR_SERVICES_SUCCESS,
+				payload: response?.data || {},
+			});
+		}
+	} catch (error) {
+		put({
+			type: actionTypes.FETCH_POPULAR_SERVICES_FAIL,
+			payload: {
+				message: error,
+			},
+		});
+	}
+}
+
+export function* fetchPopularServices() {
+	yield takeEvery(
+		actionTypes.FETCH_POPULAR_SERVICES_DATA,
+		fetchPopularServicesData
+	);
+}
+function* fetchLatestNewsData(params) {
+	const { payload } = params;
+
+	try {
+		const response = yield call(queryLatestNews, payload);
+
+		if (response) {
+			yield put({
+				type: actionTypes.FETCH_LATEST_NEWS_SUCCESS,
+				payload: response?.data || {},
+			});
+		}
+	} catch (error) {
+		put({
+			type: actionTypes.FETCH_LATEST_NEWS_FAIL,
+			payload: {
+				message: error,
+			},
+		});
+	}
+}
+
+export function* fetchLatestNews() {
+	yield takeEvery(actionTypes.FETCH_LATEST_NEWS_DATA, fetchLatestNewsData);
 }
