@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Banner from "../componentsWeb/Banner";
 import Categories from "../componentsWeb/Categories/Categories";
+import LatestComments from "../componentsWeb/LatestComments/LatestComments";
 import LatestNews from "../componentsWeb/LatestNews/LatestNews";
 import LatestProducts from "../componentsWeb/LatestProducts/LatestProducts";
 import Loader from "../componentsWeb/Loader";
@@ -18,6 +19,7 @@ class HomePage extends Component {
 			salesAds,
 			popularServices,
 			latestNews,
+			latestComments,
 		} = this.props;
 
 		if (!slides || slides.length === 0) {
@@ -42,6 +44,10 @@ class HomePage extends Component {
 
 		if (!latestNews || latestNews.length === 0) {
 			this.getLatestNewsData();
+		}
+
+		if (!latestComments || latestComments.length === 0) {
+			this.getLatestCommentData();
 		}
 	}
 
@@ -76,6 +82,11 @@ class HomePage extends Component {
 		fetchLatestNews({ limit: 3 });
 	};
 
+	getLatestCommentData = () => {
+		const { fetchLatestComments } = this.props;
+		fetchLatestComments({ limit: 5 });
+	};
+
 	render() {
 		const {
 			slides,
@@ -84,6 +95,7 @@ class HomePage extends Component {
 			salesAds,
 			popularServices,
 			latestNews,
+			latestComments,
 		} = this.props;
 
 		if (
@@ -92,9 +104,12 @@ class HomePage extends Component {
 			!latestProducts ||
 			!salesAds ||
 			!popularServices ||
-			!latestNews
+			!latestNews ||
+			!latestComments
 		)
 			return <Loader />;
+
+		console.log("latestComments", latestComments);
 
 		return (
 			<React.Fragment>
@@ -104,6 +119,7 @@ class HomePage extends Component {
 				<SalesAd salesAds={salesAds} />
 				<PopularServices popularServices={popularServices} />
 				<LatestNews latestNews={latestNews} />
+				<LatestComments latestComments={latestComments} />
 			</React.Fragment>
 		);
 	}
@@ -116,6 +132,7 @@ const mapStateToProps = (state) => ({
 	salesAds: state.homepage.salesAds,
 	popularServices: state.homepage.popularServices,
 	latestNews: state.homepage.latestNews,
+	latestComments: state.homepage.latestComments,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -137,6 +154,8 @@ const mapDispatchToProps = (dispatch) => ({
 		}),
 	fetchLatestNews: (payload) =>
 		dispatch({ type: homepageActionTypes.FETCH_LATEST_NEWS_DATA, payload }),
+	fetchLatestComments: (payload) =>
+		dispatch({ type: homepageActionTypes.FETCH_COMMENTS_DATA, payload }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

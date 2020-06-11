@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import {
 	queryCategories,
+	queryLatestComments,
 	queryLatestNews,
 	queryLatestProducts,
 	queryLogo,
@@ -189,6 +190,7 @@ export function* fetchPopularServices() {
 		fetchPopularServicesData
 	);
 }
+
 function* fetchLatestNewsData(params) {
 	const { payload } = params;
 
@@ -213,4 +215,30 @@ function* fetchLatestNewsData(params) {
 
 export function* fetchLatestNews() {
 	yield takeEvery(actionTypes.FETCH_LATEST_NEWS_DATA, fetchLatestNewsData);
+}
+
+function* fetchLatestCommentsData(params) {
+	const { payload } = params;
+
+	try {
+		const response = yield call(queryLatestComments, payload);
+
+		if (response) {
+			yield put({
+				type: actionTypes.FETCH_COMMENTS_SUCCESS,
+				payload: response?.data || {},
+			});
+		}
+	} catch (error) {
+		put({
+			type: actionTypes.FETCH_COMMENTS_FAIL,
+			payload: {
+				message: error,
+			},
+		});
+	}
+}
+
+export function* fetchLatestComments() {
+	yield takeEvery(actionTypes.FETCH_COMMENTS_DATA, fetchLatestCommentsData);
 }

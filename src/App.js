@@ -18,16 +18,16 @@ class App extends Component {
 	}
 
 	postData = async () => {
-		const data = [
-			"https://pawfriends.qodeinteractive.com/wp-content/uploads/2019/09/logo-final-2-white.png",
-			"https://pawfriends.qodeinteractive.com/wp-content/uploads/2019/09/logo-final-2.png",
-		];
-		data.forEach(async (item) => await uploadData("logos", item));
+		const data = [...Array(10)].map(() => ({
+			title: "Client satisfaction",
+			description:
+				"lorem ipsum dolor sit amet, consectet lorem ipsum dolor sit amet, consectet lorem ipsum dolor sit amet, consectet lorem ipsum dolor sit amet, consectet lorem ipsum dolor sit amet, consectet lorem ipsum dolor sit amet, consectet lorem ipsum dolor sit amet, consectet",
+			author: "John",
+		}));
+		data.forEach(async (item) => await uploadData("comments", item));
 	};
 
 	render() {
-	
-
 		return (
 			<React.Fragment>
 				<Switch>

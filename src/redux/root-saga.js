@@ -1,6 +1,7 @@
 import { all, call } from "redux-saga/effects";
 import {
 	fetchCategories,
+	fetchLatestComments,
 	fetchLatestNews,
 	fetchLatestProducts,
 	fetchLogo,
@@ -20,5 +21,6 @@ export default function* rootSaga() {
 		call(fetchSalesAds),
 		call(fetchPopularServices),
 		call(fetchLatestNews),
+		call(fetchLatestComments),
 	]);
 }

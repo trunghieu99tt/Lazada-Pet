@@ -106,3 +106,14 @@
 		margin: 0 auto;
 	}
 }
+
+.home-latest-comments {
+	&-content {
+		padding: 5%;
+		background: $red-color;
+	}
+
+	&-banner {
+		background: #000;
+	}
+}

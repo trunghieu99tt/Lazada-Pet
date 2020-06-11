@@ -51,6 +51,11 @@ a:hover {
 }
 
 .component {
+	&-wrapper {
+		margin-top: 7rem;
+		overflow-x: hidden;
+	}
+
 	&-header {
 		width: 50%;
 		margin: 5rem auto;

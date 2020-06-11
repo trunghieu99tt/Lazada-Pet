@@ -10,6 +10,7 @@ const INITIAL_STATE_WEBS = {
 	salesAds: null,
 	popularServices: null,
 	latestNews: null,
+	latestComments: null,
 
 	// Error Message
 	fetchMenuFailMessage: null,
@@ -20,6 +21,7 @@ const INITIAL_STATE_WEBS = {
 	fetchSalesAdsFailMessage: null,
 	fetchPopularServicesFailMessage: null,
 	fetchLatestNewsFailMessage: null,
+	fetchLatestCommentsFailMessage: null,
 
 	// Loading
 	isLoadingHomePage: true,
@@ -122,6 +124,18 @@ const reducer = (state = INITIAL_STATE_WEBS, action) => {
 			return {
 				...state,
 				fetchLatestNewsFailMessage: action.message,
+			};
+
+		case actionTypes.FETCH_COMMENTS_SUCCESS:
+			return {
+				...state,
+				latestComments: action.payload,
+			};
+
+		case actionTypes.FETCH_COMMENTS_FAIL:
+			return {
+				...state,
+				fetchLatestCommentsFailMessage: action.message,
 			};
 
 		default:

@@ -79,3 +79,15 @@ export async function queryLatestNews(params) {
 	});
 	return latestNews;
 }
+
+export async function queryLatestComments(params) {
+	const { limit, orderBy } = params;
+
+	const latestComments = await axios({
+		method: "GET",
+		url: `${API_URL}/comments.json?orderBy="$key"&limitToFirst=${
+			limit || 3
+		}`,
+	});
+	return latestComments;
+}

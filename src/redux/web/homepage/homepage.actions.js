@@ -27,6 +27,11 @@ export const fetchSalesAds = () => {
 export const fetchPopularServices = () => {
 	return { type: actionTypes.FETCH_POPULAR_SERVICES_DATA };
 };
+
 export const fetchLatestNews = () => {
 	return { type: actionTypes.FETCH_LATEST_NEWS_DATA };
+};
+
+export const fetchLatestComments = () => {
+return { type: actionTypes.FETCH_COMMENTS_DATA };
 };
