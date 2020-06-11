@@ -22,9 +22,11 @@ class LatestNews extends Component {
 				<div className="home-latest-news-content row">
 					{latestNewsData &&
 						latestNewsData.length > 0 &&
-						latestNewsData.map((item) => {
-							return <Card5 {...item} />;
-						})}
+						latestNewsData
+							.slice(0, Math.min(latestNewsData.length, 3))
+							.map((item) => {
+								return <Card5 {...item} />;
+							})}
 				</div>
 			</section>
 		);

@@ -1,0 +1,54 @@
+.footer {
+	padding-top: 7rem;
+
+	&-site-description {
+		font-size: 15px;
+		color: $gray-color;
+	}
+
+	&-site-logo {
+		height: 50px;
+	}
+
+	&-item-header {
+		font-size: 2.5rem;
+		font-weight: 900;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+
+	&-list {
+		text-align: center;
+
+		&-item {
+			margin: 1rem 0;
+			text-align: center;
+
+			&__link {
+				font-size: 15px;
+				color: $gray-color;
+
+				&:hover {
+					color: $red-color;
+				}
+			}
+		}
+	}
+
+	&-bottom {
+		padding: 2rem 0;
+		background-color: #f6f6f6;
+		margin-top: 2rem;
+	}
+
+	&-copyright {
+		text-align: center;
+		font-size: 15px;
+		margin-bottom: 0;
+
+		&__link {
+			font-weight: 700;
+			color: $gray-color !important;
+		}
+	}
+}

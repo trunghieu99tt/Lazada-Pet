@@ -2,8 +2,6 @@ import * as actionTypes from "./homepage.types";
 
 const INITIAL_STATE_WEBS = {
 	// DATA
-	menu: null,
-	logo: null,
 	slides: null,
 	categories: null,
 	latestProducts: null,
@@ -29,31 +27,6 @@ const INITIAL_STATE_WEBS = {
 
 const reducer = (state = INITIAL_STATE_WEBS, action) => {
 	switch (action.type) {
-		case actionTypes.FETCH_MENU_SUCCESS:
-			return {
-				...state,
-				menu: action.payload,
-			};
-
-		case actionTypes.FETCH_MENU_FAIL:
-			return {
-				...state,
-				fetchMenuFailMessage: action.message,
-			};
-
-		case actionTypes.FETCH_LOGO_SUCCESS: {
-			return {
-				...state,
-				logo: action.payload,
-			};
-		}
-
-		case actionTypes.FETCH_LOGO_FAIL:
-			return {
-				...state,
-				logo: action.message,
-			};
-
 		case actionTypes.FETCH_SLIDES_SUCCESS:
 			return {
 				...state,

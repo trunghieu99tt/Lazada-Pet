@@ -1,11 +1,12 @@
 import { all, call } from "redux-saga/effects";
+// Saga from app
+import { fetchLogo, fetchMenu, fetchSite } from "./web/app/app.sagas";
+// Saga from homepage
 import {
 	fetchCategories,
 	fetchLatestComments,
 	fetchLatestNews,
 	fetchLatestProducts,
-	fetchLogo,
-	fetchMenu,
 	fetchPopularServices,
 	fetchSalesAds,
 	fetchSlides,
@@ -22,5 +23,6 @@ export default function* rootSaga() {
 		call(fetchPopularServices),
 		call(fetchLatestNews),
 		call(fetchLatestComments),
+		call(fetchSite),
 	]);
 }

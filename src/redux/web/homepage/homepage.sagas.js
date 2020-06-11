@@ -4,60 +4,11 @@ import {
 	queryLatestComments,
 	queryLatestNews,
 	queryLatestProducts,
-	queryLogo,
-	queryMenu,
 	queryPopularServices,
 	querySalesAds,
 	querySlides,
 } from "./homepage.queries";
 import * as actionTypes from "./homepage.types";
-
-// Fetch Logo
-
-function* fetchLogoData() {
-	try {
-		const response = yield call(queryLogo);
-
-		if (response) {
-			yield put({
-				type: actionTypes.FETCH_LOGO_SUCCESS,
-				payload: response?.data || {},
-			});
-		}
-	} catch (e) {
-		yield put({
-			type: actionTypes.FETCH_LOGO_FAIL,
-			payload: { message: e },
-		});
-	}
-}
-
-export function* fetchLogo() {
-	yield takeEvery(actionTypes.FETCH_LOGO_DATA, fetchLogoData);
-}
-
-// Fetch Menu
-function* fetchMenuData() {
-	try {
-		const response = yield call(queryMenu);
-
-		if (response) {
-			yield put({
-				type: actionTypes.FETCH_MENU_SUCCESS,
-				payload: response?.data || {},
-			});
-		}
-	} catch (e) {
-		yield put({
-			type: actionTypes.FETCH_MENU_FAIL,
-			payload: { message: e },
-		});
-	}
-}
-
-export function* fetchMenu() {
-	yield takeEvery(actionTypes.FETCH_MENU_DATA, fetchMenuData);
-}
 
 // Fetch Sliders
 

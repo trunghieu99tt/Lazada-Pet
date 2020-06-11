@@ -1,13 +1,5 @@
 import * as actionTypes from "./homepage.types";
 
-export const fetchMenu = () => {
-	return { type: actionTypes.FETCH_MENU_DATA };
-};
-
-export const fetchLogo = () => {
-	return { type: actionTypes.FETCH_LOGO_DATA };
-};
-
 export const fetchSlides = () => {
 	return { type: actionTypes.FETCH_SLIDES_DATA };
 };
@@ -33,5 +25,5 @@ export const fetchLatestNews = () => {
 };
 
 export const fetchLatestComments = () => {
-return { type: actionTypes.FETCH_COMMENTS_DATA };
+	return { type: actionTypes.FETCH_COMMENTS_DATA };
 };

@@ -6,9 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import BaseView from "./layout/BaseView";
 import HomePage from "./pages/HomePage";
-import * as actionTypes from "./redux/web/homepage/homepage.types";
+import * as appTypes from "./redux/web/app/app.types";
+import * as homepageTypes from "./redux/web/homepage/homepage.types";
 import "./static/css/main.min.css";
 import { uploadData } from "./utils/helper";
+
 // import { API_URL } from "./variables";
 // import axios from 'axios'
 
@@ -39,16 +41,28 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	menu: state.homepage.menu,
-	logo: state.homepage.logo,
+	menu: state.app.menu,
+	logo: state.app.logo,
+	siteInfo: state.app.siteInfo,
+	latestProducts: state.homepage.latestProducts,
+	latestNews: state.homepage.latestNews,
 });
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchMenu: () => dispatch({ type: actionTypes.FETCH_MENU_DATA }),
-		fetchLogo: () => dispatch({ type: actionTypes.FETCH_LOGO_DATA }),
-		fetchCategories: () =>
-			dispatch({ type: actionTypes.FETCH_CATEGORIES_DATA }),
+		fetchMenu: () => dispatch({ type: appTypes.FETCH_MENU_DATA }),
+		fetchLogo: () => dispatch({ type: appTypes.FETCH_LOGO_DATA }),
+		fetchSiteInfo: () => dispatch({ type: appTypes.FETCH_SITE_DATA }),
+		fetchLatestProducts: (payload) =>
+			dispatch({
+				type: homepageTypes.FETCH_LATEST_PRODUCTS_DATA,
+				payload,
+			}),
+		fetchLatestNews: (payload) =>
+			dispatch({
+				type: homepageTypes.FETCH_LATEST_NEWS_DATA,
+				payload,
+			}),
 	};
 };
 

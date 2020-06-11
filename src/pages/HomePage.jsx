@@ -7,7 +7,6 @@ import LatestNews from "../componentsWeb/HomePageComponents/LatestNews/LatestNew
 import LatestProducts from "../componentsWeb/HomePageComponents/LatestProducts/LatestProducts";
 import PopularServices from "../componentsWeb/HomePageComponents/PopularServices/PopularServices";
 import SalesAd from "../componentsWeb/HomePageComponents/SalesAd/SalesAd";
-
 import Loader from "../componentsWeb/SmallComponents/Loader";
 import * as homepageActionTypes from "../redux/web/homepage/homepage.types";
 
@@ -109,8 +108,6 @@ class HomePage extends Component {
 			!latestComments
 		)
 			return <Loader />;
-
-		console.log("latestComments", latestComments);
 
 		return (
 			<React.Fragment>
