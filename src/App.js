@@ -41,8 +41,6 @@ class App extends Component {
 const mapStateToProps = (state) => ({
 	menu: state.homepage.menu,
 	logo: state.homepage.logo,
-	slides: state.homepage.slides,
-	categories: state.homepage.categories,
 });
 
 const mapDispatchToProps = (dispatch) => {

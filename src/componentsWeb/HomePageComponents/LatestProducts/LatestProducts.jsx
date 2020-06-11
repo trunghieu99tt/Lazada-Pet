@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LatestProductCard from "../Cards/Card2";
+import LatestProductCard from "../../Cards/Card2";
 import Modal from "../Modal/Modal";
 
 class LatestProducts extends Component {

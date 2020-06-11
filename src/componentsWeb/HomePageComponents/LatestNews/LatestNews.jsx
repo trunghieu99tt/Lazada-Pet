@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { parseData2 } from "../../utils/helper";
-import Card5 from "../Cards/Card5";
+import { parseData2 } from "../../../utils/helper";
+import Card5 from "../../Cards/Card5";
 
 class LatestNews extends Component {
 	render() {

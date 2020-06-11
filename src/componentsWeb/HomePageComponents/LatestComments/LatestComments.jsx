@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import { parseData2 } from "../../utils/helper";
-import Card6 from "../Cards/Card6";
+import { parseData2 } from "../../../utils/helper";
+import Card6 from "../../Cards/Card6";
 
 class LatestComments extends Component {
 	render() {

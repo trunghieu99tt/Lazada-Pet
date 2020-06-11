@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import { encodeStr } from "../../utils/helper";
-import Rating from "../Rating";
+import Rating from "../SmallComponents/Rating";
 
 // Card của product
 

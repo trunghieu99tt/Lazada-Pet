@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Banner from "../componentsWeb/Banner";
-import Categories from "../componentsWeb/Categories/Categories";
-import LatestComments from "../componentsWeb/LatestComments/LatestComments";
-import LatestNews from "../componentsWeb/LatestNews/LatestNews";
-import LatestProducts from "../componentsWeb/LatestProducts/LatestProducts";
-import Loader from "../componentsWeb/Loader";
-import PopularServices from "../componentsWeb/PopularServices/PopularServices";
-import SalesAd from "../componentsWeb/SalesAd/SalesAd";
+import Banner from "../componentsWeb/HomePageComponents/Banner/Banner";
+import Categories from "../componentsWeb/HomePageComponents/Categories/Categories";
+import LatestComments from "../componentsWeb/HomePageComponents/LatestComments/LatestComments";
+import LatestNews from "../componentsWeb/HomePageComponents/LatestNews/LatestNews";
+import LatestProducts from "../componentsWeb/HomePageComponents/LatestProducts/LatestProducts";
+import PopularServices from "../componentsWeb/HomePageComponents/PopularServices/PopularServices";
+import SalesAd from "../componentsWeb/HomePageComponents/SalesAd/SalesAd";
+
+import Loader from "../componentsWeb/SmallComponents/Loader";
 import * as homepageActionTypes from "../redux/web/homepage/homepage.types";
 
 class HomePage extends Component {

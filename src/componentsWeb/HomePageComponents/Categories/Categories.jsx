@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { parseData } from "../../utils/helper";
-import CategoriesCard from "../Cards/Card1";
+import { parseData } from "../../../utils/helper";
+import CategoriesCard from "../../Cards/Card1";
 
 class Categories extends Component {
 	render() {

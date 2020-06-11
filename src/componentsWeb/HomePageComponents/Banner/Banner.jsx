@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import { parseData } from "../utils/helper";
+import { parseData } from "../../../utils/helper";
 import SlideItem from "./SlideItem";
 
 class Banner extends Component {

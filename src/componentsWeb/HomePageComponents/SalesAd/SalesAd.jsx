@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { resetAnimation } from "../../utils/helper";
-import SalesAdsCard from "../Cards/Card3";
+import { resetAnimation } from "../../../utils/helper";
+import SalesAdsCard from "../../Cards/Card3";
 
 class SalesAds extends Component {
 	state = {

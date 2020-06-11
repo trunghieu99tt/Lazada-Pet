@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Rating from "../Rating";
+import Rating from "../../SmallComponents/Rating";
 
 const Modal = ({ imageURL, name, rating, description, price, closeModal }) => {
 	const [quantityValue, setQuantityValue] = useState(1);

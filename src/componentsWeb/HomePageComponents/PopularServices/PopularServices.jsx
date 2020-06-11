@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { parseData2 } from "../../utils/helper";
-import Card4 from "../Cards/Card4";
+import { parseData2 } from "../../../utils/helper";
+import Card4 from "../../Cards/Card4";
 
 class PopularServices extends Component {
 	state = {};
