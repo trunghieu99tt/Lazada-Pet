@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import BlogPage from "./pages/BlogPage";
+import Checkout from "./pages/Checkout";
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import ShopCategoryPage from "./pages/ShopCategoryPage";
@@ -54,6 +55,7 @@ class App extends Component {
 					{/* <Route exact path="/" component={BaseView}></Route> */}
 					<Route exact path="/shop" component={ShopPage}></Route>
 					<Route exact path="/blog" component={BlogPage}></Route>
+					<Route exact path="/checkout" component={Checkout}></Route>
 
 					<Route
 						path="/product-categories/:category"

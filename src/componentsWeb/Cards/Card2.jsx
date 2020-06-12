@@ -1,13 +1,25 @@
 import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addItem } from "../../redux/web/cart/cart.actions";
 import Rating from "../SmallComponents/Rating";
 
 // Card của product
 
 const Card2 = (props) => {
 	const { imageURL, name, rating, price, viewProduct, id } = props;
+
+	const item = {
+		imageURL,
+		name,
+		rating,
+		price,
+		id,
+	};
+
+	const dispatch = useDispatch();
 
 	return (
 		<article className="col-md-3 card2">
@@ -20,7 +32,12 @@ const Card2 = (props) => {
 					></img>
 				</Link>
 
-				<div className="button--1">Add to cart</div>
+				<div
+					className="button--1"
+					onClick={() => dispatch(addItem(item))}
+				>
+					Add to cart
+				</div>
 
 				<nav className="card2__option">
 					<FontAwesomeIcon

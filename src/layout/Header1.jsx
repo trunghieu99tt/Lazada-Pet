@@ -1,13 +1,28 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+import CartDropdown from "../componentsWeb/Cart/CartDropdown";
+import CartIcon from "../componentsWeb/Cart/CartIcon";
+import { selectCartHidden } from "../redux/web/cart/cart.selectors";
 import { encodeStr, parseData } from "../utils/helper";
 
-export default class header extends Component {
+class Header1 extends Component {
 	state = {
 		isSearchOpening: false,
 	};
 
-	componentDidMount() {}
+	componentDidMount() {
+		const header = document.querySelector(".header");
+
+		window.addEventListener("scroll", () => {
+			if (window.scrollY > 50) {
+				header.classList.add("header-scroll");
+			} else {
+				header.classList.remove("header-scroll");
+			}
+		});
+	}
 
 	componentDidUpdate() {
 		const header = document.querySelector(".header");
@@ -28,7 +43,7 @@ export default class header extends Component {
 	};
 
 	render() {
-		const { menu, logo } = this.props;
+		const { menu, logo, hidden } = this.props;
 		const { isSearchOpening } = this.state;
 		const logos = (logo && Object.values(logo)) || [];
 		const menuData = parseData(menu);
@@ -79,24 +94,19 @@ export default class header extends Component {
 										/>
 									</span>
 								</div>
-								<div className="header-cart">
-									<span className="header-cart-inner">
-										<span className="header-cart__text">
-											Cart
-										</span>
-										<img
-											src={require("../static/images/cart.svg")}
-											alt="cart"
-											className="header-cart__image"
-										/>
-									</span>
-									<span>0</span>
-								</div>
+								<CartIcon />
 							</div>
 						</div>
+						{hidden ? null : <CartDropdown />}
 					</div>
 				</div>
 			</header>
 		);
 	}
 }
+
+const mapStateToProps = createStructuredSelector({
+	hidden: selectCartHidden,
+});
+
+export default connect(mapStateToProps)(Header1);

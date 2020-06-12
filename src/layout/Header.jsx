@@ -1,13 +1,33 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+import CartDropdown from "../componentsWeb/Cart/CartDropdown";
+import CartIcon from "../componentsWeb/Cart/CartIcon";
+import { selectCartHidden } from "../redux/web/cart/cart.selectors";
 import { encodeStr, parseData } from "../utils/helper";
 
-export default class Header extends Component {
+class Header extends Component {
 	state = {
 		isSearchOpening: false,
 	};
 
-	componentDidMount() {}
+	componentDidMount() {
+		const { logo } = this.props;
+		const logos = (logo && Object.values(logo)) || [];
+		const header = document.querySelector(".header");
+
+		window.addEventListener("scroll", () => {
+			const logo = document.querySelector(".header-logo");
+			if (window.scrollY > 0) {
+				if (logo) logo.src = logos && logos.length > 1 && logos[1];
+				header.classList.add("header-scroll");
+			} else {
+				if (logo) logo.src = logos && logos.length > 0 && logos[0];
+				header.classList.remove("header-scroll");
+			}
+		});
+	}
 
 	componentDidUpdate() {
 		const { logo } = this.props;
@@ -33,7 +53,7 @@ export default class Header extends Component {
 	};
 
 	render() {
-		const { menu, logo } = this.props;
+		const { menu, logo, hidden } = this.props;
 		const { isSearchOpening } = this.state;
 		const logos = (logo && Object.values(logo)) || [];
 		const menuData = parseData(menu);
@@ -84,24 +104,18 @@ export default class Header extends Component {
 										/>
 									</span>
 								</div>
-								<div className="header-cart">
-									<span className="header-cart-inner">
-										<span className="header-cart__text">
-											Cart
-										</span>
-										<img
-											src={require("../static/images/cart.svg")}
-											alt="cart"
-											className="header-cart__image"
-										/>
-									</span>
-									<span>0</span>
-								</div>
+								<CartIcon />
 							</div>
 						</div>
+						{hidden ? null : <CartDropdown />}
 					</div>
 				</div>
 			</header>
 		);
 	}
 }
+const mapStateToProps = createStructuredSelector({
+	hidden: selectCartHidden,
+});
+
+export default connect(mapStateToProps)(Header);
