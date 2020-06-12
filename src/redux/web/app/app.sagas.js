@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import {
+	queryAllBlogPosts,
 	queryAllProducts,
 	queryLogo,
 	queryMenu,
@@ -78,8 +79,6 @@ export function* fetchSite() {
 
 // Fetch Menu
 function* fetchProductsData() {
-	console.log("Go here");
-
 	try {
 		const response = yield call(queryAllProducts);
 
@@ -99,4 +98,26 @@ function* fetchProductsData() {
 
 export function* fetchProducts() {
 	yield takeEvery(actionTypes.FETCH_ALL_PRODUCTS_DATA, fetchProductsData);
+}
+
+function* fetchBlogPostsData() {
+	try {
+		const response = yield call(queryAllBlogPosts);
+
+		if (response) {
+			yield put({
+				type: actionTypes.FETCH_ALL_BLOG_POSTS_SUCCESS,
+				payload: response?.data || {},
+			});
+		}
+	} catch (e) {
+		yield put({
+			type: actionTypes.FETCH_ALL_BLOG_POSTS_FAIL,
+			payload: { message: e },
+		});
+	}
+}
+
+export function* fetchBlogPosts() {
+	yield takeEvery(actionTypes.FETCH_ALL_BLOG_POSTS_DATA, fetchBlogPostsData);
 }

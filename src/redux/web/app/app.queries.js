@@ -36,3 +36,11 @@ export async function queryAllProducts() {
 
 	return allProducts;
 }
+export async function queryAllBlogPosts() {
+	const allBlogPosts = await axios({
+		method: "GET",
+		url: `${API_URL}/news.json`,
+	});
+
+	return allBlogPosts;
+}

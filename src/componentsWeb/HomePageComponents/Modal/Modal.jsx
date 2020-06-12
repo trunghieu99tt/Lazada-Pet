@@ -1,7 +1,16 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Rating from "../../SmallComponents/Rating";
 
-const Modal = ({ imageURL, name, rating, description, price, closeModal }) => {
+const Modal = ({
+	imageURL,
+	name,
+	rating,
+	description,
+	price,
+	closeModal,
+	id,
+}) => {
 	const [quantityValue, setQuantityValue] = useState(1);
 
 	const changeQuantity = (operator = "+") => {
@@ -34,9 +43,12 @@ const Modal = ({ imageURL, name, rating, description, price, closeModal }) => {
 					</figure>
 
 					<div className="col-md-7 product-modal-text">
-						<div className="component-heading product-modal__name">
+						<Link
+							className="component-heading product-modal__name"
+							to={`/product/${id}`}
+						>
 							{name || ""}
-						</div>
+						</Link>
 						<Rating rating={rating} />
 						<div className="product-modal__price">${price}</div>
 
@@ -72,6 +84,7 @@ const Modal = ({ imageURL, name, rating, description, price, closeModal }) => {
 							<div className="button--1">Add To Cart</div>
 						</div>
 					</div>
+				
 				</div>
 			</div>
 		</section>

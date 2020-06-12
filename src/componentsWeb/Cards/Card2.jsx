@@ -2,18 +2,17 @@ import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import { encodeStr } from "../../utils/helper";
 import Rating from "../SmallComponents/Rating";
 
 // Card của product
 
 const Card2 = (props) => {
-	const { imageURL, name, rating, price, viewProduct } = props;
+	const { imageURL, name, rating, price, viewProduct, id } = props;
 
 	return (
 		<article className="col-md-3 card2">
 			<figure className="card2-image-container">
-				<Link to={`/product/${encodeStr(name || "")}`}>
+				<Link to={`/product/${id}`}>
 					<img
 						src={imageURL}
 						alt={name}
@@ -33,7 +32,7 @@ const Card2 = (props) => {
 			</figure>
 
 			<div className="card2-detail">
-				<Link to={`/product/${encodeStr(name || "")}`}>
+				<Link to={`/product/${id}`}>
 					<p className="card2__name">{name} </p>
 				</Link>
 

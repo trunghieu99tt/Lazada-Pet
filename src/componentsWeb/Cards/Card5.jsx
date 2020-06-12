@@ -2,9 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { encodeStr } from "../../utils/helper";
 
-const Card5 = ({ imageURL, title, shortDescription, date, hashtag }) => {
+const Card5 = ({
+	imageURL,
+	title,
+	shortDescription,
+	date,
+	hashtag,
+	isMasonry,
+}) => {
 	return (
-		<article className="col-md-4 card5">
+		<article className={`${isMasonry ? "" : "col-md-4"} card5`}>
 			<Link to={`/news/${encodeStr(title || "")}`}>
 				<figure className="card5__image-container">
 					<img
@@ -33,7 +40,7 @@ const Card5 = ({ imageURL, title, shortDescription, date, hashtag }) => {
 						))}
 				</div>
 
-				<Link to={`/news/${encodeStr(title || "")}`}>
+				<Link to={`/blog/${encodeStr(title || "")}`}>
 					<h5 className="card5__title">{title || ""}</h5>
 				</Link>
 
@@ -41,7 +48,7 @@ const Card5 = ({ imageURL, title, shortDescription, date, hashtag }) => {
 					{shortDescription || ""}
 				</p>
 
-				<Link to={`/news/${encodeStr(title || "")}`}>
+				<Link to={`/blog/${encodeStr(title || "")}`}>
 					<div className="button--1">View more</div>
 				</Link>
 			</div>

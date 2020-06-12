@@ -7,12 +7,14 @@ const INITIAL_STATE_APPS = {
 	logo: null,
 	siteInfo: null,
 	allProducts: null,
+	allBlogPosts: null,
 
 	// Error Message
 	fetchMenuFailMessage: null,
 	fetchLogoFailMessage: null,
 	fetchSiteDataFailMessage: null,
 	fetchAllProductsDataFailMessage: null,
+	fetchAllBlogPostsDataFailMessage: null,
 };
 
 const reducer = (state = INITIAL_STATE_APPS, action) => {
@@ -64,6 +66,16 @@ const reducer = (state = INITIAL_STATE_APPS, action) => {
 			return {
 				...state,
 				fetchAllProductsFailMessage: action.message,
+			};
+		case actionTypes.FETCH_ALL_BLOG_POSTS_SUCCESS:
+			return {
+				...state,
+				allBlogPosts: parseData2(action.payload),
+			};
+		case actionTypes.FETCH_ALL_BLOG_POSTS_FAIL:
+			return {
+				...state,
+				fetchAllBlogPostsDataFailMessage: action.message,
 			};
 
 		default:

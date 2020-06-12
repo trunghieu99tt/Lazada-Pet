@@ -169,11 +169,13 @@ $card3-before-height: 6rem;
 		font-size: 5rem;
 		font-weight: 900;
 		animation: appearText2 0.5s ease-in-out forwards;
+		margin: 2rem;
 	}
 
 	&__description {
 		font-size: 1.9rem;
 		animation: appearText2 0.7s ease-in-out forwards;
+		margin: 2rem;
 	}
 
 	.button--1 {
@@ -214,6 +216,8 @@ $card3-before-height: 6rem;
 }
 
 .card5 {
+	margin-bottom: 3rem;
+
 	.button--1 {
 		padding: 0;
 		background: #fff;

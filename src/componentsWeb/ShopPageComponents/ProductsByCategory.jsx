@@ -5,7 +5,7 @@ import Card2 from "../Cards/Card2";
 
 export default class ProductsByCategory extends Component {
 	render() {
-		const { categoryName, data } = this.props;
+		const { categoryName, data, viewProduct } = this.props;
 
 		return (
 			<article className="product-by-category" id={`${categoryName}`}>
@@ -24,7 +24,9 @@ export default class ProductsByCategory extends Component {
 						data.length > 0 &&
 						data
 							.slice(0, Math.min(6, data.length))
-							.map((item) => <Card2 {...item} />)}
+							.map((item) => (
+								<Card2 {...item} viewProduct={viewProduct} />
+							))}
 				</div>
 			</article>
 		);

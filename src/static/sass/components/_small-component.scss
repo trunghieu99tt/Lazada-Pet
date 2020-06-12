@@ -70,6 +70,11 @@
 
 		.component-heading {
 			text-align: left;
+			color: #000;
+
+			&:hover {
+				color: $red-color;
+			}
 		}
 
 		input,
