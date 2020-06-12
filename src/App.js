@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import NotFoundPage from "./pages/404NotFound";
 import BlogPage from "./pages/BlogPage";
 import Checkout from "./pages/Checkout";
 import HomePage from "./pages/HomePage";
@@ -56,7 +57,6 @@ class App extends Component {
 					<Route exact path="/shop" component={ShopPage}></Route>
 					<Route exact path="/blog" component={BlogPage}></Route>
 					<Route exact path="/checkout" component={Checkout}></Route>
-
 					<Route
 						path="/product-categories/:category"
 						component={ShopCategoryPage}
@@ -65,6 +65,7 @@ class App extends Component {
 						path="/product/:id"
 						component={ProductDetail}
 					></Route>
+					<Route component={NotFoundPage} />
 				</Switch>
 			</React.Fragment>
 		);
