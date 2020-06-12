@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import SalesAd from "../componentsWeb/HomePageComponents/SalesAd/SalesAd";
 import CategoriesList from "../componentsWeb/ShopPageComponents/CategoriesList";
 import ProductsByCategory from "../componentsWeb/ShopPageComponents/ProductsByCategory";
 import Loader from "../componentsWeb/SmallComponents/Loader";
@@ -13,7 +12,7 @@ import { parseData2 } from "../utils/helper";
 
 class ShopPage extends Component {
 	componentDidMount() {
-		const { allProducts, productCategories, salesAds } = this.props;
+		const { allProducts, productCategories } = this.props;
 
 		if (!allProducts) {
 			this.getProductsData();
@@ -21,10 +20,6 @@ class ShopPage extends Component {
 
 		if (!productCategories) {
 			this.getProductCategoriesData();
-		}
-
-		if (!salesAds || salesAds.length === 0) {
-			this.getLatestSalesAds();
 		}
 	}
 
@@ -38,11 +33,6 @@ class ShopPage extends Component {
 		fetchCategories();
 	};
 
-	getLatestSalesAds = () => {
-		const { fetchSalesAds } = this.props;
-		fetchSalesAds();
-	};
-
 	render() {
 		const { allProducts, productCategories, salesAds } = this.props;
 
@@ -53,7 +43,6 @@ class ShopPage extends Component {
 
 		return (
 			<React.Fragment>
-				<SalesAd salesAds={salesAds} />
 				<section className="container-fluid shoppage-main">
 					<div className="row">
 						<div className="col-md-3">

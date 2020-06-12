@@ -35,69 +35,67 @@
 		height: 30.2rem;
 		position: relative;
 
+		.button--1 {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -40%);
+			opacity: 0;
+			pointer-events: none;
+			transition: all 0.3s;
+			padding: 20px;
+			width: 80%;
+			text-align: center;
+		}
+
 		&:hover {
-			.card2-menu {
+			.button--1 {
+				transform: translate(-50%, -50%);
 				opacity: 1;
 				pointer-events: initial;
 			}
 
-			.button--1 {
-				transform: translateY(0);
+			.card2__option {
 				opacity: 1;
+				pointer-events: initial;
+			}
+		}
+	}
+
+	&__option {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		opacity: 0;
+		pointer-events: none;
+
+		svg {
+			width: 3rem !important;
+			height: 3rem;
+			background: #fff;
+			padding: 5px;
+			margin: 0 5px;
+			transition: all 0.2s;
+			cursor: pointer;
+
+			path {
+				fill: $red-color;
+				transition: all 0.2s;
+			}
+
+			&:hover {
+				background: $red-color;
+
+				path {
+					fill: #fff;
+				}
 			}
 		}
 	}
 
 	&-detail {
 		text-align: center;
-	}
-
-	&-menu {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		opacity: 0;
-		pointer-events: none;
-
-		.button--1 {
-			transform: translateY(5px);
-			transition: all 0.3s;
-			opacity: 0;
-		}
-
-		&__option {
-			position: absolute;
-			bottom: 0;
-			left: 50%;
-			transform: translateX(-50%);
-
-			svg {
-				width: 3rem !important;
-				height: 3rem;
-				background: #fff;
-				padding: 5px;
-				margin: 0 5px;
-				transition: all 0.2s;
-
-				path {
-					fill: $red-color;
-					transition: all 0.2s;
-				}
-
-				&:hover {
-					background: $red-color;
-
-					path {
-						fill: #fff;
-					}
-				}
-			}
-		}
 	}
 
 	&__image {

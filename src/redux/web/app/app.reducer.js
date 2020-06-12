@@ -1,3 +1,4 @@
+import { parseData2 } from "../../../utils/helper";
 import * as actionTypes from "./app.types";
 
 const INITIAL_STATE_APPS = {
@@ -57,7 +58,7 @@ const reducer = (state = INITIAL_STATE_APPS, action) => {
 		case actionTypes.FETCH_ALL_PRODUCTS_SUCCESS:
 			return {
 				...state,
-				allProducts: action.payload,
+				allProducts: parseData2(action.payload),
 			};
 		case actionTypes.FETCH_ALL_PRODUCTS_FAIL:
 			return {

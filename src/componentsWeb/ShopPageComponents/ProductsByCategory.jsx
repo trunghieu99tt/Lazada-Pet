@@ -19,7 +19,7 @@ export default class ProductsByCategory extends Component {
 					</Link>
 				</header>
 
-				<div className="home-categories product-by-category-content">
+				<div className="row product-by-category-content">
 					{data &&
 						data.length > 0 &&
 						data

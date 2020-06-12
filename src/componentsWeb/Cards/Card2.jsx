@@ -8,24 +8,28 @@ import Rating from "../SmallComponents/Rating";
 // Card của product
 
 const Card2 = (props) => {
-	const { imageURL, name, rating, price, viewProduct, isHome } = props;
+	const { imageURL, name, rating, price, viewProduct } = props;
 
 	return (
-		<article className="card2">
+		<article className="col-md-3 card2">
 			<figure className="card2-image-container">
-				<img src={imageURL} alt={name} className="card2__image"></img>
+				<Link to={`/product/${encodeStr(name || "")}`}>
+					<img
+						src={imageURL}
+						alt={name}
+						className="card2__image"
+					></img>
+				</Link>
 
-				<figcaption className="card2-menu">
-					<div className="button--1">Add to cart</div>
+				<div className="button--1">Add to cart</div>
 
-					<nav className="card2-menu__option">
-						<FontAwesomeIcon
-							icon={faEye}
-							onClick={() => isHome && viewProduct(props)}
-						/>
-						<FontAwesomeIcon icon={faHeart} />
-					</nav>
-				</figcaption>
+				<nav className="card2__option">
+					<FontAwesomeIcon
+						icon={faEye}
+						onClick={() => viewProduct(props)}
+					/>
+					<FontAwesomeIcon icon={faHeart} />
+				</nav>
 			</figure>
 
 			<div className="card2-detail">

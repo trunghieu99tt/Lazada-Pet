@@ -39,7 +39,8 @@ class LatestProducts extends Component {
 
 		return (
 			<React.Fragment>
-				<Modal {...product} />
+				<Modal {...product} closeModal={this.closeModal} />
+
 				<section className="latest-products-container">
 					<header className="container latest-products-header">
 						<h2 className="component-heading">Latest Products</h2>
@@ -51,19 +52,19 @@ class LatestProducts extends Component {
 							voluptas sequi obcaecati molestiae.
 						</p>
 					</header>
-					<div className="home-categories">
-						{latestProductsData &&
-							latestProductsData.length > 0 &&
-							latestProductsData.map((item) => {
-								return (
-									<LatestProductCard
-										{...item}
-										viewProduct={this.viewProduct}
-										closeModal={this.closeModal}
-										isHome
-									/>
-								);
-							})}
+					<div className="container">
+						<div className="row">
+							{latestProductsData &&
+								latestProductsData.length > 0 &&
+								latestProductsData.map((item) => {
+									return (
+										<LatestProductCard
+											{...item}
+											viewProduct={this.viewProduct}
+										/>
+									);
+								})}
+						</div>
 					</div>
 				</section>
 			</React.Fragment>
