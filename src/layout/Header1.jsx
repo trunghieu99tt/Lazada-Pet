@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { encodeStr, parseData } from "../utils/helper";
 
-export default class Header extends Component {
+export default class header extends Component {
 	state = {
 		isSearchOpening: false,
 	};
@@ -10,17 +10,12 @@ export default class Header extends Component {
 	componentDidMount() {}
 
 	componentDidUpdate() {
-		const { logo } = this.props;
-		const logos = (logo && Object.values(logo)) || [];
 		const header = document.querySelector(".header");
 
 		window.addEventListener("scroll", () => {
-			const logo = document.querySelector(".header-logo");
-			if (window.scrollY > 0) {
-				if (logo) logo.src = logos && logos.length > 1 && logos[1];
+			if (window.scrollY > 50) {
 				header.classList.add("header-scroll");
 			} else {
-				if (logo) logo.src = logos && logos.length > 0 && logos[0];
 				header.classList.remove("header-scroll");
 			}
 		});
@@ -54,13 +49,13 @@ export default class Header extends Component {
 			});
 
 		return (
-			<header className="header">
+			<header className="header" id="header1">
 				<div className="container">
 					<div className="row align-items-center">
 						<div className="header-logo-container">
 							<img
 								src={
-									(logos && logos.length > 0 && logos[0]) ||
+									(logos && logos.length > 1 && logos[1]) ||
 									""
 								}
 								alt="logo"

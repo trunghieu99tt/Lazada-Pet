@@ -12,8 +12,8 @@ export default class Footer extends Component {
 		const latestNewsData = parseData2(latestNews);
 		const latestProductsData = parseData2(latestProducts);
 
-		console.log("latestNewsData", latestNewsData);
-		console.log("latestProductsData", latestProductsData);
+		// console.log("latestNewsData", latestNewsData);
+		// console.log("latestProductsData", latestProductsData);
 
 		return (
 			<footer className="footer">

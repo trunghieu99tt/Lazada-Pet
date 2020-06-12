@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import * as appActionTypes from "../redux/web/app/app.types";
 import * as homepageActionTypes from "../redux/web/homepage/homepage.types";
 import Footer from "./Footer";
-import Header from "./Header";
+import Header1 from "./Header1";
 
-const BaseView = (WrappedComponent, props) => {
+const BaseView1 = (WrappedComponent, props) => {
 	class HocComponent extends Component {
 		componentDidMount() {
 			const {
@@ -73,7 +73,7 @@ const BaseView = (WrappedComponent, props) => {
 
 			return (
 				<React.Fragment>
-					<Header menu={menu} logo={logo} />
+					<Header1 menu={menu} logo={logo} />
 					<WrappedComponent {...this.props}></WrappedComponent>
 					<Footer
 						siteInfo={siteInfo}
@@ -119,4 +119,4 @@ const BaseView = (WrappedComponent, props) => {
 	return connectToStore(HocComponent);
 };
 
-export default BaseView;
+export default BaseView1;

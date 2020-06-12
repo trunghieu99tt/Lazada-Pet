@@ -60,6 +60,7 @@ class LatestProducts extends Component {
 										{...item}
 										viewProduct={this.viewProduct}
 										closeModal={this.closeModal}
+										isHome
 									/>
 								);
 							})}

@@ -30,6 +30,8 @@ html {
 	@include respond(tab-port) {
 		font-size: 50%; // 1rem = 8px
 	}
+
+	scroll-behavior: smooth;
 }
 
 body {

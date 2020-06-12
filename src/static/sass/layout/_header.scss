@@ -4,7 +4,8 @@
 	width: 100%;
 	transition: background 0.3s;
 
-	&.header-scroll {
+	&.header-scroll,
+	&#header1 {
 		background: #fff;
 
 		.header-nav__link {
@@ -27,6 +28,16 @@
 		.header-search__text,
 		.header-cart__text {
 			color: #000;
+		}
+	}
+
+	&#header1 {
+		position: relative;
+
+		&.header-scroll {
+			position: sticky;
+			top: 0;
+			box-shadow: 0 0 10px;
 		}
 	}
 

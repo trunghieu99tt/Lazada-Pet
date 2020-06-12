@@ -5,11 +5,13 @@ const INITIAL_STATE_APPS = {
 	menu: null,
 	logo: null,
 	siteInfo: null,
+	allProducts: null,
 
 	// Error Message
 	fetchMenuFailMessage: null,
 	fetchLogoFailMessage: null,
 	fetchSiteDataFailMessage: null,
+	fetchAllProductsDataFailMessage: null,
 };
 
 const reducer = (state = INITIAL_STATE_APPS, action) => {
@@ -50,6 +52,17 @@ const reducer = (state = INITIAL_STATE_APPS, action) => {
 			return {
 				...state,
 				fetchSiteDataFailMessage: action.message,
+			};
+
+		case actionTypes.FETCH_ALL_PRODUCTS_SUCCESS:
+			return {
+				...state,
+				allProducts: action.payload,
+			};
+		case actionTypes.FETCH_ALL_PRODUCTS_FAIL:
+			return {
+				...state,
+				fetchAllProductsFailMessage: action.message,
 			};
 
 		default:

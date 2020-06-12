@@ -27,3 +27,12 @@ export async function querySiteInfo() {
 
 	return siteData;
 }
+
+export async function queryAllProducts() {
+	const allProducts = await axios({
+		method: "GET",
+		url: `${API_URL}/products.json`,
+	});
+
+	return allProducts;
+}

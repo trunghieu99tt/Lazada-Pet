@@ -6,7 +6,6 @@ export async function querySlides() {
 		method: "GET",
 		url: `${API_URL}/sliders.json`,
 	});
-
 	return slides;
 }
 

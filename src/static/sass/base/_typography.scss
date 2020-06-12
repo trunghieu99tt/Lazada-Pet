@@ -42,3 +42,18 @@
 		text-align: center;
 	}
 }
+
+.text-1 {
+	font-size: 20px;
+	font-weight: 900;
+	-webkit-clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
+	clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
+	display: inline-block;
+	background-color: $red-color;
+	overflow: hidden;
+	color: #fff;
+	position: relative;
+	padding: 0.5rem 3rem;
+	border-radius: 5px;
+	margin-top: 2.5rem;
+}
