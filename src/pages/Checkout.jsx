@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
 import CheckoutItem from "../componentsWeb/Checkout/CheckoutItem";
-import BaseView1 from "../layout/BaseView1";
+import WrapperWithAds from "../layout/BaseView1";
 import {
 	selectCartItems,
 	selectCartTotal,
@@ -58,6 +58,6 @@ const mapStateToProps = createStructuredSelector({
 
 const withRedux = connect(mapStateToProps);
 
-const withLayout = compose(withRedux, BaseView1);
+const withLayout = compose(withRedux, WrapperWithAds);
 
 export default withLayout(Checkout);

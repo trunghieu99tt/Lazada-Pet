@@ -1,0 +1,112 @@
+.login-form {
+}
+
+.form-input {
+	width: 100%;
+	border: none;
+	background: $light-color;
+	padding: 2rem;
+	font-size: 15px;
+
+	&:focus {
+		outline: none;
+	}
+
+	&-label {
+		font-size: 15px;
+		display: block;
+		color: $gray-color;
+	}
+}
+
+.buttons {
+	margin-top: 3rem;
+}
+
+.google-sign-in {
+	margin-left: 2rem;
+}
+
+.form-footer-text {
+	font-size: 15px;
+	margin-top: 2rem;
+
+	span {
+		color: $red-color;
+		cursor: pointer;
+	}
+}
+
+.checkbox {
+	margin-top: 3rem;
+}
+
+.form {
+	&__label {
+		font-size: 1.2rem;
+		font-weight: 700;
+		margin-left: 2rem;
+		margin-top: 0.7rem;
+		display: block;
+		transition: all 0.3s;
+	}
+
+	&__input:placeholder-shown + &__label {
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-4rem);
+	}
+
+	&__radio-group {
+		display: inline-block;
+
+		&:not(:first-of-type) {
+			margin-left: 2rem;
+		}
+
+		@include respond(tab-port) {
+			width: 100%;
+			margin-bottom: 2rem;
+		}
+	}
+
+	&__radio-input {
+		display: none;
+	}
+
+	&__radio-label {
+		font-size: 15px;
+		cursor: pointer;
+		position: relative;
+		padding-left: 5rem;
+	}
+
+	&__radio-button {
+		height: 3rem;
+		width: 3rem;
+		border: 5px solid $red-color;
+		border-radius: 50%;
+		display: inline-block;
+		position: absolute;
+		left: 0;
+		top: -0.4rem;
+
+		&::after {
+			content: "";
+			display: block;
+			height: 1.3rem;
+			width: 1.3rem;
+			border-radius: 50%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: $red-color;
+			opacity: 0;
+		}
+	}
+
+	&__radio-input:checked ~ &__radio-label &__radio-button::after {
+		opacity: 1;
+	}
+}

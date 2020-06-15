@@ -5,7 +5,7 @@ import Modal from "../componentsWeb/HomePageComponents/Modal/Modal";
 import CategoriesList from "../componentsWeb/ShopPageComponents/CategoriesList";
 import ProductsByCategory from "../componentsWeb/ShopPageComponents/ProductsByCategory";
 import Loader from "../componentsWeb/SmallComponents/Loader";
-import BaseView1 from "../layout/BaseView1";
+import WrapperWithAds from "../layout/BaseView1";
 import * as appTypes from "../redux/web/app/app.types";
 import * as homepageActionTypes from "../redux/web/homepage/homepage.types";
 import * as shopPageTypes from "../redux/web/shoppage/shoppage.types";
@@ -71,7 +71,7 @@ class ShopPage extends Component {
 
 		return (
 			<React.Fragment>
-				<Modal {...product} closeModal={this.closeModal} />
+				<Modal item={product} closeModal={this.closeModal} />
 
 				<section className="container-fluid shoppage-main">
 					<div className="row">
@@ -127,6 +127,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectToStore = connect(mapStateToProps, mapDispatchToProps);
 
-const wrapper = compose(connectToStore, BaseView1);
+const wrapper = compose(connectToStore, WrapperWithAds);
 
 export default wrapper(ShopPage);

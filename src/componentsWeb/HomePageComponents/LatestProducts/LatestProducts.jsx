@@ -39,7 +39,7 @@ class LatestProducts extends Component {
 
 		return (
 			<React.Fragment>
-				<Modal {...product} closeModal={this.closeModal} />
+				<Modal item = {product} closeModal={this.closeModal} />
 
 				<section className="latest-products-container">
 					<header className="container latest-products-header">

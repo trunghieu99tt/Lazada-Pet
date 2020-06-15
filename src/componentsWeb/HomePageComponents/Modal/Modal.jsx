@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import AddToCardButton from "../../SmallComponents/Buttons/AddToCardButton";
 import Rating from "../../SmallComponents/Rating";
 
-const Modal = ({
-	imageURL,
-	name,
-	rating,
-	description,
-	price,
-	closeModal,
-	id,
-}) => {
+const Modal = (props) => {
+	const { item, closeModal } = props;
+
+	const { imageURL, name, rating, description, price, id } = item || {};
+
 	const [quantityValue, setQuantityValue] = useState(1);
 
 	const changeQuantity = (operator = "+") => {
@@ -81,10 +78,12 @@ const Modal = ({
 								</div>
 							</div>
 
-							<div className="button--1">Add To Cart</div>
+							<AddToCardButton
+								item={item}
+								amount={quantityValue}
+							/>
 						</div>
 					</div>
-				
 				</div>
 			</div>
 		</section>

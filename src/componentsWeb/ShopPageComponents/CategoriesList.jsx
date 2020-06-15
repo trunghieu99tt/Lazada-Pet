@@ -5,8 +5,6 @@ import { encodeStr, parseData2 } from "../../utils/helper";
 const CategoriesList = ({ categories, data }) => {
 	const categoriesData = parseData2(categories);
 
-	console.log("data", data);
-
 	return (
 		<section className="categories-sidebar">
 			<p className="text-1">Categories</p>
@@ -21,8 +19,6 @@ const CategoriesList = ({ categories, data }) => {
 								(acc, e) => acc + (e.category === item.name),
 								0
 							);
-
-						console.log("counter", counter);
 
 						return (
 							<li className="categories-list-item">

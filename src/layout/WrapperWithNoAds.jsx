@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import SalesAd from "../componentsWeb/HomePageComponents/SalesAd/SalesAd";
 import * as appActionTypes from "../redux/web/app/app.types";
 import * as homepageActionTypes from "../redux/web/homepage/homepage.types";
 import Footer from "./Footer";
@@ -15,7 +14,6 @@ const WrapperWithAds = (WrappedComponent, props) => {
 				siteInfo,
 				latestProducts,
 				latestNews,
-				salesAds,
 			} = this.props;
 
 			if (!menu) {
@@ -36,10 +34,6 @@ const WrapperWithAds = (WrappedComponent, props) => {
 
 			if (!latestProducts || latestProducts.length === 0) {
 				this.getLatestProductsData();
-			}
-
-			if (!salesAds || salesAds.length === 0) {
-				this.getLatestSalesAds();
 			}
 		}
 
@@ -68,11 +62,6 @@ const WrapperWithAds = (WrappedComponent, props) => {
 			fetchLatestNews({ limit });
 		};
 
-		getLatestSalesAds = () => {
-			const { fetchSalesAds } = this.props;
-			fetchSalesAds();
-		};
-
 		render() {
 			const {
 				menu,
@@ -80,13 +69,11 @@ const WrapperWithAds = (WrappedComponent, props) => {
 				siteInfo,
 				latestProducts,
 				latestNews,
-				salesAds,
 			} = this.props;
 
 			return (
 				<React.Fragment>
 					<Header1 menu={menu} logo={logo} />
-					<SalesAd salesAds={salesAds} />
 
 					<WrappedComponent {...this.props}></WrappedComponent>
 					<Footer
@@ -107,7 +94,6 @@ const WrapperWithAds = (WrappedComponent, props) => {
 		siteInfo: state.app.siteInfo,
 		latestProducts: state.homepage.latestProducts,
 		latestNews: state.homepage.latestNews,
-		salesAds: state.homepage.salesAds,
 	});
 
 	const mapDispatchToProps = (dispatch) => {
@@ -126,8 +112,6 @@ const WrapperWithAds = (WrappedComponent, props) => {
 					type: homepageActionTypes.FETCH_LATEST_NEWS_DATA,
 					payload,
 				}),
-			fetchSalesAds: () =>
-				dispatch({ type: homepageActionTypes.FETCH_SALESADS_DATA }),
 		};
 	};
 

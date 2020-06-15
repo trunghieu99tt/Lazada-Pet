@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { compose } from "redux";
 import Card2 from "../componentsWeb/Cards/Card2";
 import Modal from "../componentsWeb/HomePageComponents/Modal/Modal";
+import AddToCardButton from "../componentsWeb/SmallComponents/Buttons/AddToCardButton";
 import Loader from "../componentsWeb/SmallComponents/Loader";
 import Rating from "../componentsWeb/SmallComponents/Rating";
-import BaseView1 from "../layout/BaseView1";
+import WrapperWithAds from "../layout/BaseView1";
 import * as appTypes from "../redux/web/app/app.types";
 
 class ProductDetail extends Component {
@@ -108,7 +109,7 @@ class ProductDetail extends Component {
 
 		return (
 			<React.Fragment>
-				<Modal {...singleProduct} closeModal={this.closeModal} />
+				<Modal item={singleProduct} closeModal={this.closeModal} />
 
 				<div className="product-detail-wrapper">
 					<section className=" product-info">
@@ -166,7 +167,10 @@ class ProductDetail extends Component {
 										</div>
 									</div>
 
-									<div className="button--1">Add To Cart</div>
+									<AddToCardButton
+										item={item}
+										amount={quantityValue}
+									/>
 								</div>
 							</div>
 						</div>
@@ -262,6 +266,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectToStore = connect(mapStateToProps, mapDispatchToProps);
 
-const wrapper = compose(connectToStore, BaseView1);
+const wrapper = compose(connectToStore, WrapperWithAds);
 
 export default wrapper(ProductDetail);

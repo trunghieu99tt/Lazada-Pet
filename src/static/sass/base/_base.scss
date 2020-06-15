@@ -13,6 +13,10 @@
 
 * {
 	font-family: "Nunito", sans-serif;
+
+	&:hover {
+		outline: none !important;
+	}
 }
 
 html {
@@ -62,4 +66,8 @@ a:hover {
 		width: 50%;
 		margin: 5rem auto;
 	}
+}
+
+button {
+	border: none;
 }

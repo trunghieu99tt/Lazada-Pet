@@ -13,28 +13,35 @@ class Header1 extends Component {
 	};
 
 	componentDidMount() {
-		const header = document.querySelector(".header");
-
-		window.addEventListener("scroll", () => {
-			if (window.scrollY > 50) {
-				header.classList.add("header-scroll");
-			} else {
-				header.classList.remove("header-scroll");
-			}
-		});
+		this.stickHeaderOnScroll();
 	}
 
 	componentDidUpdate() {
+		this.stickHeaderOnScroll();
+	}
+
+	componentWillUnmount() {
 		const header = document.querySelector(".header");
 
-		window.addEventListener("scroll", () => {
-			if (window.scrollY > 50) {
-				header.classList.add("header-scroll");
-			} else {
-				header.classList.remove("header-scroll");
-			}
-		});
+		window.removeEventListener(
+			"scroll",
+			() => this.handleOnScroll(header),
+			false
+		);
 	}
+
+	handleOnScroll = (el) => {
+		if (window.scrollY > 50) {
+			el.classList.add("header-scroll");
+		} else {
+			el.classList.remove("header-scroll");
+		}
+	};
+
+	stickHeaderOnScroll = () => {
+		const header = document.querySelector(".header");
+		window.addEventListener("scroll", () => this.handleOnScroll(header));
+	};
 
 	openSearchBar = () => {
 		this.setState({
@@ -44,6 +51,9 @@ class Header1 extends Component {
 
 	render() {
 		const { menu, logo, hidden } = this.props;
+
+		console.log("logo", logo);
+
 		const { isSearchOpening } = this.state;
 		const logos = (logo && Object.values(logo)) || [];
 		const menuData = parseData(menu);
@@ -74,7 +84,7 @@ class Header1 extends Component {
 									""
 								}
 								alt="logo"
-								className="header-logo"
+								className="header-logo1"
 							/>
 						</div>
 						<div className="header-main">

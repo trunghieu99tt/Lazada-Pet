@@ -7,7 +7,7 @@ import Modal from "../componentsWeb/HomePageComponents/Modal/Modal";
 import Loader from "../componentsWeb/SmallComponents/Loader";
 import SelectBox from "../componentsWeb/SmallComponents/SelectBox";
 import SmallSearch from "../componentsWeb/SmallComponents/SmallSearch";
-import BaseView1 from "../layout/BaseView1";
+import WrapperWithAds from "../layout/BaseView1";
 import * as appTypes from "../redux/web/app/app.types";
 
 class ShopCategoryPage extends Component {
@@ -190,7 +190,7 @@ class ShopCategoryPage extends Component {
 
 		return (
 			<React.Fragment>
-				<Modal {...singleProduct} closeModal={this.closeModal} />
+				<Modal item={singleProduct} closeModal={this.closeModal} />
 
 				<section className="shop-category-page-content">
 					<div className="row">
@@ -296,6 +296,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectToStore = connect(mapStateToProps, mapDispatchToProps);
 
-const wrapper = compose(connectToStore, BaseView1);
+const wrapper = compose(connectToStore, WrapperWithAds);
 
 export default wrapper(ShopCategoryPage);

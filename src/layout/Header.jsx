@@ -18,7 +18,7 @@ class Header extends Component {
 		const header = document.querySelector(".header");
 
 		window.addEventListener("scroll", () => {
-			const logo = document.querySelector(".header-logo");
+			const logo = document.querySelector(".header-logo1");
 			if (window.scrollY > 0) {
 				if (logo) logo.src = logos && logos.length > 1 && logos[1];
 				header.classList.add("header-scroll");

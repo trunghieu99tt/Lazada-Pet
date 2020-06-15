@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import Card5 from "../componentsWeb/Cards/Card5";
 import Loader from "../componentsWeb/SmallComponents/Loader";
-import BaseView1 from "../layout/BaseView1";
+import WrapperWithAds from "../layout/BaseView1";
 import * as appTypes from "../redux/web/app/app.types";
 
 class BlogPage extends Component {
@@ -94,6 +94,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectToStore = connect(mapStateToProps, mapDispatchToProps);
 
-const wrapper = compose(connectToStore, BaseView1);
+const wrapper = compose(connectToStore, WrapperWithAds);
 
 export default wrapper(BlogPage);
