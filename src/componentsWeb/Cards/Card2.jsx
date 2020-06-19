@@ -19,7 +19,7 @@ const Card2 = (props) => {
 	};
 
 	return (
-		<article className="col-md-3 card2">
+		<article className="col-md-2 card2">
 			<figure className="card2-image-container">
 				<Link to={`/product/${id}`}>
 					<img

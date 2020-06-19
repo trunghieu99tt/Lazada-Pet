@@ -49,7 +49,18 @@ class Register extends React.Component {
 				password
 			);
 
-			await createUserProfileDocument(user, { name });
+			console.log("user", user);
+
+			const modifiedUser = {
+				...user,
+				displayName: name,
+				phoneNumber: mobile,
+				address
+			};
+
+			console.log("modifiedUser", modifiedUser);
+
+			await createUserProfileDocument(modifiedUser, { name });
 
 			this.setState(
 				{

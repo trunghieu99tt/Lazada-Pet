@@ -105,9 +105,9 @@ class Header extends Component {
 									</span>
 								</div>
 								<CartIcon />
+								{hidden ? null : <CartDropdown />}
 							</div>
 						</div>
-						{hidden ? null : <CartDropdown />}
 					</div>
 				</div>
 			</header>
