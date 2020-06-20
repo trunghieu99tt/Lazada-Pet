@@ -1,6 +1,7 @@
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
@@ -14,10 +15,14 @@ import Checkout from "./pages/Checkout";
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import ShopCategoryPage from "./pages/ShopCategoryPage";
+import ShopDash from "./pages/ShopDash";
 import ShopPage from "./pages/ShopPage";
+import User from "./pages/User";
 import { setCurrentUser } from "./redux/web/user/user.actions";
 import { selectCurrentUser } from "./redux/web/user/user.selector";
+import "./static/css/style.css";
 import "./static/css/main.min.css";
+
 
 // import { uploadData } from "./utils/helper";
 // import { API_URL } from "./variables";
@@ -78,6 +83,8 @@ class App extends Component {
 						path="/product/:id"
 						component={ProductDetail}
 					></Route>
+					<Route path="/user" component={User}></Route>
+					<Route path="/shop-dash" component={ShopDash}></Route>
 					<Route component={NotFoundPage} />
 				</Switch>
 			</React.Fragment>

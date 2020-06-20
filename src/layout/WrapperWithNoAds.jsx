@@ -5,7 +5,7 @@ import * as homepageActionTypes from "../redux/web/homepage/homepage.types";
 import Footer from "./Footer";
 import Header1 from "./Header1";
 
-const WrapperWithAds = (WrappedComponent, props) => {
+const WrapperWithNoAds = (WrappedComponent, props) => {
 	class HocComponent extends Component {
 		componentDidMount() {
 			const {
@@ -74,7 +74,8 @@ const WrapperWithAds = (WrappedComponent, props) => {
 			return (
 				<React.Fragment>
 					<Header1 menu={menu} logo={logo} />
-
+				
+				
 					<WrappedComponent {...this.props}></WrappedComponent>
 					<Footer
 						siteInfo={siteInfo}
@@ -120,4 +121,4 @@ const WrapperWithAds = (WrappedComponent, props) => {
 	return connectToStore(HocComponent);
 };
 
-export default WrapperWithAds;
+export default WrapperWithNoAds;

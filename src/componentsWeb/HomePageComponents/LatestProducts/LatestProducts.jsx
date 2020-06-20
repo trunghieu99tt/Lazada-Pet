@@ -52,7 +52,7 @@ class LatestProducts extends Component {
 							voluptas sequi obcaecati molestiae.
 						</p>
 					</header>
-					<div className="container">
+					<div className="container-fluid">
 						<div className="row">
 							{latestProductsData &&
 								latestProductsData.length > 0 &&

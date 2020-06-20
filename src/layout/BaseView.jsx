@@ -52,7 +52,7 @@ const BaseView = (WrappedComponent, props) => {
 			fetchSiteInfo();
 		};
 
-		getLatestProductsData = (limit = 8) => {
+		getLatestProductsData = (limit = 12) => {
 			const { fetchLatestProducts } = this.props;
 			fetchLatestProducts({ limit });
 		};

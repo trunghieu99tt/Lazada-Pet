@@ -1,3 +1,30 @@
 .slick-list {
 	overflow-x: hidden;
 }
+
+.menu-title {
+	font-size: 15px;
+}
+
+.count-indicator {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	svg {
+		width: 75% !important;
+		height: 75%;
+	}
+}
+
+.form-control {
+	margin-bottom: 3rem;
+}
+
+.react-datepicker__input-container {
+	input {
+		padding: 1rem;
+		font-size: 1.5rem;
+		border: 1px solid #f3f3f3;
+	}
+}

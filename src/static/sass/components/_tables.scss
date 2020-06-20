@@ -1,0 +1,26 @@
+.data-table {
+	background-color: #fff;
+	padding: 1.5rem;
+
+	&-select-container {
+		font-size: 15px;
+	}
+
+	&-select {
+		padding: 1rem 1.5rem;
+		font-size: 15px;
+		border: 1px solid #f3f3f3;
+		margin: 0 1rem;
+	}
+
+	&-main {
+		margin-top: 2rem;
+	}
+
+	&-icons {
+		width: 25px;
+		height: 25px;
+		margin: 0 1rem;
+		cursor: pointer;
+	}
+}

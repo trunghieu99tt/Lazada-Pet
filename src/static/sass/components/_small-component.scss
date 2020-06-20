@@ -213,3 +213,22 @@
 		}
 	}
 }
+
+.search-dash {
+	font-size: 15px;
+	padding: 2rem;
+	width: 30rem;
+	margin-left: auto;
+
+	@include respond(tab-port) {
+		margin-left: initial;
+		margin-top: 2rem;
+	}
+}
+
+.options-dash {
+	padding: 1rem 2rem;
+	font-size: 1.5rem;
+	min-height: 4rem;
+	margin-bottom: 2rem;
+}
