@@ -20,7 +20,7 @@ import ShopPage from "./pages/ShopPage";
 import User from "./pages/User";
 import { setCurrentUser } from "./redux/web/user/user.actions";
 import { selectCurrentUser } from "./redux/web/user/user.selector";
-import "./static/css/style.css";
+import "./static/css/style.css";	
 import "./static/css/main.min.css";
 
 

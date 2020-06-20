@@ -1,7 +1,7 @@
 import React from "react";
 import SideBarItem from "./SideBarItem";
 
-const SideBar = () => {
+const SideBar = ({ changeLayer }) => {
 	const sideBarItems = [
 		{
 			name: "Sản phẩm",
@@ -29,7 +29,13 @@ const SideBar = () => {
 			<ul className="nav">
 				{sideBarItems &&
 					sideBarItems.length > 0 &&
-					sideBarItems.map((item) => <SideBarItem {...item} />)}
+					sideBarItems.map((item, index) => (
+						<SideBarItem
+							{...item}
+							id={index}
+							changeLayer={changeLayer}
+						/>
+					))}
 			</ul>
 		</nav>
 	);

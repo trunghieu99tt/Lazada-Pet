@@ -1,28 +1,68 @@
+import { DatePicker } from "antd";
+import moment from "moment";
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
 import InputDash from "./Form/InputDash";
 import OptionsDash from "./Form/OptionsDash";
 import TextAreaDash from "./Form/TextAreaDash";
 import UploadFileDash from "./Form/UploadFileDash";
 
-const OrderDetail = () => {
-	const [isEdit, setIsEdit] = useState(false);
-	const [startDate, setStartDate] = useState(new Date());
 
-	const options = ["Pending", "Processing", "Ordered"];
+const OrderDetail = ({ order, resetOrder, handleEditItem }) => {
+	const [orderInfo, setOrderInfo] = useState(order);
+	const [isEdit, setIsEdit] = useState(false);
+
+	const options = ["Pending", "Processing", "Completed"];
 
 	const toggleEdit = () => setIsEdit(!isEdit);
 
-	const onSubmit = (event) => event.preventDefault();
+	const onSubmit = (event) => {
+		event.preventDefault();
+		handleEditItem(orderInfo);
+	};
 
-	const handleChangeDate = (date) => setStartDate(date);
+	const onFieldChange = (event) => {
+		const newOrderInfo = {
+			...orderInfo,
+			[event.target.name]: event.target.value,
+		};
+		setOrderInfo(newOrderInfo);
+	};
+
+	const onChangeDate = (date, dateString) => {
+		const newOrderInfo = {
+			...orderInfo,
+			purchasedOn: dateString,
+		};
+		setOrderInfo(newOrderInfo);
+	};
+
+	const onChangeOptions = (event) => {
+		const newOrderInfo = {
+			...orderInfo,
+			status: event.target.value,
+		};
+		setOrderInfo(newOrderInfo);
+	};
+
+	// Config Data
+
+	const {
+		orderID,
+		name,
+		purchasedOn,
+		customer,
+		shipTo,
+		basePrice,
+		purchasedPrice,
+		status,
+	} = orderInfo;
 
 	return (
-		<form className="orderDetail" onSubmit={onSubmit}>
+		<div className="orderDetail" onSubmit={onSubmit}>
 			<InputDash
 				type="text"
-				name="order"
-				value="1"
+				name="orderID"
+				value={orderID}
 				labelName="Order"
 				disabled
 			/>
@@ -31,23 +71,18 @@ const OrderDetail = () => {
 				name="name"
 				placeHolder="Name"
 				labelName="Name"
+				value={name}
 				disabled={!isEdit}
+				onChange={onFieldChange}
 			/>
-			{/* <InputDash
-				type="date"
-				name="name"
-				labelName="Purchased On"
-				value="20/10/2020"
-				disabled={!isEdit}
-			/> */}
 
-			<div>
+			<div className="form-group">
 				<p>Purchased On</p>
 				<DatePicker
-					selected={startDate}
-					className="form-group"
+					defaultValue={moment(purchasedOn, "DD/MM/YYYY")}
+					format="DD/MM/YYYY"
 					disabled={!isEdit}
-					onChange={handleChangeDate}
+					onChange={onChangeDate}
 				/>
 			</div>
 
@@ -56,16 +91,18 @@ const OrderDetail = () => {
 				name="customer"
 				placeHolder="Customer"
 				labelName="Customer"
-				value="Someone"
+				value={customer}
 				disabled={!isEdit}
+				onChange={onFieldChange}
 			/>
 			<InputDash
 				type="text"
-				name="customer"
-				placeHolder="Customer"
+				name="shipTo"
+				placeHolder="Ship To"
 				labelName="Ship to"
-				value="Someone"
+				value={shipTo}
 				disabled={!isEdit}
+				onChange={onFieldChange}
 			/>
 
 			<InputDash
@@ -73,36 +110,38 @@ const OrderDetail = () => {
 				name="basePrice"
 				placeHolder="Base Price"
 				labelName="Base Price"
+				value={basePrice}
 				disabled={!isEdit}
+				onChange={onFieldChange}
 			/>
 			<InputDash
 				type="text"
 				name="purchasedPrice"
 				placeHolder="Purchased Price"
 				labelName="Purchased Price"
+				value={purchasedPrice}
 				disabled={!isEdit}
+				onChange={onFieldChange}
 			/>
 
 			<UploadFileDash />
 
-			<InputDash
-				type="text"
-				name="location"
-				placeHolder="Location"
-				labelName="City"
-				disabled={!isEdit}
-			/>
-
 			<OptionsDash
-				name="orderStatus"
+				name="status"
 				options={options}
 				disabled={!isEdit}
+				value={status}
+				onChange={onChangeOptions}
 			/>
 
 			<TextAreaDash id="TextArea" name="Note" disabled={!isEdit} />
 			{(isEdit && (
 				<React.Fragment>
-					<button type="submit" className="btn btn-success mr-2">
+					<button
+						type="submit"
+						className="btn btn-success mr-2"
+						onClick={onSubmit}
+					>
 						Submit
 					</button>
 					<button className="btn btn-light" onClick={toggleEdit}>
@@ -115,13 +154,19 @@ const OrderDetail = () => {
 					<button
 						className="btn btn-success mr-2"
 						onClick={toggleEdit}
+						type="button"
 					>
 						Edit
 					</button>
-					<button className="btn btn-light">Delete</button>
+					<button className="btn btn-light" type="button">
+						Delete
+					</button>
+					<button className="btn btn-light" onClick={resetOrder}>
+						Back
+					</button>
 				</React.Fragment>
 			)}
-		</form>
+		</div>
 	);
 };
 
