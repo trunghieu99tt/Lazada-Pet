@@ -1,0 +1,115 @@
+import { faEdit, faSort, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "antd";
+import React from "react";
+
+const { confirm } = Modal;
+
+const DataTableMain = ({
+	tableHeadData,
+	tableData,
+	badges,
+	viewEntry,
+	deleteModalConfig,
+	sortDataHandler,
+}) => {
+	const tableHead = tableHeadData.map(
+		({ width, name, sortable, att, isDate }) => {
+			return (
+				<th
+					className="sorting"
+					key={name}
+					style={{ width }}
+					onClick={
+						sortable
+							? () => sortDataHandler({ att, name, isDate })
+							: null
+					}
+				>
+					{name}
+					{sortable && <FontAwesomeIcon icon={faSort} />}
+				</th>
+			);
+		}
+	);
+
+	return (
+		<div className="table-responsive data-table-main">
+			<div className="row">
+				<div className="col-sm-12">
+					<table
+						id="order-listing"
+						className="table dataTable no-footer"
+						role="grid"
+						aria-describedby="order-listing_info"
+					>
+						<thead>
+							<tr role="row">{tableHead}</tr>
+						</thead>
+						<tbody>
+							{tableData?.length > 0 &&
+								tableData.map((item) => {
+									const values = Object.values(item);
+
+									const badgeClass =
+										badges?.length > 0 &&
+										badges.find(
+											(e) => e[0] === item.status
+										);
+
+									return (
+										<tr
+											role="row"
+											className="odd"
+											key={`${item.name}-${item.id}`}
+										>
+											{values?.length > 0 &&
+												values.map((e, idx) => {
+													return (
+														<td key={e}>
+															{((idx <
+																values.length -
+																	1 ||
+																!badges) &&
+																e) || (
+																<label
+																	className={`badge ${badgeClass[1]}`}
+																>
+																	{e}
+																</label>
+															)}
+														</td>
+													);
+												})}
+											<td>
+												<FontAwesomeIcon
+													icon={faEdit}
+													className="data-table-icons"
+													onClick={() => {
+														viewEntry(item);
+													}}
+												/>
+												<FontAwesomeIcon
+													icon={faTrash}
+													className="data-table-icons"
+													onClick={() => {
+														confirm(
+															deleteModalConfig(
+																item
+															)
+														);
+													}}
+												/>
+											</td>
+										</tr>
+									);
+								})}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default DataTableMain;

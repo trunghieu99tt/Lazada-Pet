@@ -218,7 +218,8 @@
 	font-size: 15px;
 	padding: 2rem;
 	width: 30rem;
-	margin-left: auto;
+	// margin-left: auto;
+	margin-bottom: 0 !important;
 
 	@include respond(tab-port) {
 		margin-left: initial;
@@ -231,4 +232,8 @@
 	font-size: 1.5rem;
 	min-height: 4rem;
 	margin-bottom: 2rem;
+}
+
+.sorting {
+	cursor: pointer;
 }

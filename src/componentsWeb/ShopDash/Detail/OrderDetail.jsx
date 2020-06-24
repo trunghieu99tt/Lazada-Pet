@@ -1,14 +1,13 @@
 import { DatePicker } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import InputDash from "./Form/InputDash";
-import OptionsDash from "./Form/OptionsDash";
-import TextAreaDash from "./Form/TextAreaDash";
-import UploadFileDash from "./Form/UploadFileDash";
+import InputDash from "../Form/InputDash";
+import OptionsDash from "../Form/OptionsDash";
+import TextAreaDash from "../Form/TextAreaDash";
+import UploadFileDash from "../Form/UploadFileDash";
 
-
-const OrderDetail = ({ order, resetOrder, handleEditItem }) => {
-	const [orderInfo, setOrderInfo] = useState(order);
+const ItemDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
+	const [itemInfo, setOrderInfo] = useState(item);
 	const [isEdit, setIsEdit] = useState(false);
 
 	const options = ["Pending", "Processing", "Completed"];
@@ -17,37 +16,37 @@ const OrderDetail = ({ order, resetOrder, handleEditItem }) => {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
-		handleEditItem(orderInfo);
+		handleEditItem(itemInfo);
 	};
 
 	const onFieldChange = (event) => {
-		const newOrderInfo = {
-			...orderInfo,
+		const newItemInfo = {
+			...itemInfo,
 			[event.target.name]: event.target.value,
 		};
-		setOrderInfo(newOrderInfo);
+		setOrderInfo(newItemInfo);
 	};
 
 	const onChangeDate = (date, dateString) => {
-		const newOrderInfo = {
-			...orderInfo,
+		const newItemInfo = {
+			...itemInfo,
 			purchasedOn: dateString,
 		};
-		setOrderInfo(newOrderInfo);
+		setOrderInfo(newItemInfo);
 	};
 
 	const onChangeOptions = (event) => {
-		const newOrderInfo = {
-			...orderInfo,
+		const newItemInfo = {
+			...itemInfo,
 			status: event.target.value,
 		};
-		setOrderInfo(newOrderInfo);
+		setOrderInfo(newItemInfo);
 	};
 
 	// Config Data
 
 	const {
-		orderID,
+		itemID,
 		name,
 		purchasedOn,
 		customer,
@@ -55,14 +54,20 @@ const OrderDetail = ({ order, resetOrder, handleEditItem }) => {
 		basePrice,
 		purchasedPrice,
 		status,
-	} = orderInfo;
+	} = itemInfo;
+
+	console.log("Object.entries(itemInfo)", Object.entries(itemInfo));
+
+	const dataFields = itemInfo && Object.entries(itemInfo);
 
 	return (
-		<div className="orderDetail" onSubmit={onSubmit}>
+		<div className="itemDetail" onSubmit={onSubmit}>
+			{dataFields?.length && dataFields.map((item) => {})}
+
 			<InputDash
 				type="text"
-				name="orderID"
-				value={orderID}
+				name="itemID"
+				value={itemID}
 				labelName="Order"
 				disabled
 			/>
@@ -158,10 +163,17 @@ const OrderDetail = ({ order, resetOrder, handleEditItem }) => {
 					>
 						Edit
 					</button>
-					<button className="btn btn-light" type="button">
+					<button
+						className="btn btn-light"
+						type="button"
+						onClick={() => {
+							deleteItem(itemInfo);
+							resetItem();
+						}}
+					>
 						Delete
 					</button>
-					<button className="btn btn-light" onClick={resetOrder}>
+					<button className="btn btn-light" onClick={resetItem}>
 						Back
 					</button>
 				</React.Fragment>
@@ -170,4 +182,4 @@ const OrderDetail = ({ order, resetOrder, handleEditItem }) => {
 	);
 };
 
-export default OrderDetail;
+export default ItemDetail;

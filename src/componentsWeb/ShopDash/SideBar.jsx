@@ -1,8 +1,11 @@
 import React from "react";
 import SideBarItem from "./SideBarItem";
 
-const SideBar = ({ changeLayer }) => {
+const SideBar = ({ changeLayer, layer }) => {
 	const sideBarItems = [
+		{
+			name: "Tổng quan",
+		},
 		{
 			name: "Sản phẩm",
 		},
@@ -24,6 +27,8 @@ const SideBar = ({ changeLayer }) => {
 		},
 	];
 
+	console.log("layer", layer);
+
 	return (
 		<nav className="sidebar sidebar-offcanvas" id="sidebar">
 			<ul className="nav">
@@ -32,8 +37,9 @@ const SideBar = ({ changeLayer }) => {
 					sideBarItems.map((item, index) => (
 						<SideBarItem
 							{...item}
-							id={index}
+							id={index + 1}
 							changeLayer={changeLayer}
+							isActive={index + 1 === layer}
 						/>
 					))}
 			</ul>

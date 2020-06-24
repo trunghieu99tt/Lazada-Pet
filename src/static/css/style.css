@@ -23374,6 +23374,7 @@ input:focus {
 .sidebar .nav .nav-item.active > .nav-link {
 	background: initial;
 	color: #404852;
+	font-weight: bold;
 }
 
 .sidebar .nav .nav-item.active > .nav-link .menu-title,
@@ -23381,10 +23382,10 @@ input:focus {
 	color: inherit;
 }
 
-.sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
+/* .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
 	background: #f6f6f6;
 	color: #8d9498;
-}
+} */
 
 .sidebar .nav.sub-menu {
 	margin-bottom: 0;

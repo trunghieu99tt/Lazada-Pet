@@ -28,3 +28,23 @@
 		border: 1px solid #f3f3f3;
 	}
 }
+
+.sidebar {
+	padding: 2rem;
+}
+
+.nav-item {
+	.nav-link {
+		font-weight: bold;
+	}
+
+	&--active {
+		background: #7467ef;
+		border-radius: 5px;
+		box-shadow: -3px 12px 23px 0px rgba(0, 0, 0, 0.16);
+
+		.nav-link {
+			color: #fff !important;
+		}
+	}
+}

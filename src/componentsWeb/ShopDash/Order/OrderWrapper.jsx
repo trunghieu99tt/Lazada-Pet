@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DataTable from "../../../CommonComponents/Tables/DataTable";
-import OrderDetail from "../OrderDetail";
+import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
+import OrderDetail from "../Detail/OrderDetail";
 
 const randomDate = (start, end) => {
 	return new Date(
@@ -9,31 +9,78 @@ const randomDate = (start, end) => {
 };
 
 const OrderWrapper = () => {
-	const [order, setOrder] = useState(null);
+	// State
+	const [order, setItem] = useState(null);
+
+	// Data
 	const [data, setData] = useState(
 		[...Array(100)].map((_, idx) => {
 			const d = randomDate(new Date(2019, 0, 1), new Date(2022, 0, 1));
-			const convertedDate = `${d.getDate()}-${
+			const convertedDate = `${d.getDate()}/${
 				d.getMonth() + 1
-			}-${d.getFullYear()}`;
+			}/${d.getFullYear()}`;
 
 			return {
-				orderID: idx + 1,
+				id: idx + 1,
 				name: "Product",
 				type: "Pet",
 				purchasedOn: convertedDate,
 				customer: "Tom",
 				shipTo: "Germany",
-				basePrice: "$1100",
-				purchasedPrice: "$2300",
-				status: "Processing",
+				basePrice: Math.round(Math.random() * 1000),
+				purchasedPrice: Math.round(Math.random() * 1000),
+				status: ["Processing", "Completed", "Pending"][
+					Math.floor(Math.random() * 3)
+				],
 			};
 		})
 	);
 
+	const tableHeadData = [
+		{ width: "117px", name: "Item ID", att: "orderID", sortable: true },
+		{ width: "117px", name: "Name", att: "name", sortable: true },
+		{ width: "117px", name: "Type", sortable: false },
+		{
+			width: "190px",
+			name: "Purchased On",
+			att: "purchasedOn",
+			sortable: true,
+			isDate: true,
+		},
+		{ width: "139px", name: "Customer", att: "customer", sortable: true },
+		{ width: "111px", name: "Ship to", att: "shipTo", sortable: false },
+		{
+			width: "152px",
+			name: "Base Price",
+			att: "basePrice",
+			sortable: true,
+		},
+		{
+			width: "213px",
+			name: "Purchased Price",
+			att: "purchasedPrice",
+			sortable: true,
+		},
+		{ width: "115px", name: "Status", sortable: false },
+		{ width: "122px", name: "Actions", sortable: false },
+	];
+
+	const badges = [
+		["Pending", "badge-danger"],
+		["Processing", "badge-info"],
+		["Completed", "badge-success"],
+	];
+
+	const statusOptions = ["All", ...badges.map((e) => e[0])];
+	const searchFields = [
+		{ name: "By Product name", attribute: "name" },
+		{ name: "By Customer name", attribute: "customer" },
+		{ name: "By Ship To Place name", attribute: "shipTo" },
+	];
+
 	// Functions
-	const viewOrder = (order) => setOrder(order);
-	const resetOrder = () => setOrder(null);
+	const viewItem = (order) => setItem(order);
+	const resetItem = () => setItem(null);
 
 	const handleEditItem = (item) => {
 		const filterData = data.filter((e) => e.orderID !== item.orderID);
@@ -41,28 +88,49 @@ const OrderWrapper = () => {
 			(a, b) => a.orderID - b.orderID
 		);
 		setData(newData);
-		resetOrder();
+		resetItem();
 	};
 
-	const deleteOrder = (item) => {
-		const newData = data.filter((e) => e.orderID !== item.orderID);
+	const deleteItem = (item) => {
+		const newData = data.filter((e) => e.id !== item.id);
 		setData(newData);
+	};
+
+	const statusFilter = (event, dataSample) => {
+		const status = event.target.value;
+		let finalResult = [...dataSample];
+		if (status !== "All") {
+			const filterData =
+				data?.length &&
+				data.filter(
+					(e) => e.status.toLowerCase() === status.toLowerCase()
+				);
+			finalResult = [...filterData];
+		}
+		return finalResult;
 	};
 
 	return (
 		<section className="shopDash-product-wrapper">
 			{(!order && (
 				<DataTable
-					// key={Math.random()}
-					viewOrder={viewOrder}
+					viewEntry={viewItem}
 					dataSample={data}
-					deleteOrder={deleteOrder}
+					deleteEntry={deleteItem}
+					tableHeadData={tableHeadData}
+					tableName="Item"
+					statusFilter={statusFilter}
+					badges={badges}
+					options={statusOptions}
+					searchFields={searchFields}
+					existDateRange
 				/>
 			)) || (
 				<OrderDetail
-					resetOrder={resetOrder}
-					order={order}
+					resetItem={resetItem}
+					item={order}
 					handleEditItem={handleEditItem}
+					deleteItem={deleteItem}
 				/>
 			)}
 		</section>
