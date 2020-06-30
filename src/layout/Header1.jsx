@@ -13,24 +13,30 @@ class Header1 extends Component {
 	};
 
 	componentDidMount() {
+		const header = document.querySelector(".header");
+
 		this.stickHeaderOnScroll();
+		window.addEventListener("scroll", () => {
+			console.log("Go here\n");
+			this.handleOnScroll(header);
+		});
 	}
 
 	componentDidUpdate() {
 		this.stickHeaderOnScroll();
 	}
 
-	componentWillUnmount() {
-		const header = document.querySelector(".header");
-
-		window.removeEventListener(
-			"scroll",
-			() => this.handleOnScroll(header),
-			false
-		);
-	}
+	// componentWillUnmount() {
+	// 	const header = document.querySelector(".header");
+	// 	window.removeEventListener(
+	// 		"scroll",
+	// 		() => this.handleOnScroll(header),
+	// 		false
+	// 	);
+	// }
 
 	handleOnScroll = (el) => {
+		console.log("GO here");
 		if (window.scrollY > 50) {
 			el.classList.add("header-scroll");
 		} else {
@@ -40,7 +46,10 @@ class Header1 extends Component {
 
 	stickHeaderOnScroll = () => {
 		const header = document.querySelector(".header");
-		window.addEventListener("scroll", () => this.handleOnScroll(header));
+		window.addEventListener("scroll", () => {
+			console.log("Go here\n");
+			this.handleOnScroll(header);
+		});
 	};
 
 	openSearchBar = () => {
@@ -51,8 +60,6 @@ class Header1 extends Component {
 
 	render() {
 		const { menu, logo, hidden } = this.props;
-
-		console.log("logo", logo);
 
 		const { isSearchOpening } = this.state;
 		const logos = (logo && Object.values(logo)) || [];

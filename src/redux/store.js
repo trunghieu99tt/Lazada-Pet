@@ -14,7 +14,7 @@ const middleware = [sagaMiddleware];
 
 export const store = createStore(
 	rootReducer,
-	compose(applyMiddleware(...middleware), reduxDevTools)
+	compose(applyMiddleware(...middleware))
 );
 
 sagaMiddleware.run(rootSaga);

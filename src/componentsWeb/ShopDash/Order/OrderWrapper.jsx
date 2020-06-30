@@ -3,138 +3,138 @@ import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
 import OrderDetail from "../Detail/OrderDetail";
 
 const randomDate = (start, end) => {
-	return new Date(
-		start.getTime() + Math.random() * (end.getTime() - start.getTime())
-	);
+    return new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    );
 };
 
 const OrderWrapper = () => {
-	// State
-	const [order, setItem] = useState(null);
+    // State
+    const [order, setItem] = useState(null);
 
-	// Data
-	const [data, setData] = useState(
-		[...Array(100)].map((_, idx) => {
-			const d = randomDate(new Date(2019, 0, 1), new Date(2022, 0, 1));
-			const convertedDate = `${d.getDate()}/${
-				d.getMonth() + 1
-			}/${d.getFullYear()}`;
+    // Data
+    const [data, setData] = useState(
+        [...Array(100)].map((_, idx) => {
+            const d = randomDate(new Date(2019, 0, 1), new Date(2022, 0, 1));
+            const convertedDate = `${d.getDate()}/${
+                d.getMonth() + 1
+            }/${d.getFullYear()}`;
 
-			return {
-				id: idx + 1,
-				name: "Product",
-				type: "Pet",
-				purchasedOn: convertedDate,
-				customer: "Tom",
-				shipTo: "Germany",
-				basePrice: Math.round(Math.random() * 1000),
-				purchasedPrice: Math.round(Math.random() * 1000),
-				status: ["Processing", "Completed", "Pending"][
-					Math.floor(Math.random() * 3)
-				],
-			};
-		})
-	);
+            return {
+                id: idx + 1,
+                name: "Product",
+                type: "Pet",
+                purchasedOn: convertedDate,
+                customer: "Tom",
+                shipTo: "Germany",
+                basePrice: Math.round(Math.random() * 1000),
+                purchasedPrice: Math.round(Math.random() * 1000),
+                status: ["Processing", "Completed", "Pending"][
+                    Math.floor(Math.random() * 3)
+                ],
+            };
+        })
+    );
 
-	const tableHeadData = [
-		{ width: "117px", name: "Item ID", att: "orderID", sortable: true },
-		{ width: "117px", name: "Name", att: "name", sortable: true },
-		{ width: "117px", name: "Type", sortable: false },
-		{
-			width: "190px",
-			name: "Purchased On",
-			att: "purchasedOn",
-			sortable: true,
-			isDate: true,
-		},
-		{ width: "139px", name: "Customer", att: "customer", sortable: true },
-		{ width: "111px", name: "Ship to", att: "shipTo", sortable: false },
-		{
-			width: "152px",
-			name: "Base Price",
-			att: "basePrice",
-			sortable: true,
-		},
-		{
-			width: "213px",
-			name: "Purchased Price",
-			att: "purchasedPrice",
-			sortable: true,
-		},
-		{ width: "115px", name: "Status", sortable: false },
-		{ width: "122px", name: "Actions", sortable: false },
-	];
+    const tableHeadData = [
+        { width: "117px", name: "Item ID", att: "orderID", sortable: true },
+        { width: "117px", name: "Name", att: "name", sortable: true },
+        { width: "117px", name: "Type", sortable: false },
+        {
+            width: "190px",
+            name: "Purchased On",
+            att: "purchasedOn",
+            sortable: true,
+            isDate: true,
+        },
+        { width: "139px", name: "Customer", att: "customer", sortable: true },
+        { width: "111px", name: "Ship to", att: "shipTo", sortable: false },
+        {
+            width: "152px",
+            name: "Base Price",
+            att: "basePrice",
+            sortable: true,
+        },
+        {
+            width: "213px",
+            name: "Purchased Price",
+            att: "purchasedPrice",
+            sortable: true,
+        },
+        { width: "115px", name: "Status", sortable: false },
+        { width: "122px", name: "Actions", sortable: false },
+    ];
 
-	const badges = [
-		["Pending", "badge-danger"],
-		["Processing", "badge-info"],
-		["Completed", "badge-success"],
-	];
+    const badges = [
+        ["Pending", "badge-danger"],
+        ["Processing", "badge-info"],
+        ["Completed", "badge-success"],
+    ];
 
-	const statusOptions = ["All", ...badges.map((e) => e[0])];
-	const searchFields = [
-		{ name: "By Product name", attribute: "name" },
-		{ name: "By Customer name", attribute: "customer" },
-		{ name: "By Ship To Place name", attribute: "shipTo" },
-	];
+    const statusOptions = ["All", ...badges.map((e) => e[0])];
+    const searchFields = [
+        { name: "By Product name", attribute: "name" },
+        { name: "By Customer name", attribute: "customer" },
+        { name: "By Ship To Place name", attribute: "shipTo" },
+    ];
 
-	// Functions
-	const viewItem = (order) => setItem(order);
-	const resetItem = () => setItem(null);
+    // Functions
+    const viewItem = (order) => setItem(order);
+    const resetItem = () => setItem(null);
 
-	const handleEditItem = (item) => {
-		const filterData = data.filter((e) => e.orderID !== item.orderID);
-		const newData = [...filterData, item].sort(
-			(a, b) => a.orderID - b.orderID
-		);
-		setData(newData);
-		resetItem();
-	};
+    const handleEditItem = (item) => {
+        const filterData = data.filter((e) => e.orderID !== item.orderID);
+        const newData = [...filterData, item].sort(
+            (a, b) => a.orderID - b.orderID
+        );
+        setData(newData);
+        resetItem();
+    };
 
-	const deleteItem = (item) => {
-		const newData = data.filter((e) => e.id !== item.id);
-		setData(newData);
-	};
+    const deleteItem = (item) => {
+        const newData = data.filter((e) => e.id !== item.id);
+        setData(newData);
+    };
 
-	const statusFilter = (event, dataSample) => {
-		const status = event.target.value;
-		let finalResult = [...dataSample];
-		if (status !== "All") {
-			const filterData =
-				data?.length &&
-				data.filter(
-					(e) => e.status.toLowerCase() === status.toLowerCase()
-				);
-			finalResult = [...filterData];
-		}
-		return finalResult;
-	};
+    const statusFilter = (event, dataSample) => {
+        const status = event.target.value;
+        let finalResult = [...dataSample];
+        if (status !== "All") {
+            const filterData =
+                data?.length &&
+                data.filter(
+                    (e) => e.status.toLowerCase() === status.toLowerCase()
+                );
+            finalResult = [...filterData];
+        }
+        return finalResult;
+    };
 
-	return (
-		<section className="shopDash-product-wrapper">
-			{(!order && (
-				<DataTable
-					viewEntry={viewItem}
-					dataSample={data}
-					deleteEntry={deleteItem}
-					tableHeadData={tableHeadData}
-					tableName="Item"
-					statusFilter={statusFilter}
-					badges={badges}
-					options={statusOptions}
-					searchFields={searchFields}
-					existDateRange
-				/>
-			)) || (
-				<OrderDetail
-					resetItem={resetItem}
-					item={order}
-					handleEditItem={handleEditItem}
-					deleteItem={deleteItem}
-				/>
-			)}
-		</section>
-	);
+    return (
+        <section className="shopDash-order-wrapper">
+            {(!order && (
+                <DataTable
+                    viewEntry={viewItem}
+                    dataSample={data}
+                    deleteEntry={deleteItem}
+                    tableHeadData={tableHeadData}
+                    tableName="Item"
+                    statusFilter={statusFilter}
+                    badges={badges}
+                    options={statusOptions}
+                    searchFields={searchFields}
+                    existDateRange
+                />
+            )) || (
+                <OrderDetail
+                    resetItem={resetItem}
+                    item={order}
+                    handleEditItem={handleEditItem}
+                    deleteItem={deleteItem}
+                />
+            )}
+        </section>
+    );
 };
 
 export default OrderWrapper;
