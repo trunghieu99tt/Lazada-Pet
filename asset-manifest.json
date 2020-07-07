@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "/Lazada-Pet/static/css/main.68b83e45.chunk.css",
-    "main.js": "/Lazada-Pet/static/js/main.dd4df4a4.chunk.js",
-    "main.js.map": "/Lazada-Pet/static/js/main.dd4df4a4.chunk.js.map",
-    "runtime-main.js": "/Lazada-Pet/static/js/runtime-main.945b67ea.js",
-    "runtime-main.js.map": "/Lazada-Pet/static/js/runtime-main.945b67ea.js.map",
-    "static/css/2.830c7ec4.chunk.css": "/Lazada-Pet/static/css/2.830c7ec4.chunk.css",
-    "static/js/2.694ec21d.chunk.js": "/Lazada-Pet/static/js/2.694ec21d.chunk.js",
-    "static/js/2.694ec21d.chunk.js.map": "/Lazada-Pet/static/js/2.694ec21d.chunk.js.map",
+    "main.css": "/Lazada-Pet/static/css/main.edb9485d.chunk.css",
+    "main.js": "/Lazada-Pet/static/js/main.7560ade0.chunk.js",
+    "main.js.map": "/Lazada-Pet/static/js/main.7560ade0.chunk.js.map",
+    "runtime-main.js": "/Lazada-Pet/static/js/runtime-main.bcba7769.js",
+    "runtime-main.js.map": "/Lazada-Pet/static/js/runtime-main.bcba7769.js.map",
+    "static/css/2.00eb6877.chunk.css": "/Lazada-Pet/static/css/2.00eb6877.chunk.css",
+    "static/js/2.0a38b5f5.chunk.js": "/Lazada-Pet/static/js/2.0a38b5f5.chunk.js",
+    "static/js/2.0a38b5f5.chunk.js.map": "/Lazada-Pet/static/js/2.0a38b5f5.chunk.js.map",
     "index.html": "/Lazada-Pet/index.html",
-    "precache-manifest.2e7c4d4a556cd2d38fc66a7ce4e5addd.js": "/Lazada-Pet/precache-manifest.2e7c4d4a556cd2d38fc66a7ce4e5addd.js",
+    "precache-manifest.d9c51df9ac2c6e03d183f28c733b3fdc.js": "/Lazada-Pet/precache-manifest.d9c51df9ac2c6e03d183f28c733b3fdc.js",
     "service-worker.js": "/Lazada-Pet/service-worker.js",
-    "static/css/2.830c7ec4.chunk.css.map": "/Lazada-Pet/static/css/2.830c7ec4.chunk.css.map",
-    "static/css/main.68b83e45.chunk.css.map": "/Lazada-Pet/static/css/main.68b83e45.chunk.css.map",
-    "static/js/2.694ec21d.chunk.js.LICENSE.txt": "/Lazada-Pet/static/js/2.694ec21d.chunk.js.LICENSE.txt",
+    "static/css/2.00eb6877.chunk.css.map": "/Lazada-Pet/static/css/2.00eb6877.chunk.css.map",
+    "static/css/main.edb9485d.chunk.css.map": "/Lazada-Pet/static/css/main.edb9485d.chunk.css.map",
+    "static/js/2.0a38b5f5.chunk.js.LICENSE.txt": "/Lazada-Pet/static/js/2.0a38b5f5.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/Lazada-Pet/static/media/register_2.de16f181.jpg",
     "static/media/cart.svg": "/Lazada-Pet/static/media/cart.12a67152.svg",
     "static/media/eye.gif": "/Lazada-Pet/static/media/eye.b1551ef1.gif",
     "static/media/firework.svg": "/Lazada-Pet/static/media/firework.5b6203e9.svg",
@@ -22,10 +23,10 @@
     "static/media/slick-theme.css": "/Lazada-Pet/static/media/slick.f97e3bbf.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.945b67ea.js",
-    "static/css/2.830c7ec4.chunk.css",
-    "static/js/2.694ec21d.chunk.js",
-    "static/css/main.68b83e45.chunk.css",
-    "static/js/main.dd4df4a4.chunk.js"
+    "static/js/runtime-main.bcba7769.js",
+    "static/css/2.00eb6877.chunk.css",
+    "static/js/2.0a38b5f5.chunk.js",
+    "static/css/main.edb9485d.chunk.css",
+    "static/js/main.7560ade0.chunk.js"
   ]
 }
