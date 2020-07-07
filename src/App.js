@@ -15,89 +15,119 @@ import Checkout from "./pages/Checkout";
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import ShopCategoryPage from "./pages/ShopCategoryPage";
-import ShopDash from "./pages/ShopDash";
 import ShopPage from "./pages/ShopPage";
 import User from "./pages/User";
 import { setCurrentUser } from "./redux/web/user/user.actions";
 import { selectCurrentUser } from "./redux/web/user/user.selector";
-import "./static/css/style.css";	
+import "./static/css/style.css";
 import "./static/css/main.min.css";
-
+import OverviewWrapper from "./componentsDash/ShopDash/Overview/OverviewWrapper";
+import ProductDash from "./componentsDash/ShopDash/Products/ProductDash";
+import SaleEvent from "./componentsDash/ShopDash/SaleEvent/SaleEvent";
+import OrderWrapper from "./componentsDash/ShopDash/Order/OrderWrapper";
+import OrderDetail from "./componentsDash/ShopDash/Detail/OrderDetail";
 
 // import { uploadData } from "./utils/helper";
 // import { API_URL } from "./variables";
 // import axios from 'axios'
 
 class App extends Component {
-	unsubscribeFromAuth = null;
+    unsubscribeFromAuth = null;
 
-	componentDidMount() {
-		const { setCurrentUser } = this.props;
+    componentDidMount() {
+        const { setCurrentUser } = this.props;
 
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-			console.log("userAuth", userAuth);
+        this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+            if (userAuth) {
+                const userRef = await createUserProfileDocument(userAuth);
 
-			if (userAuth) {
-				const userRef = await createUserProfileDocument(userAuth);
+                userRef.onSnapshot((snapShot) => {
+                    setCurrentUser({
+                        currentUser: {
+                            id: snapShot.id,
+                            ...snapShot.data(),
+                        },
+                    });
+                });
+            } else {
+                setCurrentUser(userAuth);
+            }
+        });
+    }
 
-				userRef.onSnapshot((snapShot) => {
-					setCurrentUser({
-						currentUser: {
-							id: snapShot.id,
-							...snapShot.data(),
-						},
-					});
-				});
-			} else {
-				setCurrentUser(userAuth);
-			}
-		});
-	}
+    render() {
+        const { currentUser } = this.props;
 
-	render() {
-		const { currentUser } = this.props;
-
-		return (
-			<React.Fragment>
-				<Switch>
-					<Route exact path="/" component={HomePage}></Route>
-					<Route exact path="/home" component={HomePage}></Route>
-					<Route
-						exact
-						path="/auth"
-						render={() =>
-							(currentUser && <Redirect to="/"></Redirect>) || (
-								<Authentication />
-							)
-						}
-						component={Authentication}
-					></Route>
-					<Route exact path="/shop" component={ShopPage}></Route>
-					<Route exact path="/blog" component={BlogPage}></Route>
-					<Route exact path="/checkout" component={Checkout}></Route>
-					<Route
-						path="/product-categories/:category"
-						component={ShopCategoryPage}
-					></Route>
-					<Route
-						path="/product/:id"
-						component={ProductDetail}
-					></Route>
-					<Route path="/user" component={User}></Route>
-					<Route path="/shop-dash" component={ShopDash}></Route>
-					<Route component={NotFoundPage} />
-				</Switch>
-			</React.Fragment>
-		);
-	}
+        return (
+            <React.Fragment>
+                <Switch>
+                    <Route exact path="/" component={HomePage}></Route>
+                    <Route exact path="/home" component={HomePage}></Route>
+                    <Route
+                        exact
+                        path="/auth"
+                        render={() =>
+                            (currentUser && <Redirect to="/"></Redirect>) || (
+                                <Authentication />
+                            )
+                        }
+                        component={Authentication}
+                    ></Route>
+                    <Route exact path="/shop" component={ShopPage}></Route>
+                    <Route exact path="/blog" component={BlogPage}></Route>
+                    <Route exact path="/checkout" component={Checkout}></Route>
+                    <Route
+                        path="/product-categories/:category"
+                        component={ShopCategoryPage}
+                    ></Route>
+                    <Route
+                        path="/product/:id"
+                        component={ProductDetail}
+                    ></Route>
+                    <Route path="/user" component={User}></Route>
+                    <Route
+                        exact
+                        path="/shop-dash"
+                        component={OverviewWrapper}
+                    ></Route>
+                    <Route
+                        exact
+                        path="/shop-dash/orders"
+                        component={OrderWrapper}
+                    />
+                    <Route
+                        exact
+                        path="/shop-dash/order/:id"
+                        component={OrderDetail}
+                    />
+                    <Route
+                        exact
+                        path="/shop-dash/products"
+                        component={ProductDash}
+                    ></Route>
+                    <Route
+                        exact
+                        path="/shop-dash/products/:id"
+                        component={ProductDetail}
+                    ></Route>
+                    <Route
+                        exact
+                        path="/shop-dash/saleEvents"
+                        component={SaleEvent}
+                    ></Route>
+                    <Route component={NotFoundPage} />
+                </Switch>
+            </React.Fragment>
+        );
+    }
 }
 
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser,
+    currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

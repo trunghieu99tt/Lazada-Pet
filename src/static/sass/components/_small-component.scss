@@ -1,239 +1,240 @@
 .rating {
-	font-size: 1.5rem;
-	margin: 1rem 0;
+    font-size: 1.5rem;
+    margin: 1rem 0;
 }
 
 .product-modal {
-	&-container {
-		position: fixed;
-		top: 0;
-		left: 0;
-		background: rgba(256, 256, 256, 0.7);
-		z-index: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		opacity: 0;
-		transform: translateY(20px);
-		transition: all 0.3s;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-	}
+    &-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(256, 256, 256, 0.7);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
 
-	&-container.active {
-		opacity: 1;
-		transform: translateY(0);
-		pointer-events: initial;
-	}
+    &-container.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: initial;
+    }
 
-	&-mask {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
+    &-mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-	&-inner {
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
-		border-radius: 10px;
-		background: #fff;
-		position: relative;
-	}
+    &-inner {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+        border-radius: 10px;
+        background: #fff;
+        position: relative;
+    }
 
-	&-image-container {
-		margin-bottom: 0;
-		padding-left: 0;
-	}
+    &-image-container {
+        margin-bottom: 0;
+        padding-left: 0;
+    }
 
-	&-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 10px;
-	}
+    &-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 
-	&-quantity {
-		position: relative;
-		display: inline-block;
-		margin-right: 2rem;
-	}
+    &-quantity {
+        position: relative;
+        display: inline-block;
+        margin-right: 2rem;
+    }
 
-	&-text {
-		padding: 5%;
+    &-text {
+        padding: 5%;
 
-		.rating {
-			font-size: 1.8rem !important;
-			margin: 2rem 0 !important;
-		}
+        .rating {
+            font-size: 1.8rem !important;
+            margin: 2rem 0 !important;
+        }
 
-		.component-heading {
-			text-align: left;
-			color: #000;
+        .component-heading {
+            text-align: left;
+            color: #000;
 
-			&:hover {
-				color: $red-color;
-			}
-		}
+            &:hover {
+                color: $red-color;
+            }
+        }
 
-		input,
-		span {
-			font-family: "Amatic SC", cursive;
-		}
+        input,
+        span {
+            font-family: "Amatic SC", cursive;
+        }
 
-		input {
-			padding: 1rem;
-			border: none;
-			background: #f7f7f5;
-			font-size: 2.5rem;
+        input {
+            padding: 1rem;
+            border: none;
+            background: #f7f7f5;
+            font-size: 2.5rem;
 
-			&:focus {
-				outline: none;
-			}
-		}
+            &:focus {
+                outline: none;
+            }
+        }
 
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
-		/* Firefox */
-		input[type="number"] {
-			-moz-appearance: textfield;
-		}
-	}
+        /* Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    }
 
-	&__name {
-		text-align: left;
-	}
+    &__name {
+        text-align: left;
+    }
 
-	&__description {
-		text-align: left;
-		font-size: 1.5rem;
-		margin: 2rem 0;
-	}
+    &__description {
+        text-align: left;
+        font-size: 1.5rem;
+        margin: 2rem 0;
+    }
 
-	&__price {
-		font-size: 2rem;
-		color: $red-color;
-		font-weight: 900;
-	}
+    &__price {
+        font-size: 2rem;
+        color: $red-color;
+        font-weight: 900;
+    }
 
-	&-quantity__change-buttons {
-		position: absolute;
-		top: 0;
-		right: 0;
-		font-size: 2rem;
+    &-quantity__change-buttons {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 2rem;
 
-		> * {
-			margin-bottom: 0;
-			cursor: pointer;
-		}
-	}
+        > * {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+    }
 
-	&__close-btn {
-		position: absolute;
-		right: 5%;
-		top: 5%;
-		cursor: pointer;
-		z-index: 2;
-	}
+    &__close-btn {
+        position: absolute;
+        right: 5%;
+        top: 5%;
+        cursor: pointer;
+        z-index: 2;
+    }
 }
 
 .custom-selectBox {
-	margin-top: 2rem;
-	width: 90%;
+    margin-top: 2rem;
+    width: 90%;
 
-	&__value {
-		padding: 2rem;
-		background: #f6f6f6;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 15px;
-		font-weight: 700;
-		cursor: pointer;
-	}
+    &__value {
+        padding: 2rem;
+        background: #f6f6f6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+    }
 
-	&-options {
-		max-height: 0;
-		overflow: hidden;
-		transition: all 0.3s;
-		border: 1px solid #e2e2e2;
-		border-top: none;
-	}
+    &-options {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s;
+        border: 1px solid #e2e2e2;
+        border-top: none;
+    }
 
-	.custom-selectBox-options-inner {
-		padding: 2rem;
-	}
+    .custom-selectBox-options-inner {
+        padding: 2rem;
+    }
 
-	&-options.active {
-		max-height: 100vh;
-	}
+    &-options.active {
+        max-height: 100vh;
+    }
 
-	&-option {
-		padding: 1rem 0;
-		color: $gray-color;
-		font-size: 15px;
-		cursor: pointer;
-		&:hover {
-			color: $red-color;
-		}
-	}
+    &-option {
+        padding: 1rem 0;
+        color: $gray-color;
+        font-size: 15px;
+        cursor: pointer;
+        &:hover {
+            color: $red-color;
+        }
+    }
 }
 
 .custom-search {
-	position: relative;
-	display: flex;
-	width: 90%;
+    position: relative;
+    display: flex;
+    width: 90%;
 
-	&-input {
-		border: none;
-		background: $light-color;
-		font-size: 15px;
-		padding: 1rem;
-		flex: 1;
+    &-input {
+        border: none;
+        background: $light-color;
+        font-size: 15px;
+        padding: 1rem;
+        flex: 1;
 
-		&:focus {
-			outline: none;
-		}
-	}
+        &:focus {
+            outline: none;
+        }
+    }
 
-	&-image {
-		width: 50px;
-		height: 50px;
+    &-image {
+        width: 50px;
+        height: 50px;
 
-		&-container {
-			background-color: $red-color;
-			display: inline-block;
-			margin-bottom: 0;
-			border-radius: 5px;
-		}
-	}
+        &-container {
+            background-color: $red-color;
+            display: inline-block;
+            margin-bottom: 0;
+            border-radius: 5px;
+        }
+    }
 }
 
 .search-dash {
-	font-size: 15px;
-	padding: 2rem;
-	width: 30rem;
-	// margin-left: auto;
-	margin-bottom: 0 !important;
+    font-size: 15px;
+    padding: 2rem;
+    width: 30rem;
+    margin-bottom: 0 !important;
+    border-radius: 15px;
+    margin: 0 1rem;
 
-	@include respond(tab-port) {
-		margin-left: initial;
-		margin-top: 2rem;
-	}
+    @include respond(tab-port) {
+        margin-left: initial;
+        margin-top: 2rem;
+    }
 }
 
 .options-dash {
-	padding: 1rem 2rem;
-	font-size: 1.5rem;
-	min-height: 4rem;
-	margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    min-height: 4rem;
+    margin-bottom: 2rem;
 }
 
 .sorting {
-	cursor: pointer;
+    cursor: pointer;
 }

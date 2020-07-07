@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fakeData } from "./products-fake.data";
 import { tableHeadData } from "./product-tableHead.data";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
+import ShopDashWrapper from "../../../pages/ShopDash";
 
 const ProductDash = ({ allProducts, ...otherProps }) => {
     const [product, setProduct] = useState(null);
@@ -67,4 +68,4 @@ const ProductDash = ({ allProducts, ...otherProps }) => {
     );
 };
 
-export default ProductDash;
+export default ShopDashWrapper(ProductDash);

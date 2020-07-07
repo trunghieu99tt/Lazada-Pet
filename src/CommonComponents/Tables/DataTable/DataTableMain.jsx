@@ -36,12 +36,6 @@ const DataTableMain = ({
     const attributes =
         tableHeadData?.length > 0 && tableHeadData.map((e) => e.att);
 
-    console.log("tableHeadData", tableHeadData);
-    console.log("attributes", attributes);
-
-    console.log("tableData", tableData);
-    console.log("badges", badges);
-
     return (
         <div className="table-responsive data-table-main">
             <div className="row">
@@ -58,11 +52,6 @@ const DataTableMain = ({
                         <tbody>
                             {tableData?.length > 0 &&
                                 tableData.map((item) => {
-                                    // console.log(
-                                    //     "Object.entries(item)",
-                                    //     Object.entries(item)
-                                    // );
-
                                     const values = Object.entries(item)
                                         .map((item) => {
                                             if (attributes.includes(item[0]))
@@ -70,8 +59,6 @@ const DataTableMain = ({
                                             return null;
                                         })
                                         .filter((e) => e !== null);
-
-                                    console.log("values", values);
 
                                     const badgeClass =
                                         badges?.length > 0 &&
@@ -82,7 +69,7 @@ const DataTableMain = ({
                                     return (
                                         <tr
                                             role="row"
-                                            className="odd"
+                                            className="odd data-table-main__row"
                                             key={`${item.name}-${item.id}`}
                                         >
                                             {values?.length > 0 &&

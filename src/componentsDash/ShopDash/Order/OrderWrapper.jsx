@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
 import OrderDetail from "../Detail/OrderDetail";
+import faker from "faker";
+import ShopDashWrapper from "../../../pages/ShopDash";
 
 const randomDate = (start, end) => {
     return new Date(
@@ -21,14 +23,14 @@ const OrderWrapper = () => {
             }/${d.getFullYear()}`;
 
             return {
-                id: idx + 1,
-                name: "Product",
-                type: "Pet",
+                orderID: idx + 1,
+                name: faker.commerce.productName(),
+                type: faker.commerce.product(),
                 purchasedOn: convertedDate,
-                customer: "Tom",
-                shipTo: "Germany",
-                basePrice: Math.round(Math.random() * 1000),
-                purchasedPrice: Math.round(Math.random() * 1000),
+                customer: faker.name.findName(),
+                shipTo: faker.address.country(),
+                basePrice: faker.commerce.price(),
+                purchasedPrice: faker.commerce.price(),
                 status: ["Processing", "Completed", "Pending"][
                     Math.floor(Math.random() * 3)
                 ],
@@ -39,7 +41,7 @@ const OrderWrapper = () => {
     const tableHeadData = [
         { width: "117px", name: "Item ID", att: "orderID", sortable: true },
         { width: "117px", name: "Name", att: "name", sortable: true },
-        { width: "117px", name: "Type", sortable: false },
+        { width: "117px", name: "Type", att: "type", sortable: false },
         {
             width: "190px",
             name: "Purchased On",
@@ -61,7 +63,7 @@ const OrderWrapper = () => {
             att: "purchasedPrice",
             sortable: true,
         },
-        { width: "115px", name: "Status", sortable: false },
+        { width: "115px", name: "Status", att: "status", sortable: false },
         { width: "122px", name: "Actions", sortable: false },
     ];
 
@@ -112,29 +114,20 @@ const OrderWrapper = () => {
 
     return (
         <section className="shopDash-order-wrapper">
-            {(!order && (
-                <DataTable
-                    viewEntry={viewItem}
-                    dataSample={data}
-                    deleteEntry={deleteItem}
-                    tableHeadData={tableHeadData}
-                    tableName="Item"
-                    statusFilter={statusFilter}
-                    badges={badges}
-                    options={statusOptions}
-                    searchFields={searchFields}
-                    existDateRange
-                />
-            )) || (
-                <OrderDetail
-                    resetItem={resetItem}
-                    item={order}
-                    handleEditItem={handleEditItem}
-                    deleteItem={deleteItem}
-                />
-            )}
+            <DataTable
+                viewEntry={viewItem}
+                dataSample={data}
+                deleteEntry={deleteItem}
+                tableHeadData={tableHeadData}
+                tableName="Item"
+                statusFilter={statusFilter}
+                badges={badges}
+                options={statusOptions}
+                searchFields={searchFields}
+                existDateRange
+            />
         </section>
     );
 };
 
-export default OrderWrapper;
+export default ShopDashWrapper(OrderWrapper);

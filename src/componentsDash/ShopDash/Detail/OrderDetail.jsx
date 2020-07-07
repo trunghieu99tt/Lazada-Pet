@@ -5,6 +5,7 @@ import InputDash from "../Form/InputDash";
 import OptionsDash from "../Form/OptionsDash";
 import TextAreaDash from "../Form/TextAreaDash";
 import UploadFileDash from "../Form/UploadFileDash";
+import ShopDashWrapper from "../../../pages/ShopDash";
 
 const ItemDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
     const [itemInfo, setOrderInfo] = useState(item);
@@ -183,4 +184,4 @@ const ItemDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
     );
 };
 
-export default ItemDetail;
+export default ShopDashWrapper(ItemDetail);
