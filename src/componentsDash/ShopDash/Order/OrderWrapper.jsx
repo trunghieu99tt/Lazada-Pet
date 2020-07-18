@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
-import OrderDetail from "../Detail/OrderDetail";
 import faker from "faker";
 import ShopDashWrapper from "../../../pages/ShopDash";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 const randomDate = (start, end) => {
     return new Date(
@@ -12,31 +12,7 @@ const randomDate = (start, end) => {
 
 const OrderWrapper = () => {
     // State
-    const [order, setItem] = useState(null);
-
-    // Data
-    const [data, setData] = useState(
-        [...Array(100)].map((_, idx) => {
-            const d = randomDate(new Date(2019, 0, 1), new Date(2022, 0, 1));
-            const convertedDate = `${d.getDate()}/${
-                d.getMonth() + 1
-            }/${d.getFullYear()}`;
-
-            return {
-                orderID: idx + 1,
-                name: faker.commerce.productName(),
-                type: faker.commerce.product(),
-                purchasedOn: convertedDate,
-                customer: faker.name.findName(),
-                shipTo: faker.address.country(),
-                basePrice: faker.commerce.price(),
-                purchasedPrice: faker.commerce.price(),
-                status: ["Processing", "Completed", "Pending"][
-                    Math.floor(Math.random() * 3)
-                ],
-            };
-        })
-    );
+    const [data, setData] = useSessionStorage("orderData", []);
 
     const tableHeadData = [
         { width: "117px", name: "Item ID", att: "orderID", sortable: true },
@@ -81,8 +57,6 @@ const OrderWrapper = () => {
     ];
 
     // Functions
-    const viewItem = (order) => setItem(order);
-    const resetItem = () => setItem(null);
 
     const handleEditItem = (item) => {
         const filterData = data.filter((e) => e.orderID !== item.orderID);
@@ -90,7 +64,6 @@ const OrderWrapper = () => {
             (a, b) => a.orderID - b.orderID
         );
         setData(newData);
-        resetItem();
     };
 
     const deleteItem = (item) => {
@@ -115,7 +88,6 @@ const OrderWrapper = () => {
     return (
         <section className="shopDash-order-wrapper">
             <DataTable
-                viewEntry={viewItem}
                 dataSample={data}
                 deleteEntry={deleteItem}
                 tableHeadData={tableHeadData}
@@ -131,3 +103,24 @@ const OrderWrapper = () => {
 };
 
 export default ShopDashWrapper(OrderWrapper);
+
+// [...Array(100)].map((_, idx) => {
+//     const d = randomDate(new Date(2019, 0, 1), new Date(2022, 0, 1));
+//     const convertedDate = `${d.getDate()}/${
+//         d.getMonth() + 1
+//     }/${d.getFullYear()}`;
+
+//     return {
+//         orderID: idx + 1,
+//         name: faker.commerce.productName(),
+//         type: faker.commerce.product(),
+//         purchasedOn: convertedDate,
+//         customer: faker.name.findName(),
+//         shipTo: faker.address.country(),
+//         basePrice: faker.commerce.price(),
+//         purchasedPrice: faker.commerce.price(),
+//         status: ["Processing", "Completed", "Pending"][
+//             Math.floor(Math.random() * 3)
+//         ],
+//     };
+// });

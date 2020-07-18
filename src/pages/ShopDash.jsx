@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-// import OverviewDash from "../componentsDash/ShopDash/Overview/OverviewWrapper";
-// import ProductDash from "../componentsDash/ShopDash/Products/ProductDash";
 import TopNav from "../componentsDash/ShopDash/TopNav/TopNav";
 import SideBar from "../componentsDash/ShopDash/SideBar";
 import { Component } from "react";
-// import OrderWrapper from "../componentsDash/ShopDash/Order/OrderWrapper";
 
 const ShopDashWrapper = (WrappedComponent) => {
     return class HOC extends Component {

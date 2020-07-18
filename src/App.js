@@ -16,7 +16,7 @@ import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import ShopCategoryPage from "./pages/ShopCategoryPage";
 import ShopPage from "./pages/ShopPage";
-import User from "./pages/User";
+import User from "./pages/User/User";
 import { setCurrentUser } from "./redux/web/user/user.actions";
 import { selectCurrentUser } from "./redux/web/user/user.selector";
 import "./static/css/style.css";
@@ -25,7 +25,8 @@ import OverviewWrapper from "./componentsDash/ShopDash/Overview/OverviewWrapper"
 import ProductDash from "./componentsDash/ShopDash/Products/ProductDash";
 import SaleEvent from "./componentsDash/ShopDash/SaleEvent/SaleEvent";
 import OrderWrapper from "./componentsDash/ShopDash/Order/OrderWrapper";
-import OrderDetail from "./componentsDash/ShopDash/Detail/OrderDetail";
+import OrderDetail from "./pages/Dash/OrderDetail/index";
+import ProductDashDetail from "./pages/Dash/ProductDashDetail";
 
 // import { uploadData } from "./utils/helper";
 // import { API_URL } from "./variables";
@@ -107,8 +108,8 @@ class App extends Component {
                     ></Route>
                     <Route
                         exact
-                        path="/shop-dash/products/:id"
-                        component={ProductDetail}
+                        path="/shop-dash/product/:id"
+                        component={ProductDashDetail}
                     ></Route>
                     <Route
                         exact

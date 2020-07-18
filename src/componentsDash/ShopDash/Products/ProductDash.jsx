@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { fakeData } from "./products-fake.data";
 import { tableHeadData } from "./product-tableHead.data";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
 import ShopDashWrapper from "../../../pages/ShopDash";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 const ProductDash = ({ allProducts, ...otherProps }) => {
-    const [product, setProduct] = useState(null);
-    const [data, setData] = useState([...fakeData]);
+    const [data, setData] = useSessionStorage("products-dash", [...fakeData]);
 
     const searchFields = [
         { name: "By Product name", attribute: "name" },
@@ -21,16 +21,12 @@ const ProductDash = ({ allProducts, ...otherProps }) => {
 
     const statusOptions = ["All", "Available", "Unavailable", "Out of stock"];
 
-    const viewItem = (product) => setProduct(product);
-    const resetItem = () => setProduct(null);
-
     const handleEditItem = (item) => {
         const filterData = data.filter((e) => e.orderID !== item.orderID);
         const newData = [...filterData, item].sort(
             (a, b) => a.orderID - b.orderID
         );
         setData(newData);
-        resetItem();
     };
 
     const deleteItem = (item) => {
@@ -53,7 +49,6 @@ const ProductDash = ({ allProducts, ...otherProps }) => {
     return (
         <div className="shopDash-products-wrapper">
             <DataTable
-                viewEntry={viewItem}
                 dataSample={data}
                 deleteEntry={deleteItem}
                 tableHeadData={tableHeadData}
@@ -62,6 +57,7 @@ const ProductDash = ({ allProducts, ...otherProps }) => {
                 badges={badges}
                 options={statusOptions}
                 searchFields={searchFields}
+                prefix="product"
                 existDateRange
             />
         </div>

@@ -1,64 +1,65 @@
 p {
-	font-size: 1.5rem !important;
+    font-size: 1.6rem;
+    margin-bottom: 0;
 }
 
 .text-effect-1 {
-	display: block;
-	padding: 1rem;
-	clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
-	overflow: hidden;
-	position: relative;
+    display: block;
+    padding: 1rem;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+    overflow: hidden;
+    position: relative;
 
-	&::after {
-		position: absolute;
-		content: "";
-		top: 50%;
-		left: 0;
-		width: 100%;
-		height: 50%;
-		transform: translateY(-50%);
-		clip-path: circle(0);
-		transform-origin: center;
-		background: #fff;
-		z-index: -1;
-	}
+    &::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        transform: translateY(-50%);
+        clip-path: circle(0);
+        transform-origin: center;
+        background: #fff;
+        z-index: -1;
+    }
 
-	&:hover {
-		color: $red-color;
-	}
+    &:hover {
+        color: $red-color;
+    }
 
-	&:hover::after {
-		clip-path: circle(150%);
-		transition: 0.5s;
-	}
+    &:hover::after {
+        clip-path: circle(150%);
+        transition: 0.5s;
+    }
 }
 
 .component {
-	&-heading {
-		font-size: 5rem;
-		font-weight: 900;
-		text-align: center;
-		text-transform: capitalize;
-	}
+    &-heading {
+        font-size: 5rem;
+        font-weight: 900;
+        text-align: center;
+        text-transform: capitalize;
+    }
 
-	&-description {
-		color: $gray-color;
-		font-size: 2rem;
-		text-align: center;
-	}
+    &-description {
+        color: $gray-color;
+        font-size: 2rem;
+        text-align: center;
+    }
 }
 
 .text-1 {
-	font-size: 20px;
-	font-weight: 900;
-	-webkit-clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
-	clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
-	display: inline-block;
-	background-color: $red-color;
-	overflow: hidden;
-	color: #fff;
-	position: relative;
-	padding: 0.5rem 3rem;
-	border-radius: 5px;
-	margin-top: 2.5rem;
+    font-size: 20px;
+    font-weight: 900;
+    -webkit-clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 3% 100%);
+    display: inline-block;
+    background-color: $red-color;
+    overflow: hidden;
+    color: #fff;
+    position: relative;
+    padding: 0.5rem 3rem;
+    border-radius: 5px;
+    margin-top: 2.5rem;
 }

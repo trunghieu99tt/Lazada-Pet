@@ -1,6 +1,7 @@
 import { faEdit, faSort, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "antd";
+import { Link } from "react-router-dom";
 import React from "react";
 
 const { confirm } = Modal;
@@ -9,9 +10,9 @@ const DataTableMain = ({
     tableHeadData,
     tableData,
     badges,
-    viewEntry,
     deleteModalConfig,
     sortDataHandler,
+    prefix,
 }) => {
     const tableHead = tableHeadData.map(
         ({ width, name, sortable, att, isDate }) => {
@@ -60,6 +61,8 @@ const DataTableMain = ({
                                         })
                                         .filter((e) => e !== null);
 
+                                    console.log("values", values);
+
                                     const badgeClass =
                                         badges?.length > 0 &&
                                         badges.find(
@@ -91,13 +94,14 @@ const DataTableMain = ({
                                                     );
                                                 })}
                                             <td>
-                                                <FontAwesomeIcon
-                                                    icon={faEdit}
-                                                    className="data-table-icons"
-                                                    onClick={() => {
-                                                        viewEntry(item);
-                                                    }}
-                                                />
+                                                <Link
+                                                    to={`/shop-dash/${prefix}/${values?.[0]}`}
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faEdit}
+                                                        className="data-table-icons"
+                                                    />
+                                                </Link>
                                                 <FontAwesomeIcon
                                                     icon={faTrash}
                                                     className="data-table-icons"

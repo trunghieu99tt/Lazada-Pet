@@ -1,10 +1,10 @@
 import { DatePicker } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import InputDash from "../Form/InputDash";
-import OptionsDash from "../Form/OptionsDash";
-import TextAreaDash from "../Form/TextAreaDash";
-import UploadFileDash from "../Form/UploadFileDash";
+import InputDash from "../../../componentsDash/ShopDash/Form/InputDash";
+import OptionsDash from "../../../componentsDash/ShopDash/Form/OptionsDash";
+import TextAreaDash from "../../../componentsDash/ShopDash/Form/TextAreaDash";
+import UploadFileDash from "../../../componentsDash/ShopDash/Form/UploadFileDash";
 import ShopDashWrapper from "../../../pages/ShopDash";
 
 const ItemDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
@@ -57,8 +57,6 @@ const ItemDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
         purchasedPrice,
         status,
     } = itemInfo;
-
-    console.log("Object.entries(itemInfo)", Object.entries(itemInfo));
 
     const dataFields = itemInfo && Object.entries(itemInfo);
 

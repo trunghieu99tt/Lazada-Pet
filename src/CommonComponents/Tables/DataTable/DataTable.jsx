@@ -20,6 +20,7 @@ const DataTable = ({
     options,
     searchFields,
     existDateRange,
+    prefix,
 }) => {
     // State
     const [page, setPage] = useState(1);
@@ -162,6 +163,7 @@ const DataTable = ({
                     viewEntry={viewEntry}
                     deleteModalConfig={deleteModalConfig}
                     sortDataHandler={sortDataHandler}
+                    prefix={prefix}
                 />
 
                 <DataTableFooter
