@@ -38,6 +38,19 @@ Chức năng hiện có:
 
 -   Thêm sản phẩm vào cart (cái này sẽ lưu vào localStorage)
 
+-   Dashboard của người dùng (/user)
+
+*   Danh sách các orders
+    ++ Xem thông tin orders, tìm kiếm
+    ++ Xóa order
+*   Danh sách các reviews
+    ++ Xem thông tin review
+*   Danh sách các reviews
+    ++ Xem thông tin review
+*   Danh sách các reviews
+    ++ Xem thông tin pet, sửa,xóa
+
+    
 Chức năng, trang chưa có
 
 -   Trang dịch vụ: Show giống trang sản phẩm
@@ -59,12 +72,8 @@ Chức năng, trang chưa có
 
 -   Trang của nguời dùng
 
-*   Thông tin người dùng
-    ++ Xem, sửa, xóa
 *   Phân tích:
     ++ Thống kê thu chi (theo ngày, tháng, năm)
-    ++ Loại sản phẩm mua nhiều.
-*   Thông tin về quản lí pet + Xem, sửa, xóa
-*   Thông tin về cart -> cái này sẽ chuyển qua cart page
+    ++ Loại sản phẩm mua nhiều
 *   Thông tin về các sản phẩm vừa mua
 *   Thông tin về các sản phẩm gợi ý dựa theo các đơn hàng đã mua hoặc theo loại pet
