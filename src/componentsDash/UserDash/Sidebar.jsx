@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar } from "antd";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ setCurrentPage }) => {
     return (
@@ -17,6 +18,12 @@ const Sidebar = ({ setCurrentPage }) => {
             <section className="sideBar-item" onClick={() => setCurrentPage(2)}>
                 <h2 className="sideBar__heading">My Orders</h2>
             </section>
+            <section className="sideBar-item">
+                <Link to="/checkout">
+                    <h2 className="sideBar__heading">My cart</h2>
+                </Link>
+            </section>
+
             <section className="sideBar-item" onClick={() => setCurrentPage(4)}>
                 <h2 className="sideBar__heading">My Reviews</h2>
             </section>

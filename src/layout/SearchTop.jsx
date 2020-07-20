@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import CancelIcon from "../static/images/cancel.svg";
 import SearchIcon from "../static/images/search.svg";
+import { useHistory, withRouter } from "react-router-dom";
 
 const SearchTop = ({ closeSearchTop }) => {
     const [query, setQuery] = useState("");
+    const history = useHistory();
 
     const onChangeHandler = (event) => setQuery(event.target.value);
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        console.log("query", query);
+        history.push(`/searchProduct/${query}`);
     };
 
     return (
@@ -39,4 +41,4 @@ const SearchTop = ({ closeSearchTop }) => {
     );
 };
 
-export default SearchTop;
+export default withRouter(SearchTop);

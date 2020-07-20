@@ -27,6 +27,7 @@ import SaleEvent from "./componentsDash/ShopDash/SaleEvent/SaleEvent";
 import OrderWrapper from "./componentsDash/ShopDash/Order/OrderWrapper";
 import OrderDetail from "./pages/Dash/OrderDetail/index";
 import ProductDashDetail from "./pages/Dash/ProductDashDetail";
+import SearchResultProduct from "./pages/SearchResultProduct";
 
 // import { uploadData } from "./utils/helper";
 // import { API_URL } from "./variables";
@@ -77,6 +78,11 @@ class App extends Component {
                     <Route exact path="/shop" component={ShopPage}></Route>
                     <Route exact path="/blog" component={BlogPage}></Route>
                     <Route exact path="/checkout" component={Checkout}></Route>
+                    <Route
+                        exact
+                        path="/searchProduct/:searchQuery"
+                        component={SearchResultProduct}
+                    ></Route>
                     <Route
                         path="/product-categories/:category"
                         component={ShopCategoryPage}
