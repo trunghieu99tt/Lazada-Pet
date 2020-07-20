@@ -74,7 +74,6 @@ Chức năng, trang chưa có
 
 *   Phân tích:
     ++ Thống kê thu chi (theo ngày, tháng, năm)
-    ++ Loại sản phẩm mua nhiều.
-*   Thông tin về quản lí pet + Xem, sửa, xóa
+    ++ Loại sản phẩm mua nhiều
 *   Thông tin về các sản phẩm vừa mua
 *   Thông tin về các sản phẩm gợi ý dựa theo các đơn hàng đã mua hoặc theo loại pet
