@@ -52,7 +52,10 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 
             {(showData?.length > 0 &&
                 showData.map((item) => (
-                    <div className="group-container userOrdersList-item">
+                    <div
+                        className="group-container userOrdersList-item"
+                        deliverystatus="Delivering"
+                    >
                         <figure className="userOrdersList-item__image-container">
                             <img
                                 src={item.picture}
@@ -60,15 +63,21 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
                                 className="userOrdersList-item__image"
                             />
                         </figure>
-                        <p className="userOrdersList-item__name">{item.name}</p>
+                        <p className="userOrdersList-item__name">
+                            <p>Name</p>
+                            <p>{item.name}</p>
+                        </p>
                         <p className="userOrdersList-item__price">
-                            {item.price}$
+                            <p>Price</p>
+                            <p>{item.price}$</p>
                         </p>
                         <p className="userOrdersList-item__amount">
-                            {item.amount}
+                            <p>Amount</p>
+                            <p>{item.amount}</p>
                         </p>
                         <p className="userOrdersList-item__total">
-                            {item.price * item.amount}$
+                            <p>Total</p>
+                            <p>{item.price * item.amount}$</p>
                         </p>
 
                         <button

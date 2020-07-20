@@ -5,3 +5,7 @@ export { default as UserOrderList } from "./UserOrderList";
 export { default as UserOrderDetail } from "./UserOrderDetail";
 export { default as UserReviewsList } from "./UserReviewsList";
 export { default as UserReviewDetail } from "./UserReviewDetail";
+export { default as UserPetsList } from "./UserPetsList";
+export { default as UserPetDetail } from "./UserPetDetail";
+export { default as UserAddNewPet } from "./UserAddNewPet";
+export { default as UserStatistic } from "./UserStatistic";

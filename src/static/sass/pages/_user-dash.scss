@@ -64,6 +64,13 @@
     }
 
     .userMainInfo {
+        &__heading {
+            font-weight: 800;
+            font-size: 3rem;
+            font-family: "Nunito", "Roboto", sans-serif;
+            color: $red-color;
+        }
+
         &__text {
             font-weight: 800;
             display: flex;
@@ -95,6 +102,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: relative;
+
+        > * {
+            width: 15%;
+        }
 
         &__image-container {
             margin: 0;
@@ -108,14 +120,49 @@
 
         .button--1 {
             padding: 1rem;
+            font-size: 1.5rem;
+        }
+
+        &::before {
+            position: absolute;
+            content: attr(deliverystatus);
+            right: 0;
+            top: 0;
+            max-width: 15%;
+            background-color: #00c292;
+            max-height: 15%;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0 10px 0 0;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
     }
 }
 
 .userOrderDetail {
+    &__deliveryDate {
+        margin-bottom: 2rem;
+    }
+
+    &__fieldValue {
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: $red-color-1;
+    }
+
     &__cancelOrder {
         padding: 10px;
         float: right;
+    }
+
+    &__image {
+        width: 15rem;
+        height: 15rem;
+        object-fit: cover;
     }
 }
 
@@ -182,5 +229,70 @@
                 align-self: flex-end;
             }
         }
+    }
+}
+
+.userPetsList {
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+    &-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__image-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        &__image {
+            width: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 3rem;
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        &__name {
+            span {
+                font-weight: 800;
+                color: $red-color;
+                font-size: 2.5rem;
+            }
+        }
+
+        &__statistic {
+        }
+    }
+
+    .button--1 {
+        padding: 10px;
+    }
+}
+
+.userPetDetail {
+    &-top {
+        display: flex;
+    }
+
+    &__image {
+        width: 30rem;
+        margin-right: 5rem;
+    }
+
+    &__name {
+        font-family: "Nunito", "Roboto", sans-serif;
+        font-size: 3rem;
+        font-weight: 800;
+        color: $red-color-1;
     }
 }

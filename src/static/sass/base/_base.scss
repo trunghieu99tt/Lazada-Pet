@@ -73,3 +73,8 @@ a:hover {
 button {
     border: none;
 }
+
+.ant-pagination-prev,
+.ant-pagination-next {
+    display: none !important;
+}

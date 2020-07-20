@@ -35,8 +35,6 @@ const UserMainInfo = ({ setCurrentPage, setID }) => {
 
     return (
         <section className="userMainInfo">
-            <h2>Basic Information</h2>
-
             <div className="row justify-content-around">
                 <div className="group-container">
                     <h3 className="userMainInfo__heading">
@@ -70,7 +68,9 @@ const UserMainInfo = ({ setCurrentPage, setID }) => {
                     </p>
                     <p className="userMainInfo__text">{address}</p>
 
-                    <p>{phone}</p>
+                    <p>
+                        <strong>{phone}</strong>
+                    </p>
                 </div>
 
                 <button

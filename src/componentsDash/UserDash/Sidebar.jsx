@@ -23,7 +23,7 @@ const Sidebar = ({ setCurrentPage }) => {
             <section className="sideBar-item" onClick={() => setCurrentPage(6)}>
                 <h2 className="sideBar__heading">My Pets</h2>
             </section>
-            <section className="sideBar-item" onClick={() => setCurrentPage(8)}>
+            <section className="sideBar-item" onClick={() => setCurrentPage(9)}>
                 <h2 className="sideBar__heading">Statistic</h2>
             </section>
         </aside>

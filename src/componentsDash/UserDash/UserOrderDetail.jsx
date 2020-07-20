@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const UserOrderDetail = ({ id, setCurrentPage }) => {
     const [orderData, setOrderData] = useState(null);
     const [userData, setUserData] = useState(null);
-    const [visibleModal, setVisibleModal] = useState(false);
 
     useEffect(() => {
         getUserData();
@@ -62,28 +61,43 @@ const UserOrderDetail = ({ id, setCurrentPage }) => {
         <section className="userOrderDetail">
             <div className="group-container userOrderDetail-top">
                 <div className="row justify-content-between">
-                    <p>Delivery On: {dateConverter(orderData.deliveriedOn)}</p>
+                    <p className="userOrderDetail__deliveryDate">
+                        Delivery On: {dateConverter(orderData.deliveriedOn)}
+                    </p>
                 </div>
 
                 <div className="row justify-content-between align-items-center">
-                    <figure className="userOrdersList-item__image-container">
+                    <figure className="userOrderDetail__image-container">
                         <img
                             src={orderData.picture}
                             alt={orderData.name}
-                            className="userOrdersList-item__image"
+                            className="userOrderDetail__image"
                         />
                     </figure>
-                    <p className="userOrdersList-item__name">
-                        {orderData.name}
+                    <p className="userOrderDetail__name">
+                        <p className="userOrderDetail__fieldName">Name</p>
+                        <p className="userOrderDetail__fieldValue">
+                            {orderData.name}
+                        </p>
                     </p>
-                    <p className="userOrdersList-item__price">
-                        {orderData.price}$
+                    <p className="userOrderDetail__price">
+                        <p className="userOrderDetail__fieldName">Price</p>
+                        <p className="userOrderDetail__fieldValue">
+                            {orderData.price}$
+                        </p>
                     </p>
-                    <p className="userOrdersList-item__amount">
-                        {orderData.amount}
+                    <p className="userOrderDetail__amount">
+                        <p className="userOrderDetail__fieldName">Amount</p>
+                        <p className="userOrderDetail__fieldValue">
+                            {" "}
+                            {orderData.amount}
+                        </p>
                     </p>
-                    <p className="userOrdersList-item__total">
-                        {orderData.price * orderData.amount}$
+                    <p className="userOrderDetail__total">
+                        <p className="userOrderDetail__fieldName">Total</p>
+                        <p className="userOrderDetail__fieldValue">
+                            {orderData.price * orderData.amount}$
+                        </p>
                     </p>
                 </div>
             </div>
@@ -91,13 +105,13 @@ const UserOrderDetail = ({ id, setCurrentPage }) => {
             <div className="row">
                 <div className="col-md-6">
                     <div className="group-container">
-                        <h4>Shipping Address</h4>
+                        <h3>Shipping Address</h3>
                         <p>{userData.fullname}</p>
                         <p>{userData.address}</p>
                     </div>
 
                     <div className="group-container">
-                        <h4>Billing Address</h4>
+                        <h3>Billing Address</h3>
                         <p>{userData.fullname}</p>
                         <p>{userData.address}</p>
                     </div>
@@ -108,17 +122,21 @@ const UserOrderDetail = ({ id, setCurrentPage }) => {
                         <h3>Total Summary</h3>
                         <div className="row justify-content-between">
                             <h3>Subtotal</h3>
-                            <p>{orderData.price}$</p>
+                            <p className="userOrderDetail__fieldValue">
+                                {orderData.price}$
+                            </p>
                         </div>
 
                         <div className="row justify-content-between">
                             <h3>Shipping Fee</h3>
-                            <p>{Math.round(orderData.price * 0.1)}$</p>
+                            <p className="userOrderDetail__fieldValue">
+                                {Math.round(orderData.price * 0.1)}$
+                            </p>
                         </div>
 
                         <div className="row justify-content-between">
-                            <p>Total(VAT Incl.)</p>
-                            <p>
+                            <h3>Total(VAT Incl.)</h3>
+                            <p className="userOrderDetail__fieldValue">
                                 {Math.round(
                                     orderData.price +
                                         Math.round(orderData.price * 0.1)

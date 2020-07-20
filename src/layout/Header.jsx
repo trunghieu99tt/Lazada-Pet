@@ -8,6 +8,8 @@ import { selectCartHidden } from "../redux/web/cart/cart.selectors";
 import { encodeStr, parseData } from "../utils/helper";
 import SearchTop from "./SearchTop";
 import MyAccount from "./Header/MyAccount";
+import LogoWhite from "../static/images/logo-white.png";
+import Logo from "../static/images/logo.png";
 
 class Header extends Component {
     state = {
@@ -22,10 +24,10 @@ class Header extends Component {
         window.addEventListener("scroll", () => {
             const logo = document.querySelector(".header-logo1");
             if (window.scrollY > 0) {
-                if (logo) logo.src = logos && logos.length > 1 && logos[1];
+                if (logo) logo.src = Logo;
                 header.classList.add("header-scroll");
             } else {
-                if (logo) logo.src = logos && logos.length > 0 && logos[0];
+                if (logo) logo.src = LogoWhite;
                 header.classList.remove("header-scroll");
             }
         });
@@ -34,10 +36,10 @@ class Header extends Component {
     componentDidUpdate() {
         const { logo } = this.props;
         const logos = (logo && Object.values(logo)) || [];
-        const header = document.querySelector(".header");
+        const header = document.querySelector("#header");
 
         window.addEventListener("scroll", () => {
-            const logo = document.querySelector(".header-logo");
+            const logo = document.querySelector("#header-logo-1");
             if (window.scrollY > 0) {
                 if (logo) logo.src = logos && logos.length > 1 && logos[1];
                 header.classList.add("header-scroll");
@@ -63,7 +65,6 @@ class Header extends Component {
     render() {
         const { menu, logo, hidden } = this.props;
         const { isSearchOpening } = this.state;
-        const logos = (logo && Object.values(logo)) || [];
         const menuData = parseData(menu);
 
         const menuDom =
@@ -82,7 +83,7 @@ class Header extends Component {
             });
 
         return (
-            <header className="header">
+            <header className="header" id="header">
                 {isSearchOpening && (
                     <SearchTop closeSearchTop={this.closeSearchBar} />
                 )}
@@ -92,14 +93,10 @@ class Header extends Component {
                         <div className="header-logo-container">
                             <Link to="/">
                                 <img
-                                    src={
-                                        (logos &&
-                                            logos.length > 0 &&
-                                            logos[0]) ||
-                                        ""
-                                    }
+                                    src={LogoWhite}
                                     alt="logo"
                                     className="header-logo"
+                                    id="header-logo-1"
                                 />
                             </Link>
                         </div>

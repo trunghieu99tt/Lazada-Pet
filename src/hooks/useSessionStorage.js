@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const useSessionStorage = (key, initialValue) => {
     const [storedValue, setStoredValue] = useState(() => {
@@ -13,7 +13,7 @@ export const useSessionStorage = (key, initialValue) => {
         }
     });
 
-    const setValue = value => {
+    const setValue = (value) => {
         try {
             // Allow value to be a function so we have same API as useState
             const valueToStore =
@@ -28,11 +28,11 @@ export const useSessionStorage = (key, initialValue) => {
         }
     };
 
-    const clearValue = value => {
+    const clearValue = (value) => {
         try {
             window.sessionStorage.removeItem(key);
         } catch (error) {
-            console.log('error', error);
+            console.log("error", error);
         }
     };
 

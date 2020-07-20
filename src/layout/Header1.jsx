@@ -8,6 +8,7 @@ import { selectCartHidden } from "../redux/web/cart/cart.selectors";
 import { encodeStr, parseData } from "../utils/helper";
 import SearchTop from "./SearchTop";
 import MyAccount from "./Header/MyAccount";
+import Logo from "../static/images/logo.png";
 
 class Header1 extends Component {
     state = {
@@ -86,12 +87,9 @@ class Header1 extends Component {
                     <div className="row align-items-center">
                         <Link to="/" className="header-logo-container">
                             <img
-                                src={
-                                    (logos && logos.length > 1 && logos[1]) ||
-                                    ""
-                                }
+                                src={Logo}
                                 alt="logo"
-                                className="header-logo1"
+                                className="header-logo"
                             />
                         </Link>
                         <div className="header-main">

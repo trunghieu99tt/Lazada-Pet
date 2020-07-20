@@ -116,7 +116,7 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
     };
 
     const validateData = () => {
-        return data.find((item) => !item.value) === -1;
+        return data.indexOf((item) => !item.value) === -1;
     };
 
     const handleSubmit = () => {

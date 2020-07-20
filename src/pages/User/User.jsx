@@ -9,6 +9,9 @@ import {
     UserOrderDetail,
     UserReviewsList,
     UserReviewDetail,
+    UserPetsList,
+    UserPetDetail,
+    UserAddNewPet,
 } from "../../componentsDash/UserDash";
 
 const User = () => {
@@ -34,9 +37,13 @@ const User = () => {
             setID={handleChangeID}
         />,
         <UserReviewDetail setCurrentPage={handleChangePage} id={id} />,
+        <UserPetsList
+            setCurrentPage={handleChangePage}
+            setID={handleChangeID}
+        />,
+        <UserPetDetail setCurrentPage={handleChangePage} id={id} />,
+        <UserAddNewPet setCurrentPage={handleChangePage} />,
     ][currentPage];
-
-    console.log("id", id);
 
     return (
         <Fragment>
