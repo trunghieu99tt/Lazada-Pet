@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "95162648d5d2697b0f5b3c609fb595e0",
+    "revision": "46f36bc4b6424578b4830f57e184fe8b",
     "url": "/Lazada-Pet/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Lazada-Pet/static/css/2.779de40a.chunk.css"
   },
   {
-    "revision": "2a1b864019f5eae1ce15",
+    "revision": "7f47a77cd811df3d706a",
     "url": "/Lazada-Pet/static/css/main.1266e337.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Lazada-Pet/static/js/2.3f6ff5f1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2a1b864019f5eae1ce15",
-    "url": "/Lazada-Pet/static/js/main.a48cba82.chunk.js"
+    "revision": "7f47a77cd811df3d706a",
+    "url": "/Lazada-Pet/static/js/main.1e3a00d5.chunk.js"
   },
   {
     "revision": "75d76adb03d65542bce7",
