@@ -1,4 +1,9 @@
-import { faEdit, faSort, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+    faEdit,
+    faSort,
+    faTrash,
+    faEye,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "antd";
 import { Link } from "react-router-dom";
@@ -10,9 +15,10 @@ const DataTableMain = ({
     tableHeadData,
     tableData,
     badges,
-    deleteModalConfig,
     sortDataHandler,
-    prefix,
+    setCurrentPage,
+    pageID,
+    setID,
 }) => {
     const tableHead = tableHeadData.map(
         ({ width, name, sortable, att, isDate }) => {
@@ -94,25 +100,17 @@ const DataTableMain = ({
                                                     );
                                                 })}
                                             <td>
-                                                <Link
-                                                    to={`/shop-dash/${prefix}/${values?.[0]}`}
+                                                <div
+                                                    onClick={() => {
+                                                        setCurrentPage(pageID);
+                                                        setID(item.id);
+                                                    }}
                                                 >
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faEye}
                                                         className="data-table-icons"
                                                     />
-                                                </Link>
-                                                <FontAwesomeIcon
-                                                    icon={faTrash}
-                                                    className="data-table-icons"
-                                                    onClick={() => {
-                                                        confirm(
-                                                            deleteModalConfig(
-                                                                item
-                                                            )
-                                                        );
-                                                    }}
-                                                />
+                                                </div>
                                             </td>
                                         </tr>
                                     );

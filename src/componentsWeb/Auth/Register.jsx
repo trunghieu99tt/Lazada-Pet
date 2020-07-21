@@ -19,6 +19,8 @@ class Register extends React.Component {
             name: "",
             address: "",
             mobile: "",
+            warehouseAddress: "",
+            shopOwner: "",
             isShop: false,
         };
     }
@@ -33,10 +35,7 @@ class Register extends React.Component {
             passwordConfirm,
             address,
             mobile,
-            isShop,
         } = this.state;
-
-        console.log(this.state);
 
         if (password !== passwordConfirm) {
             message.error("passwords don't match");
@@ -82,7 +81,17 @@ class Register extends React.Component {
 
     render() {
         const { openLogin } = this.props;
-        const { email, password, name, passwordConfirm, mobile } = this.state;
+        const {
+            email,
+            password,
+            name,
+            passwordConfirm,
+            mobile,
+            isShop,
+            address,
+            warehouseAddress,
+            shopOwner,
+        } = this.state;
 
         return (
             <div className="login-form">
@@ -123,6 +132,14 @@ class Register extends React.Component {
                     ></FormInput>
 
                     <FormInput
+                        name="address"
+                        type="text"
+                        value={address}
+                        handleChange={this.handleChange}
+                        label="Address"
+                    ></FormInput>
+
+                    <FormInput
                         name="name"
                         type="text"
                         value={name}
@@ -145,6 +162,25 @@ class Register extends React.Component {
                         />
                     </div>
 
+                    {isShop && (
+                        <React.Fragment>
+                            <FormInput
+                                name="warehouseAddress"
+                                type="text"
+                                value={warehouseAddress}
+                                handleChange={this.handleChange}
+                                label="Warehouse Address"
+                            ></FormInput>
+                            <FormInput
+                                name="shopOwner"
+                                type="text"
+                                value={shopOwner}
+                                handleChange={this.handleChange}
+                                label="shopOwner"
+                            ></FormInput>
+                        </React.Fragment>
+                    )}
+
                     <div className="buttons">
                         <CustomButton type="submit"> Sign in </CustomButton>
                         <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
@@ -153,7 +189,7 @@ class Register extends React.Component {
                     </div>
 
                     <p className="form-footer-text">
-                        Already have an account ?
+                        Already had an account ?
                         <span onClick={openLogin}>Login now!</span>
                     </p>
                 </form>

@@ -26,5 +26,6 @@ export const fakeData = [...Array(100)].map((_, idx) => {
         shortDescription: faker.lorem.paragraph(),
         longDescription: faker.lorem.paragraphs(),
         amount: Math.random() * 100,
+        imageURL: `${faker.image.imageUrl()}?random=${Date.now()}`,
     };
 });

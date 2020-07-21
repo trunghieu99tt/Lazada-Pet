@@ -23,14 +23,21 @@ const Sidebar = ({ setCurrentPage }) => {
                     <h2 className="sideBar__heading">My cart</h2>
                 </Link>
             </section>
-
             <section className="sideBar-item" onClick={() => setCurrentPage(4)}>
                 <h2 className="sideBar__heading">My Reviews</h2>
             </section>
             <section className="sideBar-item" onClick={() => setCurrentPage(6)}>
                 <h2 className="sideBar__heading">My Pets</h2>
             </section>
+
             <section className="sideBar-item" onClick={() => setCurrentPage(9)}>
+                <h2 className="sideBar__heading">Suggestions</h2>
+            </section>
+
+            <section
+                className="sideBar-item"
+                onClick={() => setCurrentPage(10)}
+            >
                 <h2 className="sideBar__heading">Statistic</h2>
             </section>
         </aside>

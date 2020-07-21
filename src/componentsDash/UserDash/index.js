@@ -9,3 +9,4 @@ export { default as UserPetsList } from "./UserPetsList";
 export { default as UserPetDetail } from "./UserPetDetail";
 export { default as UserAddNewPet } from "./UserAddNewPet";
 export { default as UserStatistic } from "./UserStatistic";
+export { default as UserSuggestion } from "./UserSuggestions";

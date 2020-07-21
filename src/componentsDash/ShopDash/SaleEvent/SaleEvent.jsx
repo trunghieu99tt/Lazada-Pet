@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { fakeData } from "./saleEvents.data";
-import ShopDashWrapper from "../../../pages/ShopDash";
 
 const SaleEvent = () => {
     const [data, setData] = useState([...fakeData]);
@@ -22,4 +21,4 @@ const SaleEvent = () => {
     return <section className="shopDash-saleEvents-wrapper"></section>;
 };
 
-export default ShopDashWrapper(SaleEvent);
+export default SaleEvent;

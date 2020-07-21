@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
 import faker from "faker";
-import ShopDashWrapper from "../../../pages/ShopDash";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 const randomDate = (start, end) => {
@@ -102,7 +101,7 @@ const OrderWrapper = () => {
     );
 };
 
-export default ShopDashWrapper(OrderWrapper);
+export default OrderWrapper;
 
 // [...Array(100)].map((_, idx) => {
 //     const d = randomDate(new Date(2019, 0, 1), new Date(2022, 0, 1));

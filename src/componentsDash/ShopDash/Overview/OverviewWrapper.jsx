@@ -1,5 +1,4 @@
 import React from "react";
-import ShopDashWrapper from "../../../pages/ShopDash";
 import OverviewStatistic from "./OverviewStatistic";
 import OverviewTopSeller from "./OverviewTopSeller";
 
@@ -12,4 +11,4 @@ const OverviewWrapper = () => {
     );
 };
 
-export default ShopDashWrapper(OverviewWrapper);
+export default OverviewWrapper;

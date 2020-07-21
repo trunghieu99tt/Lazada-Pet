@@ -86,9 +86,20 @@ class ProductDetail extends Component {
         if (!allProducts) return <Loader />;
 
         const item =
-            (allProducts && allProducts.find((e) => e.id === ~~id)) || {};
+            (allProducts && allProducts.find((e) => e.productID === ~~id)) ||
+            {};
 
-        const { imageURL, name, description, price, rating, category } = item;
+        console.log("item", item);
+
+        const {
+            imageURL,
+            name,
+            longDescription,
+            shortDescription,
+            price,
+            rating,
+            category,
+        } = item;
 
         const filterProducts =
             (allProducts &&
@@ -135,7 +146,7 @@ class ProductDetail extends Component {
                                 </div>
 
                                 <div className="component-description product-modal__description">
-                                    {description}
+                                    {shortDescription}
                                 </div>
 
                                 <div className="row align-items-center">
@@ -210,26 +221,7 @@ class ProductDetail extends Component {
                                                     : ""
                                             }`}
                                         >
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit, sed do
-                                            eiusmod tempor incididunt ut labore
-                                            et dolore magna aliqua. Vitae tortor
-                                            condimentum lacinia quis vel.
-                                            Gravida cum sociis natoque
-                                            penatibus. Iaculis at erat
-                                            pellentesque adipiscing commodo elit
-                                            at. Curabitur gravida arcu ac tortor
-                                            dignissim convallis aenean et
-                                            tortor. Tellus cras adipiscing enim
-                                            eu turpis egestas pretium aenean
-                                            pharetra. Pharetra diam sit amet
-                                            nisl suscipit. Enim diam vulputate
-                                            ut pharetra sit amet aliquam id
-                                            diam. Rutrum tellus pellentesque eu
-                                            tincidunt tortor aliquam nulla
-                                            facilisi. Aliquet eget sit amet
-                                            tellus cras adipiscing enim eu
-                                            turpis.
+                                            {shortDescription}
                                         </div>
                                     );
                                 })}

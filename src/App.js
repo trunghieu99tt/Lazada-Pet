@@ -21,15 +21,13 @@ import { setCurrentUser } from "./redux/web/user/user.actions";
 import { selectCurrentUser } from "./redux/web/user/user.selector";
 import "./static/css/style.css";
 import "./static/css/main.min.css";
-import OverviewWrapper from "./componentsDash/ShopDash/Overview/OverviewWrapper";
-import ProductDash from "./componentsDash/ShopDash/Products/ProductDash";
-import SaleEvent from "./componentsDash/ShopDash/SaleEvent/SaleEvent";
-import OrderWrapper from "./componentsDash/ShopDash/Order/OrderWrapper";
-import OrderDetail from "./pages/Dash/OrderDetail/index";
-import ProductDashDetail from "./pages/Dash/ProductDashDetail";
 import SearchResultProduct from "./pages/SearchResultProduct";
+import ShopDash from "./pages/ShopDash";
 
-// import { uploadData } from "./utils/helper";
+import { fakeData } from "./componentsDash/ShopDash/Products/products-fake.data";
+
+import { uploadData } from "./utils/helper";
+import { faBookDead } from "@fortawesome/free-solid-svg-icons";
 // import { API_URL } from "./variables";
 // import axios from 'axios'
 
@@ -55,10 +53,20 @@ class App extends Component {
                 setCurrentUser(userAuth);
             }
         });
+
+        // this.createMockData();
     }
+
+    createMockData = async () => {
+        fakeData.forEach(async (item) => {
+            await uploadData("products", item);
+        });
+    };
 
     render() {
         const { currentUser } = this.props;
+
+        // console.log("fakeData", fakeData);
 
         return (
             <React.Fragment>
@@ -92,12 +100,8 @@ class App extends Component {
                         component={ProductDetail}
                     ></Route>
                     <Route path="/user" component={User}></Route>
-                    <Route
-                        exact
-                        path="/shop-dash"
-                        component={OverviewWrapper}
-                    ></Route>
-                    <Route
+                    <Route exact path="/shop-dash" component={ShopDash}></Route>
+                    {/* <Route
                         exact
                         path="/shop-dash/orders"
                         component={OrderWrapper}
@@ -121,7 +125,7 @@ class App extends Component {
                         exact
                         path="/shop-dash/saleEvents"
                         component={SaleEvent}
-                    ></Route>
+                    ></Route> */}
                     <Route component={NotFoundPage} />
                 </Switch>
             </React.Fragment>

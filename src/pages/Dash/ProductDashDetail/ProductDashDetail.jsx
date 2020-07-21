@@ -1,17 +1,29 @@
 import { DatePicker } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputDash from "../../../componentsDash/ShopDash/Form/InputDash";
 import OptionsDash from "../../../componentsDash/ShopDash/Form/OptionsDash";
 import TextAreaDash from "../../../componentsDash/ShopDash/Form/TextAreaDash";
 import UploadFileDash from "../../../componentsDash/ShopDash/Form/UploadFileDash";
-import ShopDashWrapper from "../../../pages/ShopDash";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { fakeData } from "../../../componentsDash/ShopDash/Products/products-fake.data";
+import Loader1 from "../../../componentsWeb/SmallComponents/Loader1";
 
-const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
-    const [itemInfo, setOrderInfo] = useState(item);
+const ProductDashDetail = ({
+    item,
+    resetItem,
+    handleEditItem,
+    deleteItem,
+    id,
+}) => {
+    const [itemInfo, setItemInfo] = useState(item);
     const [isEdit, setIsEdit] = useState(false);
-    const [data, setData] = useSessionStorage("products-dash", []);
+    const [data, setData] = useSessionStorage("products-dash", fakeData);
+
+    useEffect(() => {
+        const item = data?.find((item) => item.id === id);
+        setItemInfo(item);
+    }, []);
 
     const options = ["Pending", "Processing", "Completed"];
     const toggleEdit = () => setIsEdit(!isEdit);
@@ -26,7 +38,7 @@ const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
             ...itemInfo,
             [event.target.name]: event.target.value,
         };
-        setOrderInfo(newItemInfo);
+        setItemInfo(newItemInfo);
     };
 
     const onChangeDate = (date, dateString) => {
@@ -34,7 +46,7 @@ const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
             ...itemInfo,
             purchasedOn: dateString,
         };
-        setOrderInfo(newItemInfo);
+        setItemInfo(newItemInfo);
     };
 
     const onChangeOptions = (event) => {
@@ -43,15 +55,12 @@ const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
             status: event.target.value,
         };
 
-        setOrderInfo(newItemInfo);
+        setItemInfo(newItemInfo);
     };
 
-    console.log("data", data);
-
-    // Config Data
+    if (!itemInfo) return <Loader1 />;
 
     const {
-        itemID,
         name,
         purchasedOn,
         customer,
@@ -60,6 +69,8 @@ const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
         purchasedPrice,
         status,
     } = itemInfo;
+
+    console.log("itemInfo", itemInfo);
 
     const dataFields = itemInfo && Object.entries(itemInfo);
 
@@ -70,8 +81,8 @@ const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
             <InputDash
                 type="text"
                 name="itemID"
-                value={itemID}
-                labelName="Order"
+                value={id}
+                labelName="Product ID"
                 disabled
             />
             <InputDash
@@ -185,4 +196,4 @@ const ProductDashDetail = ({ item, resetItem, handleEditItem, deleteItem }) => {
     );
 };
 
-export default ShopDashWrapper(ProductDashDetail);
+export default ProductDashDetail;

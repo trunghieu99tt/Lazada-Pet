@@ -10,6 +10,7 @@ import SmallSearch from "../componentsWeb/SmallComponents/SmallSearch";
 import WrapperWithAds from "../layout/BaseView1";
 import * as appTypes from "../redux/web/app/app.types";
 import CancelIcon from "../static/images/cancel.svg";
+import { encodeStr } from "../utils/helper";
 
 class ShopCategoryPage extends Component {
     state = {
@@ -37,32 +38,32 @@ class ShopCategoryPage extends Component {
     };
 
     orderBy = (orderCondition) => {
-        const { allProducts } = this.props;
+        const filteredData = this.getFilteredData();
 
         let orderedProducts = [];
         let orderValue = "";
 
         switch (orderCondition) {
             case "rating":
-                orderedProducts = [...allProducts].sort(
+                orderedProducts = [...filteredData].sort(
                     (a, b) => b.rating - a.rating
                 );
                 orderValue = "Sort by average rating: high to low";
                 break;
             case "price":
-                orderedProducts = [...allProducts].sort(
+                orderedProducts = [...filteredData].sort(
                     (a, b) => a.price - b.price
                 );
                 orderValue = "Sort by price: low to high";
                 break;
             case "price-desc":
-                orderedProducts = [...allProducts].sort(
+                orderedProducts = [...filteredData].sort(
                     (a, b) => b.price - a.price
                 );
                 orderValue = "Sort by price: high to low";
                 break;
             default:
-                orderedProducts = [...allProducts];
+                orderedProducts = [...filteredData];
         }
 
         this.setState({
@@ -86,10 +87,12 @@ class ShopCategoryPage extends Component {
         return (
             (allProducts &&
                 allProducts.length > 0 &&
-                allProducts.filter(
-                    (item) =>
-                        item.category.toLowerCase() === category.toLowerCase()
-                )) ||
+                allProducts.filter((item) => {
+                    const encodedCategories = item?.categories?.map((e) =>
+                        encodeStr(e)
+                    );
+                    return encodedCategories?.indexOf(category) !== -1;
+                })) ||
             []
         );
     };
@@ -223,6 +226,7 @@ class ShopCategoryPage extends Component {
                                                 return (
                                                     <Card2
                                                         {...item}
+                                                        id={item.productID}
                                                         viewProduct={
                                                             this.viewProduct
                                                         }

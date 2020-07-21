@@ -6,7 +6,8 @@ import Rating from "../../SmallComponents/Rating";
 const Modal = (props) => {
     const { item, closeModal } = props;
 
-    const { imageURL, name, rating, description, price, id } = item || {};
+    const { imageURL, name, averageRating: rating, description, price, id } =
+        item || {};
 
     const [quantityValue, setQuantityValue] = useState(1);
 

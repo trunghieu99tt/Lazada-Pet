@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { fakeData } from "./products-fake.data";
 import { tableHeadData } from "./product-tableHead.data";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
-import ShopDashWrapper from "../../../pages/ShopDash";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
-const ProductDash = ({ allProducts, ...otherProps }) => {
+const ProductDash = ({ allProducts, setCurrentPage, setID, ...otherProps }) => {
     const [data, setData] = useSessionStorage("products-dash", [...fakeData]);
 
     const searchFields = [
@@ -59,9 +58,12 @@ const ProductDash = ({ allProducts, ...otherProps }) => {
                 searchFields={searchFields}
                 prefix="product"
                 existDateRange
+                pageID={2}
+                setCurrentPage={setCurrentPage}
+                setID={setID}
             />
         </div>
     );
 };
 
-export default ShopDashWrapper(ProductDash);
+export default ProductDash;

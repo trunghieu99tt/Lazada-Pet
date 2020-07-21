@@ -296,3 +296,14 @@
         color: $red-color-1;
     }
 }
+
+.userSuggestions {
+    .custom-selectBox {
+        margin-top: 0;
+        width: 60%;
+        margin-left: auto;
+
+        &__value {
+        }
+    }
+}

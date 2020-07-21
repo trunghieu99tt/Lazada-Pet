@@ -12,6 +12,7 @@ import {
     UserPetsList,
     UserPetDetail,
     UserAddNewPet,
+    UserSuggestion,
 } from "../../componentsDash/UserDash";
 
 const User = () => {
@@ -43,6 +44,7 @@ const User = () => {
         />,
         <UserPetDetail setCurrentPage={handleChangePage} id={id} />,
         <UserAddNewPet setCurrentPage={handleChangePage} />,
+        <UserSuggestion />,
     ][currentPage];
 
     return (
