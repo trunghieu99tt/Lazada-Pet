@@ -6,8 +6,15 @@ import Rating from "../../SmallComponents/Rating";
 const Modal = (props) => {
     const { item, closeModal } = props;
 
-    const { imageURL, name, averageRating: rating, description, price, id } =
-        item || {};
+    const {
+        imageURL,
+        name,
+        averageRating: rating,
+        description,
+        price,
+        id,
+        productID,
+    } = item || {};
 
     const [quantityValue, setQuantityValue] = useState(1);
 
@@ -43,7 +50,7 @@ const Modal = (props) => {
                     <div className="col-md-7 product-modal-text">
                         <Link
                             className="component-heading product-modal__name"
-                            to={`/product/${id}`}
+                            to={`/product/${id || productID}`}
                             onClick={closeModal}
                         >
                             {name || ""}

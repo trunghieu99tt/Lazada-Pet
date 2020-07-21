@@ -14,6 +14,7 @@ const Card2 = (props) => {
         rating,
         price,
         viewProduct,
+        id,
         productID,
         size,
         averageRating,
@@ -31,7 +32,7 @@ const Card2 = (props) => {
     return (
         <article className={`col-md-${size || 2} card2`}>
             <figure className="card2-image-container">
-                <Link to={`/product/${productID}`}>
+                <Link to={`/product/${id || productID}`}>
                     <img
                         src={imageURL}
                         alt={name}
@@ -51,7 +52,7 @@ const Card2 = (props) => {
             </figure>
 
             <div className="card2-detail">
-                <Link to={`/product/${productID}`}>
+                <Link to={`/product/${id || productID}`}>
                     <p className="card2__name">{name} </p>
                 </Link>
 

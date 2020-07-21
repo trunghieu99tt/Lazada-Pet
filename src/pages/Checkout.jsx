@@ -52,7 +52,12 @@ const Checkout = ({ cartItems, total }) => {
 
     const postData = async (item) => {
         try {
-            await Axios.post(`${API_URL_1}/users/1/orders`, item);
+            const actualData = {
+                ...item,
+                confirmedAt: new Date(),
+            };
+
+            await Axios.post(`${API_URL_1}/users/1/orders`, actualData);
         } catch (error) {}
     };
 
