@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Lazada-Pet/precache-manifest.b1f0320d40da56a7dd927dd2180af086.js"
+  "/Lazada-Pet/precache-manifest.c4d03646279e8a6d681ce5d84f17fefe.js"
 );
 
 self.addEventListener('message', (event) => {
