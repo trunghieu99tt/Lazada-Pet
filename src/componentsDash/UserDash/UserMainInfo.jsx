@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import Axios from "axios";
 import { API_URL_1 } from "../../variables";
 import Loader1 from "../../componentsWeb/SmallComponents/Loader1";
 import { dateConverter } from "../../utils/helper";
+import { useSelector } from "react-redux";
 
 const UserMainInfo = ({ setCurrentPage, setID }) => {
     const [data, setData] = useState(null);
+    const currentUser = useSelector((state) => state.user.currentUser);
 
     useEffect(() => {
-        getData();
+        setData(currentUser);
     }, []);
-
-    const getData = async () => {
-        const response = await Axios({
-            method: "GET",
-            url: `${API_URL_1}/users/1`,
-        });
-        setData(response.data);
-    };
 
     if (!data) return <Loader1 />;
 
@@ -44,7 +38,8 @@ const UserMainInfo = ({ setCurrentPage, setID }) => {
                         <span>Fullname: </span> {fullname}
                     </p>
                     <p className="userMainInfo__text">
-                        <span>Date of birth:</span> {dateConverter(dateOfBirth)}
+                        <span>Date of birth:</span>{" "}
+                        {(dateOfBirth && dateConverter(dateOfBirth)) || ""}
                     </p>
                     <p className="userMainInfo__text">
                         <span>Gender: </span> {gender}

@@ -1,75 +1,115 @@
-import React from "react";
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import React, { useState, useEffect } from "react";
+// import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 import CustomButton from "../SmallComponents/Buttons/FormButton";
 import FormInput from "../SmallComponents/Form/FormInput";
+import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
+import { message } from "antd";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-        };
-    }
+const Login = ({ openRegister }) => {
+    const [state, setState] = useState({
+        username: "",
+        password: "",
+    });
+    const [refreshToken, setRefreshToken] = useLocalStorage(
+        "refreshToken",
+        null
+    );
 
-    handleSubmit = async (event) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const userData = useSelector((state) => state.user.currentUser);
+
+    useEffect(() => {
+        if (userData) {
+            history.push("/");
+        }
+    }, []);
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const { email, password } = this.state;
+        const { password, username } = state;
+        const url = "http://proptit.social:8080";
 
         try {
-            await auth.signInWithEmailAndPassword(email, password);
-            this.setState({ email: "", password: "" });
-        } catch (error) {
-            console.log(error);
-        }
+            const tokens = await Axios.post(
+                `${url}/auth/jwt/create`,
+                {
+                    username,
+                    password,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (tokens) {
+                const { access, refresh } = tokens && tokens.data;
+                setRefreshToken(refresh);
+                const user = await Axios.get(`${url}/auth/users/me/`, {
+                    headers: {
+                        Authorization: `Bearer ${access}`,
+                    },
+                });
+
+                if (user) {
+                    setCurrentUser(user && user.data);
+                    history.push("/");
+                }
+            }
+        } catch (error) {}
     };
 
-    handleChange = (event) => {
+    const handleChange = (event) => {
         const { value, name } = event.target;
-        this.setState({ [name]: value });
+        setState({ ...state, [name]: value });
     };
 
-    render() {
-        const { openRegister } = this.props;
-        const { password, email } = this.state;
+    const setCurrentUser = (info) => {
+        dispatch({ type: "SET_CURRENT_USER", payload: info });
+    };
 
-        return (
-            <div className="login-form">
-                <h3 className="component-heading">Login</h3>
+    const { password, username } = state;
 
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput
-                        name="email"
-                        type="email"
-                        handleChange={this.handleChange}
-                        value={email}
-                        label="Email"
-                        required
-                    />
-                    <FormInput
-                        name="password"
-                        type="password"
-                        value={password}
-                        handleChange={this.handleChange}
-                        label="Password"
-                        required
-                    />
-                    <div className="buttons">
-                        <CustomButton type="submit"> Sign in </CustomButton>
-                        <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
-                            Sign in with Google
-                        </CustomButton>
-                    </div>
+    return (
+        <div className="login-form">
+            <h3 className="component-heading">Login</h3>
 
-                    <p className="form-footer-text">
-                        Doesn't have an account?{" "}
-                        <span onClick={openRegister}>Register here!</span>
-                    </p>
-                </form>
-            </div>
-        );
-    }
-}
+            <form onSubmit={handleSubmit}>
+                <FormInput
+                    name="username"
+                    type="text"
+                    handleChange={handleChange}
+                    value={username}
+                    label="Username"
+                    required
+                />
+                <FormInput
+                    name="password"
+                    type="password"
+                    value={password}
+                    handleChange={handleChange}
+                    label="Password"
+                    required
+                />
+                <div className="buttons">
+                    <CustomButton type="submit"> Sign in </CustomButton>
+                    {/* <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
+                        Sign in with Google
+                    </CustomButton> */}
+                </div>
+
+                <p className="form-footer-text">
+                    Doesn't have an account?{" "}
+                    <span onClick={openRegister}>Register here!</span>
+                </p>
+            </form>
+        </div>
+    );
+};
 
 export default Login;

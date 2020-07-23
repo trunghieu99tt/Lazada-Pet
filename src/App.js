@@ -1,13 +1,10 @@
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import NotFoundPage from "./pages/404NotFound";
 import Authentication from "./pages/Authentication";
 import BlogPage from "./pages/BlogPage";
@@ -17,128 +14,112 @@ import ProductDetail from "./pages/ProductDetail";
 import ShopCategoryPage from "./pages/ShopCategoryPage";
 import ShopPage from "./pages/ShopPage";
 import User from "./pages/User/User";
-import { setCurrentUser } from "./redux/web/user/user.actions";
-import { selectCurrentUser } from "./redux/web/user/user.selector";
 import "./static/css/style.css";
 import "./static/css/main.min.css";
 import SearchResultProduct from "./pages/SearchResultProduct";
 import ShopDash from "./pages/ShopDash";
+import Axios from "axios";
+import { useSelector } from "react-redux/lib/hooks/useSelector";
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import Provider from "react-redux/lib/components/Provider";
+import store from "./redux/store";
+import { useDispatch } from "react-redux/lib/hooks/useDispatch";
+import Loader from "./componentsWeb/SmallComponents/Loader";
 
-import { fakeData } from "./componentsDash/ShopDash/Products/products-fake.data";
+const App = () => {
+    const currentUser = useSelector((state) => state.user.currentUser);
+    const dispatch = useDispatch();
+    const [refreshToken] = useLocalStorage("refreshToken", null);
 
-import { uploadData } from "./utils/helper";
-import { faBookDead } from "@fortawesome/free-solid-svg-icons";
-// import { API_URL } from "./variables";
-// import axios from 'axios'
+    useEffect(() => {
+        if (refreshToken) {
+            getUserInfo();
+        }
+    }, []);
 
-class App extends Component {
-    unsubscribeFromAuth = null;
+    const getUserInfo = async () => {
+        const url = "http://proptit.social:8080";
 
-    componentDidMount() {
-        const { setCurrentUser } = this.props;
+        try {
+            const res = await Axios.post(
+                `${url}/auth/jwt/refresh`,
+                {
+                    refresh: refreshToken,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
-        this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-            if (userAuth) {
-                const userRef = await createUserProfileDocument(userAuth);
+            const accessToken = res?.data?.access;
 
-                userRef.onSnapshot((snapShot) => {
-                    setCurrentUser({
-                        currentUser: {
-                            id: snapShot.id,
-                            ...snapShot.data(),
-                        },
-                    });
-                });
-            } else {
-                setCurrentUser(userAuth);
+            const user = await Axios.get(`${url}/auth/users/me/`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            if (user) {
+                setCurrentUser(user && user.data);
             }
-        });
-
-        // this.createMockData();
-    }
-
-    createMockData = async () => {
-        fakeData.forEach(async (item) => {
-            await uploadData("products", item);
-        });
+        } catch (error) {}
     };
 
-    render() {
-        const { currentUser } = this.props;
+    const setCurrentUser = (info) => {
+        dispatch({ type: "SET_CURRENT_USER", payload: info });
+    };
 
-        // console.log("fakeData", fakeData);
+    return (
+        <React.Fragment>
+            <Switch>
+                <Route exact path="/" component={HomePage}></Route>
+                <Route exact path="/home" component={HomePage}></Route>
+                <Route
+                    exact
+                    path="/auth"
+                    render={() =>
+                        (currentUser && <Redirect to="/"></Redirect>) || (
+                            <Authentication />
+                        )
+                    }
+                    component={Authentication}
+                ></Route>
+                <Route exact path="/shop" component={ShopPage}></Route>
+                <Route exact path="/blog" component={BlogPage}></Route>
+                <Route exact path="/checkout" component={Checkout}></Route>
+                <Route
+                    exact
+                    path="/searchProduct/:searchQuery"
+                    component={SearchResultProduct}
+                ></Route>
+                <Route
+                    path="/product-categories/:category"
+                    component={ShopCategoryPage}
+                ></Route>
+                <Route path="/product/:id" component={ProductDetail}></Route>
+                <Route path="/user" component={User}></Route>
+                <Route exact path="/shop-dash" component={ShopDash}></Route>
 
-        return (
-            <React.Fragment>
-                <Switch>
-                    <Route exact path="/" component={HomePage}></Route>
-                    <Route exact path="/home" component={HomePage}></Route>
-                    <Route
-                        exact
-                        path="/auth"
-                        render={() =>
-                            (currentUser && <Redirect to="/"></Redirect>) || (
-                                <Authentication />
-                            )
-                        }
-                        component={Authentication}
-                    ></Route>
-                    <Route exact path="/shop" component={ShopPage}></Route>
-                    <Route exact path="/blog" component={BlogPage}></Route>
-                    <Route exact path="/checkout" component={Checkout}></Route>
-                    <Route
-                        exact
-                        path="/searchProduct/:searchQuery"
-                        component={SearchResultProduct}
-                    ></Route>
-                    <Route
-                        path="/product-categories/:category"
-                        component={ShopCategoryPage}
-                    ></Route>
-                    <Route
-                        path="/product/:id"
-                        component={ProductDetail}
-                    ></Route>
-                    <Route path="/user" component={User}></Route>
-                    <Route exact path="/shop-dash" component={ShopDash}></Route>
-                    {/* <Route
-                        exact
-                        path="/shop-dash/orders"
-                        component={OrderWrapper}
-                    />
-                    <Route
-                        exact
-                        path="/shop-dash/order/:id"
-                        component={OrderDetail}
-                    />
-                    <Route
-                        exact
-                        path="/shop-dash/products"
-                        component={ProductDash}
-                    ></Route>
-                    <Route
-                        exact
-                        path="/shop-dash/product/:id"
-                        component={ProductDashDetail}
-                    ></Route>
-                    <Route
-                        exact
-                        path="/shop-dash/saleEvents"
-                        component={SaleEvent}
-                    ></Route> */}
-                    <Route component={NotFoundPage} />
-                </Switch>
-            </React.Fragment>
-        );
-    }
-}
+                <Route component={NotFoundPage} />
+            </Switch>
+        </React.Fragment>
+    );
+};
 
-const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
-});
+const AppWrapper = () => {
+    return (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
+};
 
-const mapDispatchToProps = (dispatch) => ({
-    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
+export default AppWrapper;
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// createMockData = async () => {
+//         fakeData.forEach(async (item) => {
+//             await uploadData("products", item);
+//         });
+//     };

@@ -76,6 +76,7 @@ class Register extends React.Component {
 
     handleChange = (event) => {
         const { value, name } = event.target;
+        console.log("name, value", name, value);
         this.setState({ [name]: value });
     };
 
@@ -92,6 +93,8 @@ class Register extends React.Component {
             warehouseAddress,
             shopOwner,
         } = this.state;
+
+        console.log("this.state", this.state);
 
         return (
             <div className="login-form">
@@ -162,7 +165,7 @@ class Register extends React.Component {
                         />
                     </div>
 
-                    {isShop && (
+                    {isShop === "true" && (
                         <React.Fragment>
                             <FormInput
                                 name="warehouseAddress"

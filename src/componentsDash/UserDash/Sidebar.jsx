@@ -1,15 +1,21 @@
 import React from "react";
-import { Avatar } from "antd";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Avatar from "./Avatar";
 
 const Sidebar = ({ setCurrentPage }) => {
+    const user = useSelector((state) => state.user.currentUser);
+
     return (
         <aside className="group-container sideBar">
             <section className="sideBar-userInfo">
-                <Avatar icon="user" className="sideBar-userInfo__icon" />
+                <Avatar
+                    src={user && user.avatar}
+                    className="sideBar-userInfo__icon"
+                />
                 <div className="sideBar-userInfo__text">
-                    <p>Nguyen Trung Hieu</p>
-                    <p> trunghieu99tt</p>
+                    <p>{(user && user.display_name) || "Nguyen Trung Hieu"}</p>
+                    <p>{(user && user.username) || "trunghieu99tt"}</p>
                 </div>
             </section>
             <section className="sideBar-item" onClick={() => setCurrentPage(0)}>

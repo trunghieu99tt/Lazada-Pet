@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import WrapperWithNoAds from "../../layout/WrapperWithNoAds";
 import UserMain from "./UserMain";
 import {
@@ -14,13 +14,29 @@ import {
     UserAddNewPet,
     UserSuggestion,
 } from "../../componentsDash/UserDash";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const User = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [id, setID] = useState(null);
+    const userInfo = useSelector((state) => state.user.currentUser);
+    const history = useHistory();
 
     const handleChangePage = (id) => setCurrentPage(id);
     const handleChangeID = (id) => setID(id);
+
+    useEffect(() => {
+        if (!userInfo) {
+            history.push("/auth");
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!userInfo) {
+            history.push("/auth");
+        }
+    }, [userInfo]);
 
     const childComponent = [
         <UserMainInfo
