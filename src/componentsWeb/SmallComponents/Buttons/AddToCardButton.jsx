@@ -1,18 +1,25 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../../redux/web/cart/cart.actions";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
-const AddToCardButton = ({ item, amount }) => {
-	const dispatch = useDispatch();
+const AddToCartButton = ({ item, amount }) => {
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart.cartItems);
+    const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
 
-	return (
-		<div
-			className="button--1"
-			onClick={() => dispatch(addItem(item, amount))}
-		>
-			Add to cart
-		</div>
-	);
+    useEffect(() => {
+        setCartItems(cart);
+    }, [cart]);
+
+    return (
+        <div
+            className="button--1"
+            onClick={() => dispatch(addItem(item, amount))}
+        >
+            Add to cart
+        </div>
+    );
 };
 
-export default AddToCardButton;
+export default AddToCartButton;

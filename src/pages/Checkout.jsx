@@ -1,38 +1,65 @@
-import React, { useCallback } from "react";
-import { connect, useDispatch } from "react-redux";
+import { message, Modal } from "antd";
+import Axios from "axios";
+import React, { useCallback, useState, useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
 import CheckoutItem from "../componentsWeb/Checkout/CheckoutItem";
+import CheckoutModal from "../componentsWeb/Checkout/CheckoutModal";
 import WrapperWithAds from "../layout/BaseView1";
+import { clearItemFromCart, addItem } from "../redux/web/cart/cart.actions";
 import {
     selectCartItems,
     selectCartTotal,
 } from "../redux/web/cart/cart.selectors";
-import Axios from "axios";
-import { message, Modal } from "antd";
 import { API_URL_1 } from "../variables";
-import { clearItemFromCart } from "../redux/web/cart/cart.actions";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Checkout = ({ cartItems, total }) => {
+    const [isOpeningModal, setIsOpeningModal] = useState(false);
+    const [cart, setCart] = useLocalStorage("cartItems", []);
+
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.currentUser);
+
+    useEffect(() => {
+        if (!cartItems || !cartItems.length) {
+            addItemsFromLocalStorage();
+        }
+    }, [cart]);
 
     const clearCheckout = useCallback(
         (cartItems) => {
             cartItems.forEach((cartItem) =>
                 dispatch(clearItemFromCart(cartItem))
             );
+            setCart(null);
         },
-        [dispatch]
+        [dispatch, setCart]
     );
 
+    const addItemsFromLocalStorage = () => {
+        cart &&
+            cart.forEach((item) => {
+                const { amount } = item;
+                dispatch(addItem(item, amount));
+            });
+    };
+
     const handleCheckout = () => {
-        Modal.confirm({
-            title: "Confirm checkout",
-            content: "Check out all items ?",
-            okText: "Yes",
-            cancelText: "No",
-            onOk: updateData,
-        });
+        if (cartItems && cartItems.length > 0) {
+            Modal.confirm({
+                title: "Confirm checkout",
+                content: "Check out all items ?",
+                okText: "Yes",
+                cancelText: "No",
+                onOk: onSubmitCheckout,
+            });
+        } else {
+            Modal.error({
+                title: "You haven't have any item in your cart yet!",
+            });
+        }
     };
 
     const displaySuccessMessage = () =>
@@ -40,13 +67,35 @@ const Checkout = ({ cartItems, total }) => {
 
     const displayErrorMessage = (err) => message.error(err);
 
+    const openModal = () => {
+        setIsOpeningModal(true);
+    };
+
+    const closeModal = () => {
+        setIsOpeningModal(false);
+    };
+
     const updateData = async () => {
-        try {
-            cartItems.forEach((item) => postData(item));
+        if (user) {
+            try {
+                cartItems.forEach((item) => postData(item));
+                displaySuccessMessage();
+                clearCheckout(cartItems);
+            } catch (error) {
+                displayErrorMessage(error);
+            }
+        } else {
             displaySuccessMessage();
             clearCheckout(cartItems);
-        } catch (error) {
-            displayErrorMessage(error);
+            closeModal();
+        }
+    };
+
+    const onSubmitCheckout = () => {
+        if (user) {
+            updateData();
+        } else {
+            openModal();
         }
     };
 
@@ -63,6 +112,13 @@ const Checkout = ({ cartItems, total }) => {
 
     return (
         <div className="checkout-page">
+            {isOpeningModal && (
+                <CheckoutModal
+                    updateData={updateData}
+                    closeModal={closeModal}
+                />
+            )}
+
             <div className="checkout-header">
                 <div className="header-block">
                     <span>Product</span>

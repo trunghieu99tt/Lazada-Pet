@@ -27,17 +27,23 @@ const SearchResultProduct = () => {
     }, []);
 
     useEffect(() => {
-        const modifiedQuery = encodeStr(searchQuery);
-        const filteredData =
-            products?.filter((item) =>
-                encodeStr(item.name).includes(modifiedQuery)
-            ) || [];
+        const filteredData = getFilteredData();
         setData(filteredData);
     }, [products]);
 
     useEffect(() => {
         window.scrollTo({ top: 500, behavior: "smooth" });
     }, [currPage]);
+
+    const getFilteredData = () => {
+        const modifiedQuery = encodeStr(searchQuery);
+        const filteredData =
+            products?.filter((item) =>
+                encodeStr(item.name).includes(modifiedQuery)
+            ) || [];
+
+        return filteredData;
+    };
 
     const getAllProducts = useCallback(() => {
         dispatch({
@@ -69,7 +75,9 @@ const SearchResultProduct = () => {
 
         switch (orderCondition) {
             case "rating":
-                orderedProducts = [...data].sort((a, b) => b.rating - a.rating);
+                orderedProducts = [...data].sort(
+                    (a, b) => b.averageRating - a.averageRating
+                );
                 orderValue = "Sort by average rating: high to low";
                 break;
             case "price":
@@ -81,7 +89,7 @@ const SearchResultProduct = () => {
                 orderValue = "Sort by price: high to low";
                 break;
             default:
-                orderedProducts = [...data];
+                orderedProducts = [...getFilteredData()];
         }
 
         setOrderValue(orderValue);
@@ -98,6 +106,8 @@ const SearchResultProduct = () => {
     const currShowItems = data?.slice(from, Math.min(to, data.length));
 
     if (!data) return <Loader />;
+
+    console.log("data", data);
 
     return (
         <React.Fragment>

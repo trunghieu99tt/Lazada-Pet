@@ -2,7 +2,7 @@ import { faEye, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import AddToCardButton from "../SmallComponents/Buttons/AddToCardButton";
+import AddToCartButton from "../SmallComponents/Buttons/AddToCardButton";
 import Rating from "../SmallComponents/Rating";
 
 // Card của product
@@ -20,15 +20,6 @@ const Card2 = (props) => {
         averageRating,
     } = props;
 
-    // const item = {
-    //     imageURL,
-    //     name,
-    //     rating,
-    //     price,
-    //     productID,
-    //     averageRating,
-    // };
-
     return (
         <article className={`col-md-${size || 2} card2`}>
             <figure className="card2-image-container">
@@ -40,7 +31,7 @@ const Card2 = (props) => {
                     ></img>
                 </Link>
 
-                <AddToCardButton item={props}></AddToCardButton>
+                <AddToCartButton item={props}></AddToCartButton>
 
                 <nav className="card2__option">
                     <FontAwesomeIcon

@@ -46,7 +46,7 @@ class ShopCategoryPage extends Component {
         switch (orderCondition) {
             case "rating":
                 orderedProducts = [...filteredData].sort(
-                    (a, b) => b.rating - a.rating
+                    (a, b) => b.averageRating - a.averageRating
                 );
                 orderValue = "Sort by average rating: high to low";
                 break;
@@ -236,7 +236,9 @@ class ShopCategoryPage extends Component {
                                     </div>
                                     <div className="pagination-wrapper">
                                         {currentShowProducts &&
-                                            currentShowProducts.length > 0 && (
+                                            currentShowProducts.length > 0 &&
+                                            data &&
+                                            data.length > pageSize && (
                                                 <Pagination
                                                     key={currPage}
                                                     defaultCurrent={1}

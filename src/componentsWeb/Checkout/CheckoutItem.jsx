@@ -5,9 +5,10 @@ import {
     clearItemFromCart,
     decreaseItem,
 } from "../../redux/web/cart/cart.actions";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const CheckoutItem = ({ cartItem, clearItem, increaseItem, decreaseItem }) => {
-    const { name, amount, price, imageURL } = cartItem;
+    const { name, amount, price, imageURL, productID } = cartItem;
 
     return (
         <div className="checkout-item">
@@ -15,7 +16,9 @@ const CheckoutItem = ({ cartItem, clearItem, increaseItem, decreaseItem }) => {
                 <img src={imageURL} alt="item" />
             </div>
 
-            <div className="name">{name}</div>
+            <div className="name">
+                <Link to={`/product/${productID}`}>{name}</Link>
+            </div>
             <div className="quantity">
                 <div className="arrow" onClick={() => decreaseItem(cartItem)}>
                     &#10094;
