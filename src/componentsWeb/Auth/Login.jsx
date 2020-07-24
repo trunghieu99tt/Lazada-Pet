@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import { message } from "antd";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { API_URL_2 } from "../../variables";
 
 const Login = ({ openRegister }) => {
     const [state, setState] = useState({
@@ -31,11 +32,10 @@ const Login = ({ openRegister }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { password, username } = state;
-        const url = "http://proptit.social:8080";
 
         try {
             const tokens = await Axios.post(
-                `${url}/auth/jwt/create`,
+                `${API_URL_2}/auth/jwt/create`,
                 {
                     username,
                     password,
@@ -50,7 +50,7 @@ const Login = ({ openRegister }) => {
             if (tokens) {
                 const { access, refresh } = tokens && tokens.data;
                 setRefreshToken(refresh);
-                const user = await Axios.get(`${url}/auth/users/me/`, {
+                const user = await Axios.get(`${API_URL_2}/auth/users/me/`, {
                     headers: {
                         Authorization: `Bearer ${access}`,
                     },

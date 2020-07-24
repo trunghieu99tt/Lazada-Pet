@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
 import FormInput from "../../componentsWeb/SmallComponents/Form/FormInput";
-import { API_URL_1 } from "../../variables";
+import { API_URL_1, API_URL_2 } from "../../variables";
 import Axios from "axios";
 import Loader1 from "../../componentsWeb/SmallComponents/Loader1";
 import { encodeStr } from "../../utils/helper";
 import { message, Modal } from "antd";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const UserMainEditInfo = ({ setCurrentPage }) => {
     const [data, setData] = useState(null);
+    const [accessToken, setAccessToken] = useState(null);
+    const currentUser = useSelector((state) => state.user.currentUser);
+    const [refreshToken] = useLocalStorage("refreshToken", null);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        getData();
+        getUserInfo();
+    }, []);
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [currentUser]);
 
     const sortData = (data) => data.sort((a, b) => a.order - b.order);
 
@@ -26,10 +37,7 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
     };
 
     const getData = async () => {
-        const response = await Axios({
-            method: "GET",
-            url: `${API_URL_1}/users/1`,
-        });
+        console.log("currentUser", currentUser);
 
         const {
             fullname,
@@ -38,7 +46,7 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
             email,
             phone,
             address,
-        } = response.data;
+        } = currentUser;
 
         const modifiedData = sortData([
             {
@@ -83,8 +91,8 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
             },
             {
                 order: 6,
-                fieldName: "Address",
-                name: "Address",
+                fieldName: "address",
+                name: "address",
                 value: address,
                 type: "text",
                 isRequired: true,
@@ -92,6 +100,24 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
         ]);
 
         setData(modifiedData);
+    };
+
+    const getUserInfo = async () => {
+        try {
+            const res = await Axios.post(
+                `${API_URL_2}/auth/jwt/refresh`,
+                {
+                    refresh: refreshToken,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const accessToken = res?.data?.access;
+            setAccessToken(accessToken);
+        } catch (error) {}
     };
 
     const transformData = () => {
@@ -132,9 +158,17 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
         const newData = transformData();
 
         try {
-            await Axios.put(`${API_URL_1}/users/${id}`, newData);
+            await Axios.patch(`${API_URL_2}/auth/users/me/`, newData, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
             displaySuccess();
             setCurrentPage(0);
+            dispatch({
+                type: "SET_CURRENT_USER",
+                payload: { ...currentUser, ...newData },
+            });
         } catch (error) {
             displayError(error);
         }
@@ -160,6 +194,8 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
     };
 
     if (!data) return <Loader1 />;
+
+    console.log("data", data);
 
     return (
         <section className="userMainEditInfo">

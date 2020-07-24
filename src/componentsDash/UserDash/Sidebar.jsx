@@ -14,7 +14,7 @@ const Sidebar = ({ setCurrentPage }) => {
                     className="sideBar-userInfo__icon"
                 />
                 <div className="sideBar-userInfo__text">
-                    <p>{(user && user.display_name) || "Nguyen Trung Hieu"}</p>
+                    <p>{(user && user.fullname) || "Nguyen Trung Hieu"}</p>
                     <p>{(user && user.username) || "trunghieu99tt"}</p>
                 </div>
             </section>

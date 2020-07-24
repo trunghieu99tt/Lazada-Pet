@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import DataTableFooter from "./DataTableFooter";
 import DataTableHeader from "./DataTableHeader";
 import DataTableMain from "./DataTableMain";
+import Loader1 from "../../../componentsWeb/SmallComponents/Loader1";
 
 const { confirm } = Modal;
 const { RangePicker } = DatePicker;
@@ -81,8 +82,11 @@ const DataTable = ({
             (searchQuery &&
                 searchQuery.length > 0 &&
                 data &&
-                data.filter((e) =>
-                    e[att].toLowerCase().includes(searchQuery)
+                data.filter(
+                    (e) =>
+                        e &&
+                        e[att] &&
+                        e[att]?.toLowerCase().includes(searchQuery)
                 )) ||
             dataSample;
         setData(searchResult);
@@ -126,6 +130,8 @@ const DataTable = ({
         setData(dataSample);
         existDateRange && setDataInRangeHandler();
     }, [dataSample]);
+
+    if (!data) return <Loader1 />;
 
     // config and data processing
     const from = (page - 1) * pageSize;

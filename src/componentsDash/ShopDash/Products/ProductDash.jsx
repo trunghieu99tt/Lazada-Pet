@@ -1,23 +1,32 @@
-import React, { useState } from "react";
-import { fakeData } from "./products-fake.data";
+import React, { useState, useEffect } from "react";
 import { tableHeadData } from "./product-tableHead.data";
 import DataTable from "../../../CommonComponents/Tables/DataTable/DataTable";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import Axios from "axios";
+import { API_URL } from "../../../variables";
+import Loader1 from "../../../componentsWeb/SmallComponents/Loader1";
 
 const ProductDash = ({ allProducts, setCurrentPage, setID, ...otherProps }) => {
-    const [data, setData] = useSessionStorage("products-dash", [...fakeData]);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = async () => {
+        const response = await Axios.get(`${API_URL}/products.json`);
+        const products = response?.data && Object.values(response.data);
+        setData(products);
+    };
 
     const searchFields = [
         { name: "By Product name", attribute: "name" },
         { name: "By Product ID", attribute: "productID" },
     ];
-
     const badges = [
         ["Unavailable", "badge-danger"],
         ["Out of stock", "badge-info"],
         ["Available", "badge-success"],
     ];
-
     const statusOptions = ["All", "Available", "Unavailable", "Out of stock"];
 
     const handleEditItem = (item) => {
@@ -27,12 +36,10 @@ const ProductDash = ({ allProducts, setCurrentPage, setID, ...otherProps }) => {
         );
         setData(newData);
     };
-
     const deleteItem = (item) => {
         const newData = data.filter((e) => e.id !== item.id);
         setData(newData);
     };
-
     const categoriesFilter = (event, dataSample) => {
         const category = event.target.value;
         let finalResult = [...dataSample];

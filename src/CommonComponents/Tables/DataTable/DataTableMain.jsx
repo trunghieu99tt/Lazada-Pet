@@ -40,9 +40,6 @@ const DataTableMain = ({
         }
     );
 
-    const attributes =
-        tableHeadData?.length > 0 && tableHeadData.map((e) => e.att);
-
     return (
         <div className="table-responsive data-table-main">
             <div className="row">
@@ -59,16 +56,6 @@ const DataTableMain = ({
                         <tbody>
                             {tableData?.length > 0 &&
                                 tableData.map((item) => {
-                                    const values = Object.entries(item)
-                                        .map((item) => {
-                                            if (attributes.includes(item[0]))
-                                                return item[1];
-                                            return null;
-                                        })
-                                        .filter((e) => e !== null);
-
-                                    console.log("values", values);
-
                                     const badgeClass =
                                         badges?.length > 0 &&
                                         badges.find(
@@ -81,29 +68,39 @@ const DataTableMain = ({
                                             className="odd data-table-main__row"
                                             key={`${item.name}-${item.id}`}
                                         >
-                                            {values?.length > 0 &&
-                                                values.map((e, idx) => {
+                                            {tableHeadData.map(
+                                                ({ att }, idx) => {
                                                     return (
-                                                        <td key={e}>
-                                                            {((idx <
-                                                                values.length -
-                                                                    1 ||
-                                                                !badges) &&
-                                                                e) || (
-                                                                <label
-                                                                    className={`badge ${badgeClass[1]}`}
-                                                                >
-                                                                    {e}
-                                                                </label>
-                                                            )}
-                                                        </td>
+                                                        att && (
+                                                            <td key={idx}>
+                                                                {att !==
+                                                                "status" ? (
+                                                                    item[att]
+                                                                ) : (
+                                                                    <label
+                                                                        className={`badge ${badgeClass[1]}`}
+                                                                    >
+                                                                        {
+                                                                            item[
+                                                                                att
+                                                                            ]
+                                                                        }
+                                                                    </label>
+                                                                )}
+                                                            </td>
+                                                        )
                                                     );
-                                                })}
+                                                }
+                                            )}
+
                                             <td>
                                                 <div
                                                     onClick={() => {
                                                         setCurrentPage(pageID);
-                                                        setID(item.id);
+                                                        setID(
+                                                            item.id ||
+                                                                item.productID
+                                                        );
                                                     }}
                                                 >
                                                     <FontAwesomeIcon

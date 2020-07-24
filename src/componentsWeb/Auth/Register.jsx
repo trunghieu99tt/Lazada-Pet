@@ -1,13 +1,9 @@
 import { message } from "antd";
 import React from "react";
-import {
-    auth,
-    createUserProfileDocument,
-    signInWithGoogle,
-} from "../../firebase/firebase.utils";
 import CustomButton from "../SmallComponents/Buttons/FormButton";
 import FormInput from "../SmallComponents/Form/FormInput";
 import RadioButton from "../SmallComponents/Form/RadioButton";
+import ImageUploader from "react-images-upload";
 
 class Register extends React.Component {
     constructor(props) {
@@ -21,7 +17,9 @@ class Register extends React.Component {
             mobile: "",
             warehouseAddress: "",
             shopOwner: "",
+            bankAccount: "",
             isShop: false,
+            pictures: [],
         };
     }
 
@@ -35,49 +33,24 @@ class Register extends React.Component {
             passwordConfirm,
             address,
             mobile,
+            bankAccount,
         } = this.state;
 
         if (password !== passwordConfirm) {
             message.error("passwords don't match");
             return;
         }
-
-        try {
-            const { user } = await auth.createUserWithEmailAndPassword(
-                email,
-                password
-            );
-
-            const modifiedUser = {
-                ...user,
-                displayName: name,
-                phoneNumber: mobile,
-                address,
-            };
-
-            await createUserProfileDocument(modifiedUser, { name });
-
-            this.setState(
-                {
-                    email: "",
-                    password: "",
-                    passwordConfirm: "",
-                    name: "",
-                    address: "",
-                    mobile: "",
-                    isShop: false,
-                },
-                () => console.log(this.state)
-            );
-        } catch (error) {
-            console.error(error);
-        }
     };
 
     handleChange = (event) => {
         const { value, name } = event.target;
-        console.log("name, value", name, value);
         this.setState({ [name]: value });
+    };
+
+    onDrop = (picture) => {
+        this.setState({
+            pictures: [...this.state.picture, picture],
+        });
     };
 
     render() {
@@ -92,6 +65,7 @@ class Register extends React.Component {
             address,
             warehouseAddress,
             shopOwner,
+            bankAccount,
         } = this.state;
 
         console.log("this.state", this.state);
@@ -150,6 +124,14 @@ class Register extends React.Component {
                         label="Name"
                     ></FormInput>
 
+                    <FormInput
+                        name="bankAccount"
+                        type="text"
+                        value={bankAccount}
+                        handleChange={this.handleChange}
+                        label="Bank Account Number"
+                    ></FormInput>
+
                     <div className="checkbox" onChange={this.handleChange}>
                         <RadioButton
                             name="isShop"
@@ -181,14 +163,18 @@ class Register extends React.Component {
                                 handleChange={this.handleChange}
                                 label="shopOwner"
                             ></FormInput>
+                            <ImageUploader
+                                withIcon={true}
+                                buttonText="Choose images"
+                                onChange={this.onDrop}
+                                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                                maxFileSize={5242880}
+                            />
                         </React.Fragment>
                     )}
 
                     <div className="buttons">
                         <CustomButton type="submit"> Sign in </CustomButton>
-                        <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
-                            Sign in with Google
-                        </CustomButton>
                     </div>
 
                     <p className="form-footer-text">

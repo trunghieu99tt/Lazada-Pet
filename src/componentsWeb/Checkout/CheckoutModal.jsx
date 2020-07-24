@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FormInput from "../SmallComponents/Form/FormInput";
+import { message } from "antd";
 
 const CheckoutModal = ({ closeModal, updateData }) => {
     const [state, setState] = useState({
@@ -7,6 +8,13 @@ const CheckoutModal = ({ closeModal, updateData }) => {
         address: "",
         phoneNumber: "",
     });
+
+    const validatePhoneNumber = (phone) => {
+        console.log("phone", phone);
+        var testRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        console.log("testRegex.test(phone)", testRegex.test(phone));
+        return testRegex.test(phone);
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -18,7 +26,14 @@ const CheckoutModal = ({ closeModal, updateData }) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        updateData();
+
+        const { name, address, phoneNumber } = state;
+
+        if (!validatePhoneNumber(phoneNumber)) {
+            message.error("Your phone number is invalid");
+        } else {
+            updateData();
+        }
     };
 
     const { name, address, phoneNumber } = state;

@@ -13,6 +13,10 @@ const UserMainInfo = ({ setCurrentPage, setID }) => {
         setData(currentUser);
     }, []);
 
+    useEffect(() => {
+        setData(currentUser);
+    }, [currentUser]);
+
     if (!data) return <Loader1 />;
 
     const {
@@ -26,6 +30,8 @@ const UserMainInfo = ({ setCurrentPage, setID }) => {
         phone,
         address,
     } = data;
+
+    console.log("data", data);
 
     return (
         <section className="userMainInfo">

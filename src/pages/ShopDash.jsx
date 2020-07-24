@@ -26,7 +26,7 @@ const ShopDash = () => {
             setCurrentPage={handleChangePage}
             setID={handleChangeID}
         />,
-        <ProductDashDetail setCurrentPage={handleChangePage} />,
+        <ProductDashDetail setCurrentPage={handleChangePage} id={id} />,
         <OrderWrapper setCurrentPage={handleChangePage} />,
         <OrderDetail setCurrentPage={handleChangePage} />,
         <ShopDashSaleEvent

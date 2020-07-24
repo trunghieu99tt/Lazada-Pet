@@ -8,35 +8,38 @@ import UploadFileDash from "../../../componentsDash/ShopDash/Form/UploadFileDash
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { fakeData } from "../../../componentsDash/ShopDash/Products/products-fake.data";
 import Loader1 from "../../../componentsWeb/SmallComponents/Loader1";
+import Axios from "axios";
+import { API_URL } from "../../../variables";
 
-const ProductDashDetail = ({
-    item,
-    resetItem,
-    handleEditItem,
-    deleteItem,
-    id,
-}) => {
+const ProductDashDetail = ({ item, resetItem, deleteItem, id }) => {
     const [itemInfo, setItemInfo] = useState(item);
     const [isEdit, setIsEdit] = useState(false);
-    const [data, setData] = useSessionStorage("products-dash", fakeData);
 
     useEffect(() => {
-        const item = data?.find((item) => item.id === id);
-        setItemInfo(item);
+        getData();
     }, []);
 
-    const options = ["Pending", "Processing", "Completed"];
+    const getData = async () => {
+        const response = await Axios.get(`${API_URL}/products.json`);
+        const products = response?.data && Object.values(response.data);
+        const filteredItem = products?.find((item) => item.productID === id);
+        setItemInfo(filteredItem);
+    };
+
+    const options = ["Unavailable", "Out of Stock", "Available"];
     const toggleEdit = () => setIsEdit(!isEdit);
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
-        handleEditItem(itemInfo);
+        await Axios.put(`${API_URL}/products.json`);
     };
 
     const onFieldChange = (event) => {
+        const { name, value } = event.target;
+
         const newItemInfo = {
             ...itemInfo,
-            [event.target.name]: event.target.value,
+            [name]: value,
         };
         setItemInfo(newItemInfo);
     };
@@ -62,12 +65,14 @@ const ProductDashDetail = ({
 
     const {
         name,
-        purchasedOn,
-        customer,
-        shipTo,
-        basePrice,
-        purchasedPrice,
+        price,
+        longDescription,
+        shortDescription,
+        averageRating,
+        totalRating,
         status,
+        amount,
+        imageURL,
     } = itemInfo;
 
     console.log("itemInfo", itemInfo);
@@ -76,7 +81,9 @@ const ProductDashDetail = ({
 
     return (
         <div className="itemDetail" onSubmit={onSubmit}>
-            {dataFields?.length && dataFields.map((item) => {})}
+            <figure>
+                <img src={imageURL} alt={name} />
+            </figure>
 
             <InputDash
                 type="text"
@@ -95,57 +102,36 @@ const ProductDashDetail = ({
                 onChange={onFieldChange}
             />
 
-            <div className="form-group">
-                <p>Purchased On</p>
-                <DatePicker
-                    defaultValue={moment(purchasedOn, "DD/MM/YYYY")}
-                    format="DD/MM/YYYY"
-                    disabled={!isEdit}
-                    onChange={onChangeDate}
-                />
-            </div>
-
             <InputDash
-                type="text"
-                name="customer"
-                placeHolder="Customer"
-                labelName="Customer"
-                value={customer}
+                type="number"
+                name="price"
+                placeHolder="Price"
+                labelName="Price"
+                value={Math.round(price)}
                 disabled={!isEdit}
                 onChange={onFieldChange}
             />
+
             <InputDash
-                type="text"
-                name="shipTo"
-                placeHolder="Ship To"
-                labelName="Ship to"
-                value={shipTo}
+                type="number"
+                name="amount"
+                placeHolder="Amount"
+                labelName="Amount"
+                value={Math.round(amount)}
                 disabled={!isEdit}
                 onChange={onFieldChange}
             />
 
             <InputDash
                 type="text"
-                name="basePrice"
-                placeHolder="Base Price"
-                labelName="Base Price"
-                value={basePrice}
-                disabled={!isEdit}
-                onChange={onFieldChange}
+                name="averageRating"
+                placeHolder="Average Rating"
+                labelName="Average Rating"
+                value={averageRating}
+                disabled
             />
+
             <InputDash
-                type="text"
-                name="purchasedPrice"
-                placeHolder="Purchased Price"
-                labelName="Purchased Price"
-                value={purchasedPrice}
-                disabled={!isEdit}
-                onChange={onFieldChange}
-            />
-
-            <UploadFileDash />
-
-            <OptionsDash
                 name="status"
                 options={options}
                 disabled={!isEdit}
@@ -153,7 +139,25 @@ const ProductDashDetail = ({
                 onChange={onChangeOptions}
             />
 
-            <TextAreaDash id="TextArea" name="Note" disabled={!isEdit} />
+            <InputDash
+                type="text"
+                placeHolder="Short Description"
+                labelName="Short Description"
+                value={shortDescription}
+                name="shotDescription"
+                disabled={!isEdit}
+                onChange={onFieldChange}
+            />
+            <InputDash
+                type="text"
+                placeHolder="Description"
+                labelName="Description"
+                value={longDescription}
+                name="longDescription"
+                disabled={!isEdit}
+                onChange={onFieldChange}
+            />
+
             {(isEdit && (
                 <React.Fragment>
                     <button

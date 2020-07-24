@@ -25,6 +25,7 @@ import Provider from "react-redux/lib/components/Provider";
 import store from "./redux/store";
 import { useDispatch } from "react-redux/lib/hooks/useDispatch";
 import Loader from "./componentsWeb/SmallComponents/Loader";
+import { API_URL_2 } from "./variables";
 
 const App = () => {
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -38,11 +39,9 @@ const App = () => {
     }, []);
 
     const getUserInfo = async () => {
-        const url = "http://proptit.social:8080";
-
         try {
             const res = await Axios.post(
-                `${url}/auth/jwt/refresh`,
+                `${API_URL_2}/auth/jwt/refresh`,
                 {
                     refresh: refreshToken,
                 },
@@ -52,10 +51,8 @@ const App = () => {
                     },
                 }
             );
-
             const accessToken = res?.data?.access;
-
-            const user = await Axios.get(`${url}/auth/users/me/`, {
+            const user = await Axios.get(`${API_URL_2}/auth/users/me/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
