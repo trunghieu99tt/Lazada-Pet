@@ -1,3 +1,4 @@
+import { message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -40,16 +41,43 @@ const Login = ({ openRegister }) => {
 			if (tokens) {
 				const { access, refresh } = tokens && tokens.data;
 				setRefreshToken(refresh);
-				const user = await axios.get(`/auth/users/me/`, {
+				const userResponse = await axios.get(`/auth/users/me/`, {
 					headers: {
 						Authorization: `Bearer ${access}`,
 					},
 				});
 
+				const user = userResponse?.data;
+
 				if (user) {
-					setCurrentUser(user && user.data);
+					let currentUser = {};
+					if (user.isShop) {
+						const shopResponse = await axios.get("/shops");
+						const shopsData = shopResponse?.data;
+
+						currentUser = shopsData.find(
+							(item) => item.username === user.username
+						);
+					} else {
+						const userResponse = await axios.get("/customers");
+						const usersData = userResponse?.data;
+						currentUser = usersData.find(
+							(item) => item.username === user.username
+						);
+					}
+
+					const final = {
+						...currentUser,
+						isShop: user.isShop,
+					};
+
+					console.log("final", final);
+
+					setCurrentUser(final);
 					history.push("/");
 				}
+			} else {
+				message.error("Wrong username or password, please check again");
 			}
 		} catch (error) {}
 	};
@@ -86,8 +114,11 @@ const Login = ({ openRegister }) => {
 					label="Password"
 					required
 				/>
-				<div className="buttons">
+				<div className="d-flex align-items-center buttons">
 					<CustomButton type="submit"> Sign in </CustomButton>
+
+					<button className="ml-3">Forget Your Password ?</button>
+
 					{/* <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
                         Sign in with Google
                     </CustomButton> */}

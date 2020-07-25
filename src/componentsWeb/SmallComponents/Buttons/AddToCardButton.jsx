@@ -7,6 +7,7 @@ import { addItem } from "../../../redux/web/cart/cart.actions";
 const AddToCartButton = ({ item, amount }) => {
 	const dispatch = useDispatch();
 	const cart = useSelector((state) => state.cart.cartItems);
+	const currentUser = useSelector((state) => state.user.currentUser);
 	const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
 
 	useEffect(() => {
@@ -14,14 +15,20 @@ const AddToCartButton = ({ item, amount }) => {
 	}, [cart]);
 
 	const addToCart = () => {
-		if (cart.length === 0) {
-			dispatch(addItem(item, amount));
+		if (currentUser?.isShop) {
+			message.error(
+				"Can't add to cart when you're using shop account. Please log in with customer account!"
+			);
 		} else {
-			const currItem = cart[0];
-			if (currItem.id === item.id) {
+			if (cart.length === 0) {
 				dispatch(addItem(item, amount));
 			} else {
-				message.error("You can only add 1 product to cart");
+				const currItem = cart[0];
+				if (currItem.id === item.id) {
+					dispatch(addItem(item, amount));
+				} else {
+					message.error("You can only add 1 product to cart");
+				}
 			}
 		}
 	};

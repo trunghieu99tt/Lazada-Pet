@@ -27,6 +27,8 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 	}, []);
 
 	const getCustomerData = async () => {
+		console.log("currentUser", currentUser);
+
 		try {
 			const response = await axios.get(`/shops/${currentUser.id}`);
 			const data = response?.data || [];
@@ -127,6 +129,8 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 	};
 
 	if (!data) return <Loader1 />;
+
+	console.log("data", data);
 
 	const {
 		username,

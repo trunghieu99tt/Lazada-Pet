@@ -162,7 +162,13 @@ const Register = (props) => {
 
 				{avatar && (
 					<figure>
-						<img src={avatarPreview} alt="avatar-preview" />
+						<img
+							src={avatarPreview}
+							alt="avatar-preview"
+							style={{
+								maxWidth: "20rem",
+							}}
+						/>
 					</figure>
 				)}
 

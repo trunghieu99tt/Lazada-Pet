@@ -122,10 +122,9 @@ const Checkout = ({ cartItems, total }) => {
 				deliveryOn: null,
 				amount: item?.amount,
 				price: item?.price,
-				status: 1,
+				status: 0,
 			};
 			const response = await axios.post(`/orders/`, postData);
-			console.log("response", response);
 		} catch (error) {}
 	};
 

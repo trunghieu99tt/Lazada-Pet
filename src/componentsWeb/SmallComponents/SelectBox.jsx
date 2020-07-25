@@ -37,12 +37,12 @@ const SelectBox = ({ value, orderBy }) => {
 						Default sorting
 					</div>
 
-					<div
+					{/* <div
 						className="custom-selectBox-option"
 						onClick={() => onClickEvents("rating")}
 					>
 						Sort by average rating
-					</div>
+					</div> */}
 					{}
 					<div
 						className="custom-selectBox-option"
