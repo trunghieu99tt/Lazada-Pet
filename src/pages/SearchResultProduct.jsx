@@ -1,4 +1,4 @@
-import { Pagination } from "antd";
+import { message, Pagination } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -27,6 +27,10 @@ const SearchResultProduct = () => {
 	useEffect(() => {
 		const filteredData = getFilteredData();
 		setData(filteredData);
+
+		if (!filteredData || !filteredData.length) {
+			message.error("No result found!");
+		}
 	}, [products]);
 
 	useEffect(() => {
@@ -108,31 +112,39 @@ const SearchResultProduct = () => {
 					<div className="col-md-9 shop-category-page-products-container">
 						<div className="shop-category-page-products">
 							<div className="container-fluid">
-								<div className="row">
-									{currShowItems?.length > 0 &&
-										currShowItems.map((item) => {
-											return (
-												<Card2
-													{...item}
-													imageURL={item.productImage}
-													viewProduct={viewProduct}
+								{(data?.length > 0 && (
+									<React.Fragment>
+										<div className="row">
+											{currShowItems?.length > 0 &&
+												currShowItems.map((item) => {
+													return (
+														<Card2
+															{...item}
+															imageURL={
+																item.productImage
+															}
+															viewProduct={
+																viewProduct
+															}
+														/>
+													);
+												})}
+										</div>
+										<div className="pagination-wrapper">
+											{data?.length > 0 && (
+												<Pagination
+													key={currPage}
+													defaultCurrent={1}
+													total={data?.length || 0}
+													defaultPageSize={pageSize}
+													current={currPage}
+													onChange={changePagination}
+													size="small"
 												/>
-											);
-										})}
-								</div>
-								<div className="pagination-wrapper">
-									{data?.length > 0 && (
-										<Pagination
-											key={currPage}
-											defaultCurrent={1}
-											total={data?.length || 0}
-											defaultPageSize={pageSize}
-											current={currPage}
-											onChange={changePagination}
-											size="small"
-										/>
-									)}
-								</div>
+											)}
+										</div>
+									</React.Fragment>
+								)) || <p>No result found!</p>}
 							</div>
 						</div>
 					</div>

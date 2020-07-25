@@ -1,4 +1,4 @@
-import { Pagination } from "antd";
+import { message, Pagination } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -40,30 +40,28 @@ class ShopCategoryPage extends Component {
 	orderBy = (orderCondition) => {
 		const filteredData = this.getFilteredData();
 
+		const { products } = this.state;
+
+		const initialData = products || filteredData;
+
 		let orderedProducts = [];
 		let orderValue = "";
 
 		switch (orderCondition) {
-			case "rating":
-				orderedProducts = [...filteredData].sort(
-					(a, b) => b.averageRating - a.averageRating
-				);
-				orderValue = "Sort by average rating: high to low";
-				break;
 			case "price":
-				orderedProducts = [...filteredData].sort(
+				orderedProducts = [...initialData].sort(
 					(a, b) => a.price - b.price
 				);
 				orderValue = "Sort by price: low to high";
 				break;
 			case "price-desc":
-				orderedProducts = [...filteredData].sort(
+				orderedProducts = [...initialData].sort(
 					(a, b) => b.price - a.price
 				);
 				orderValue = "Sort by price: high to low";
 				break;
 			default:
-				orderedProducts = [...filteredData];
+				orderedProducts = [...initialData];
 		}
 
 		this.setState({
@@ -103,6 +101,10 @@ class ShopCategoryPage extends Component {
 		const result = filteredData.filter((product) =>
 			product.name.toLowerCase().includes(searchQuery.toLowerCase())
 		);
+
+		if (!result || result.length === 0) {
+			message.error("No result found!");
+		}
 
 		this.setState({ products: result, isSearching: true, currPage: 1 });
 	};
@@ -267,6 +269,7 @@ class ShopCategoryPage extends Component {
 								handleChangeSearch={this.handleChangeSearch}
 								handleSearch={this.handleSearch}
 								value={searchQuery}
+								disabled={isSearching}
 								required
 							/>
 
