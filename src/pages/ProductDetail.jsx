@@ -84,9 +84,6 @@ const ProductDetail = (props) => {
 
 	const { quantityValue, activeTab, singleProduct } = state;
 
-	const item =
-		(allProducts && allProducts.find((e) => e.productID === ~~id)) || {};
-
 	if (!data) return <Loader />;
 
 	const {
@@ -173,7 +170,7 @@ const ProductDetail = (props) => {
 								</div>
 
 								<AddToCardButton
-									item={item}
+									item={data}
 									amount={quantityValue}
 								/>
 							</div>
@@ -225,7 +222,7 @@ const ProductDetail = (props) => {
 
 						<div className="row">
 							{relatedProducts &&
-								relatedProducts.map((item) => (	
+								relatedProducts.map((item) => (
 									<Card2
 										{...item}
 										viewProduct={viewProduct}

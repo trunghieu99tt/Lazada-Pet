@@ -19,8 +19,6 @@ const MyAccount = () => {
 		setAccessToken(null);
 	};
 
-	console.log("user", user);
-
 	const isShop = user?.isShop;
 
 	return (

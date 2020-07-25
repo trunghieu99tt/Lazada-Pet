@@ -8,12 +8,12 @@ import {
 } from "../../redux/web/cart/cart.actions";
 
 const CheckoutItem = ({ cartItem, clearItem, increaseItem, decreaseItem }) => {
-	const { name, amount, price, imageURL, id } = cartItem;
+	const { name, amount, price, imageURL, productImage, id } = cartItem;
 
 	return (
 		<div className="checkout-item">
 			<div className="image-container">
-				<img src={imageURL} alt="item" />
+				<img src={imageURL || productImage} alt={name} />
 			</div>
 
 			<div className="name">
