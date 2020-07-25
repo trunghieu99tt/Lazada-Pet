@@ -176,10 +176,10 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 						<div className="card-body">
 							<div className="wrapper d-block d-sm-flex align-items-center justify-content-between">
 								<h1 className="card-title mb-0">Details</h1>
-								<ul className="nav nav-tabs tab-solid tab-solid-primary mb-0">
+								{/* <ul className="nav nav-tabs tab-solid tab-solid-primary mb-0">
 									<li className="nav-item">Info</li>
 									<li className="nav-item">Security</li>
-								</ul>
+								</ul> */}
 							</div>
 
 							<div className="wrapper">

@@ -217,14 +217,14 @@ const ProductDashDetail = ({ item, id, setCurrentPage }) => {
 				onChange={onFieldChange}
 			/>
 
-			<InputDash
+			{/* <InputDash
 				type="text"
 				name="rate"
 				placeHolder="Rate"
 				labelName="Rate"
 				value={rate}
 				disabled
-			/>
+			/> */}
 			{/* 
 			<InputDash
 				name="status"
