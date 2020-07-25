@@ -66,16 +66,12 @@ class ShopPage extends Component {
 
 		if (!allProducts || !productCategories || !salesAds) return <Loader />;
 
-		console.log("allProducts", allProducts);
-
 		const allTypes =
 			(allProducts?.length > 0 &&
 				allProducts.map((item) => item.productType)) ||
 			[];
 
 		const productCategoriesData = [...new Set(allTypes)];
-
-		console.log("productCategoriesData", productCategoriesData);
 
 		return (
 			<React.Fragment>

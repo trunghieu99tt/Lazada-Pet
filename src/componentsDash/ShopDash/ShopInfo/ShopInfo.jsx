@@ -27,15 +27,10 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 	}, []);
 
 	const getCustomerData = async () => {
-		const username = currentUser && currentUser.username;
 		try {
-			const response = await axios.get(`/shops`);
+			const response = await axios.get(`/shops/${currentUser.id}`);
 			const data = response?.data || [];
-			const userData =
-				data?.length > 0 &&
-				data.find((item) => item.username === username);
-			setData(userData);
-			dispatch({ type: "SET_CURRENT_USER", payload: userData });
+			setData(data);
 		} catch (error) {
 			message.error(error);
 		}
@@ -44,7 +39,6 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 	const onChangeHandler = (event, file = false) => {
 		if (!file) {
 			const { name, value } = event.target;
-
 			setData({
 				...data,
 				[name]: value,
@@ -124,7 +118,6 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 					},
 				}
 			);
-			console.log("response", response);
 			displaySuccess();
 			setIsEditting(false);
 			dispatch({ type: "SET_CURRENT_USER", payload: data });
@@ -143,11 +136,7 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 		businessLisence,
 		address,
 		warehouseAddress,
-		isVip,
-		vipExpires,
 	} = currentUser;
-
-	console.log("avatarData", avatarData);
 
 	return (
 		<div className="content-wrapper shopInfo">
@@ -321,69 +310,47 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 												/>
 											</div>
 
-											<div className="form-group">
-												<label
-													for="isVip"
-													className="shopInfo__inputLabel"
-												>
-													IsVip
-												</label>
-												<input
-													name="isVip"
-													type="text"
-													className="form-control shopInfo__input"
-													id={isVip}
-													value={isVip}
-													disabled
-												/>
-											</div>
-
-											<div className="form-group">
-												<label
-													for="vipExpires"
-													className="shopInfo__inputLabel"
-												>
-													Vip Expired Date
-												</label>
-												<input
-													name="vipExpires"
-													type="date"
-													className="form-control shopInfo__input"
-													id={vipExpires}
-													value={vipExpires}
-													disabled
-												/>
-											</div>
-
 											<div className="form-group mt-5">
-												<button
-													type="submit"
-													className="btn btn-success mr-2"
-													onClick={() =>
-														setIsEditting(true)
-													}
-												>
-													Edit
-												</button>
+												{!isEditting && (
+													<button
+														type="submit"
+														className="btn btn-success mr-2"
+														onClick={() =>
+															setIsEditting(true)
+														}
+													>
+														Edit
+													</button>
+												)}
 
-												<button
-													type="submit"
-													className="btn btn-success mr-2"
-													disabled={!isEditting}
-													onClick={submitHandler}
-												>
-													Update
-												</button>
+												{isEditting && (
+													<React.Fragment>
+														<button
+															type="submit"
+															className="btn btn-success mr-2"
+															disabled={
+																!isEditting
+															}
+															onClick={
+																submitHandler
+															}
+														>
+															Update
+														</button>
 
-												<button
-													className="btn btn-outline-danger"
-													onClick={() => {
-														setIsEditting(false);
-														resetData();
-													}}
-												>
-													Cancel
-												</button>
+														<button
+															className="btn btn-outline-danger"
+															onClick={() => {
+																setIsEditting(
+																	false
+																);
+																resetData();
+															}}
+														>
+															Cancel
+														</button>
+													</React.Fragment>
+												)}
 											</div>
 										</div>
 									</div>

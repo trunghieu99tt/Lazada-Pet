@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Avatar from "../../componentsDash/UserDash/Avatar";
@@ -7,6 +7,16 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 const MyAccount = () => {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user.currentUser);
+	const [userData, setUserData] = useState(null);
+
+	useEffect(() => {
+		setUserData(user);
+	}, []);
+
+	useEffect(() => {
+		setUserData(user);
+	}, [user]);
+
 	const [refreshToken, setRefreshToken] = useLocalStorage(
 		"refreshToken",
 		null
@@ -25,7 +35,10 @@ const MyAccount = () => {
 		<section className="header-myAccount">
 			{(user && (
 				<React.Fragment>
-					<Avatar src={user && user.avatar} className="avatar" />
+					<Avatar
+						src={userData && userData.avatar}
+						className="avatar"
+					/>
 					{
 						<ul className="controlList">
 							<li className="controlList-item">

@@ -5,8 +5,6 @@ import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { addItem } from "../../../redux/web/cart/cart.actions";
 
 const AddToCartButton = ({ item, amount }) => {
-	console.log("item", item);
-
 	const dispatch = useDispatch();
 	const cart = useSelector((state) => state.cart.cartItems);
 	const [cartItems, setCartItems] = useLocalStorage("cartItems", []);

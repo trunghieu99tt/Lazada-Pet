@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "../../axios";
 import Loader1 from "../../componentsWeb/SmallComponents/Loader1";
 import SearchDash from "../../componentsWeb/SmallComponents/SearchDash";
+import { orderStatusOptions } from "../../variables";
 
 const UserOrderList = ({ setID, setCurrentPage }) => {
 	const [data, setData] = useState(null);
@@ -50,7 +51,7 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 	const to = Math.min(pageSize * page, data.length);
 	const showData = data?.slice(from, to);
 
-	console.log("showData", showData);
+	const values = Object.entries(orderStatusOptions);
 
 	return (
 		<section className="userOrdersList">
@@ -69,12 +70,14 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 						productsData?.length > 0 &&
 						productsData.find((e) => e.id === item.productId);
 
-					console.log("productData", productData);
+					const filteredValue = values.find(
+						(e) => e && e.length > 1 && e[1] === item.status
+					);
 
 					return (
 						<div
 							className="group-container userOrdersList-item"
-							deliverystatus="Pending"
+							deliverystatus={filteredValue?.[0]}
 						>
 							<figure className="userOrdersList-item__image-container">
 								<img
