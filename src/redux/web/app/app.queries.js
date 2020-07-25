@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../variables";
+import { API_URL, API_URL_2 } from "../../../variables";
 
 export async function queryMenu() {
 	const menuData = await axios({
@@ -31,7 +31,8 @@ export async function querySiteInfo() {
 export async function queryAllProducts() {
 	const allProducts = await axios({
 		method: "GET",
-		url: `${API_URL}/products.json`,
+		// url: `${API_URL}/products.json`,
+		url: `${API_URL_2}/products`,
 	});
 
 	return allProducts;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../variables";
+import { API_URL, API_URL_2 } from "../../../variables";
 
 export async function querySlides() {
 	const slides = await axios({
@@ -23,9 +23,11 @@ export async function queryLatestProducts(params) {
 
 	const latestProducts = await axios({
 		method: "GET",
-		url: `${API_URL}/products.json?orderBy="$key"&limitToFirst=${
-			limit || 20
-		}`,
+		// url: `${API_URL}/products.json?orderBy="$key"&limitToFirst=${
+		// 	limit || 20
+		// }`,
+
+		url: `${API_URL_2}/products`,
 	});
 
 	return latestProducts;

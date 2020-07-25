@@ -1,5 +1,4 @@
 import { DatePicker } from "antd";
-import moment from "moment";
 import React from "react";
 import SearchDash from "../../../componentsWeb/SmallComponents/SearchDash";
 import SelectBoxDash from "../../../componentsWeb/SmallComponents/SelectBoxDash";
@@ -32,14 +31,14 @@ const DataTableHeader = ({
 					/>
 					Entries
 				</span>
-				<RangePicker
+				{/* <RangePicker
 					onChange={onRangePickerChangeHandler}
 					value={
 						dateRange.filter(Boolean).length
 							? [moment(dateRange[0]), moment(dateRange[1])]
 							: null
 					}
-				/>
+				/> */}
 				{dateRange && dateRange.filter(Boolean).length > 0 && (
 					<button
 						className="btn btn-success ml-3"
@@ -48,17 +47,7 @@ const DataTableHeader = ({
 						Reset Date Range
 					</button>
 				)}
-				{options && (
-					<SelectBoxDash
-						name="status"
-						className="data-table-select"
-						onChangeHandler={(event) =>
-							selectFilterHandler(event, dataSample)
-						}
-						options={options}
-						defaultValue={options?.length > 0 && options[0]}
-					/>
-				)}
+
 				{searchFields?.length > 0 &&
 					searchFields.map(({ name, attribute }) => {
 						return (

@@ -1,190 +1,216 @@
 import { message } from "antd";
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "../../axios";
 import CustomButton from "../SmallComponents/Buttons/FormButton";
 import FormInput from "../SmallComponents/Form/FormInput";
 import RadioButton from "../SmallComponents/Form/RadioButton";
-import ImageUploader from "react-images-upload";
 
-class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-            passwordConfirm: "",
-            name: "",
-            address: "",
-            mobile: "",
-            warehouseAddress: "",
-            shopOwner: "",
-            bankAccount: "",
-            isShop: false,
-            pictures: [],
-        };
-    }
+const Register = (props) => {
+	const [state, setState] = useState({
+		username: "",
+		email: "",
+		password: "",
+		passwordConfirm: "",
+		fullname: "",
+		address: "",
+		mobile: "",
+		warehouseAddress: "",
+		shopOwner: "",
+		bankAccount: "",
+		isShop: false,
+		pictures: [],
+		avatarPreview: null,
+		avatar: null,
+	});
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
+	const history = useHistory();
+	const { openLogin } = props;
 
-        const {
-            name,
-            email,
-            password,
-            passwordConfirm,
-            address,
-            mobile,
-            bankAccount,
-        } = this.state;
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 
-        if (password !== passwordConfirm) {
-            message.error("passwords don't match");
-            return;
-        }
-    };
+		const { password, passwordConfirm } = state;
 
-    handleChange = (event) => {
-        const { value, name } = event.target;
-        this.setState({ [name]: value });
-    };
+		if (password !== passwordConfirm) {
+			message.error("passwords don't match");
+			return;
+		} else {
+			const endPoint = isShop === "true" ? "shops" : "customers";
+			const data = new FormData();
+			const values = Object.entries(state);
 
-    onDrop = (picture) => {
-        this.setState({
-            pictures: [...this.state.picture, picture],
-        });
-    };
+			values.forEach((item) => {
+				data.append(item[0], item[1]);
+			});
 
-    render() {
-        const { openLogin } = this.props;
-        const {
-            email,
-            password,
-            name,
-            passwordConfirm,
-            mobile,
-            isShop,
-            address,
-            warehouseAddress,
-            shopOwner,
-            bankAccount,
-        } = this.state;
+			try {
+				const response = await axios.post(`/${endPoint}/`, data);
+				openLogin();
+			} catch (err) {
+				message.error(err);
+			}
+		}
+	};
 
-        console.log("this.state", this.state);
+	const handleChange = (event, file = false) => {
+		const { value, name } = event.target;
+		if (file) {
+			setState({
+				...state,
+				avatar: event.target.files[0],
+				avatarPreview: URL.createObjectURL(event.target.files[0]),
+			});
+		} else {
+			setState({ ...state, [name]: value });
+		}
+	};
 
-        return (
-            <div className="login-form">
-                <h3 className="component-heading">Register</h3>
+	const {
+		email,
+		password,
+		fullname,
+		passwordConfirm,
+		mobile,
+		isShop,
+		address,
+		warehouseAddress,
+		shopOwner,
+		bankAccount,
+		avatar,
+		avatarPreview,
+		username,
+	} = state;
 
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput
-                        name="email"
-                        type="email"
-                        handleChange={this.handleChange}
-                        value={email}
-                        label="Email"
-                        required
-                    />
-                    <FormInput
-                        name="password"
-                        type="password"
-                        value={password}
-                        handleChange={this.handleChange}
-                        label="Password"
-                        required
-                    />
-                    <FormInput
-                        name="passwordConfirm"
-                        type="password"
-                        value={passwordConfirm}
-                        handleChange={this.handleChange}
-                        label="PasswordConfirm"
-                        required
-                    />
+	return (
+		<div className="login-form">
+			<h3 className="component-heading">Register</h3>
 
-                    <FormInput
-                        name="mobile"
-                        type="text"
-                        value={mobile}
-                        handleChange={this.handleChange}
-                        label="Mobile"
-                    ></FormInput>
+			<form onSubmit={handleSubmit}>
+				<FormInput
+					name="email"
+					type="email"
+					handleChange={handleChange}
+					value={email}
+					label="Email"
+					required
+				/>
+				<FormInput
+					name="username"
+					type="text"
+					handleChange={handleChange}
+					value={username}
+					label="Username"
+					required
+				/>
 
-                    <FormInput
-                        name="address"
-                        type="text"
-                        value={address}
-                        handleChange={this.handleChange}
-                        label="Address"
-                    ></FormInput>
+				<FormInput
+					name="password"
+					type="password"
+					value={password}
+					handleChange={handleChange}
+					label="Password"
+					required
+				/>
+				<FormInput
+					name="passwordConfirm"
+					type="password"
+					value={passwordConfirm}
+					handleChange={handleChange}
+					label="PasswordConfirm"
+					required
+				/>
 
-                    <FormInput
-                        name="name"
-                        type="text"
-                        value={name}
-                        handleChange={this.handleChange}
-                        label="Name"
-                    ></FormInput>
+				<FormInput
+					name="mobile"
+					type="text"
+					value={mobile}
+					handleChange={handleChange}
+					label="Mobile"
+				></FormInput>
 
-                    <FormInput
-                        name="bankAccount"
-                        type="text"
-                        value={bankAccount}
-                        handleChange={this.handleChange}
-                        label="Bank Account Number"
-                    ></FormInput>
+				<FormInput
+					name="address"
+					type="text"
+					value={address}
+					handleChange={handleChange}
+					label="Address"
+				></FormInput>
 
-                    <div className="checkbox" onChange={this.handleChange}>
-                        <RadioButton
-                            name="isShop"
-                            label="Shop"
-                            id="shop"
-                            value="true"
-                        />
-                        <RadioButton
-                            name="isShop"
-                            label="Normal User"
-                            id="user"
-                            value="false"
-                        />
-                    </div>
+				<FormInput
+					name="fullname"
+					type="text"
+					value={fullname}
+					handleChange={handleChange}
+					label="FullName"
+				></FormInput>
 
-                    {isShop === "true" && (
-                        <React.Fragment>
-                            <FormInput
-                                name="warehouseAddress"
-                                type="text"
-                                value={warehouseAddress}
-                                handleChange={this.handleChange}
-                                label="Warehouse Address"
-                            ></FormInput>
-                            <FormInput
-                                name="shopOwner"
-                                type="text"
-                                value={shopOwner}
-                                handleChange={this.handleChange}
-                                label="shopOwner"
-                            ></FormInput>
-                            <ImageUploader
-                                withIcon={true}
-                                buttonText="Choose images"
-                                onChange={this.onDrop}
-                                imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                                maxFileSize={5242880}
-                            />
-                        </React.Fragment>
-                    )}
+				<FormInput
+					name="bankAccount"
+					type="text"
+					value={bankAccount}
+					handleChange={handleChange}
+					label="Bank Account Number"
+				></FormInput>
 
-                    <div className="buttons">
-                        <CustomButton type="submit"> Sign in </CustomButton>
-                    </div>
+				<FormInput
+					name="avatar"
+					type="file"
+					handleChange={(event) => handleChange(event, true)}
+					label="Avatar"
+				></FormInput>
 
-                    <p className="form-footer-text">
-                        Already had an account ?
-                        <span onClick={openLogin}>Login now!</span>
-                    </p>
-                </form>
-            </div>
-        );
-    }
-}
+				{avatar && (
+					<figure>
+						<img src={avatarPreview} alt="avatar-preview" />
+					</figure>
+				)}
+
+				<div className="checkbox" onChange={handleChange}>
+					<RadioButton
+						name="isShop"
+						label="Shop"
+						id="shop"
+						value="true"
+					/>
+					<RadioButton
+						name="isShop"
+						label="Normal User"
+						id="user"
+						value="false"
+					/>
+				</div>
+
+				{isShop === "true" && (
+					<React.Fragment>
+						<FormInput
+							name="warehouseAddress"
+							type="text"
+							value={warehouseAddress}
+							handleChange={handleChange}
+							label="Warehouse Address"
+						></FormInput>
+						<FormInput
+							name="shopOwner"
+							type="text"
+							value={shopOwner}
+							handleChange={handleChange}
+							label="shopOwner"
+						></FormInput>
+					</React.Fragment>
+				)}
+
+				<div className="buttons">
+					<CustomButton type="submit"> Sign in </CustomButton>
+				</div>
+
+				<p className="form-footer-text">
+					Already had an account ?
+					<span onClick={openLogin}>Login now!</span>
+				</p>
+			</form>
+		</div>
+	);
+};
 
 export default Register;

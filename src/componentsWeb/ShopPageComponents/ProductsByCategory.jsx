@@ -25,7 +25,11 @@ export default class ProductsByCategory extends Component {
 						data
 							.slice(0, Math.min(6, data.length))
 							.map((item) => (
-								<Card2 {...item} viewProduct={viewProduct} />
+								<Card2
+									{...item}
+									imageURL={item?.productImage}
+									viewProduct={viewProduct}
+								/>
 							))}
 				</div>
 			</article>

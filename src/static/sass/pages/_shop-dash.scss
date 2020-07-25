@@ -1,8 +1,30 @@
 .orderDetail {
-    padding: 2rem;
-    background-color: #fff;
+	padding: 2rem;
+	background-color: #fff;
 }
 
 .itemDetail {
-    padding: 3rem;
+	padding: 3rem;
+}
+
+.shopInfo {
+	&__avatar {
+		width: 100%;
+		object-fit: contain;
+	}
+
+	&__inputLabel {
+		text-transform: capitalize;
+	}
+
+	&__name {
+		color: red;
+		margin: 2rem 0;
+	}
+
+	&__info {
+		strong {
+			font-size: 1.6rem;
+		}
+	}
 }

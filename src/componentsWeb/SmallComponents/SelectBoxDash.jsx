@@ -6,21 +6,28 @@ const SelectBoxDash = ({
 	className,
 	name,
 	defaultValue,
+	label,
 }) => {
+	
+	
+	
 	return (
-		<select
-			name={name}
-			className={className}
-			onChange={onChangeHandler}
-			defaultValue={defaultValue}
-		>
-			{options?.length > 0 &&
-				options.map((value) => (
-					<option key={value} value={value}>
-						{value}
-					</option>
-				))}
-		</select>
+		<React.Fragment>
+			{label && <label htmlFor={name}>{label}</label>}
+			<select
+				name={name}
+				className={className}
+				onChange={onChangeHandler}
+				defaultValue={defaultValue}
+			>
+				{options?.length > 0 &&
+					options.map((value) => (
+						<option key={value} value={value}>
+							{value}
+						</option>
+					))}
+			</select>
+		</React.Fragment>
 	);
 };
 

@@ -1,203 +1,207 @@
-import { DatePicker } from "antd";
-import moment from "moment";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../../../axios";
 import InputDash from "../../../componentsDash/ShopDash/Form/InputDash";
-import OptionsDash from "../../../componentsDash/ShopDash/Form/OptionsDash";
-import TextAreaDash from "../../../componentsDash/ShopDash/Form/TextAreaDash";
-import UploadFileDash from "../../../componentsDash/ShopDash/Form/UploadFileDash";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { fakeData } from "../../../componentsDash/ShopDash/Products/products-fake.data";
 import Loader1 from "../../../componentsWeb/SmallComponents/Loader1";
-import Axios from "axios";
-import { API_URL } from "../../../variables";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 const ProductDashDetail = ({ item, resetItem, deleteItem, id }) => {
-    const [itemInfo, setItemInfo] = useState(item);
-    const [isEdit, setIsEdit] = useState(false);
+	const [itemInfo, setItemInfo] = useState(item);
+	const [isEdit, setIsEdit] = useState(false);
+	const [accessToken] = useLocalStorage("accessToken", null);
 
-    useEffect(() => {
-        getData();
-    }, []);
+	useEffect(() => {
+		getData();
+	}, []);
 
-    const getData = async () => {
-        const response = await Axios.get(`${API_URL}/products.json`);
-        const products = response?.data && Object.values(response.data);
-        const filteredItem = products?.find((item) => item.productID === id);
-        setItemInfo(filteredItem);
-    };
+	const getData = async () => {
+		const response = await axios.get(`/products/${id}`);
+		const product = response?.data;
+		setItemInfo(product);
+	};
 
-    const options = ["Unavailable", "Out of Stock", "Available"];
-    const toggleEdit = () => setIsEdit(!isEdit);
+	// const options = ["Unavailable", "Out of Stock", "Available"];
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        await Axios.put(`${API_URL}/products.json`);
-    };
+	const toggleEdit = () => setIsEdit(!isEdit);
 
-    const onFieldChange = (event) => {
-        const { name, value } = event.target;
+	const onSubmit = async (event) => {
+		console.log("Clicked");
+		event.preventDefault();
+		const response = await axios.patch(`/products/${id}/`, itemInfo, {
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+			},
+		});
+		console.log("response", response);
+	};
 
-        const newItemInfo = {
-            ...itemInfo,
-            [name]: value,
-        };
-        setItemInfo(newItemInfo);
-    };
+	const onFieldChange = (event) => {
+		const { name, value } = event.target;
 
-    const onChangeDate = (date, dateString) => {
-        const newItemInfo = {
-            ...itemInfo,
-            purchasedOn: dateString,
-        };
-        setItemInfo(newItemInfo);
-    };
+		const newItemInfo = {
+			...itemInfo,
+			[name]: value,
+		};
+		setItemInfo(newItemInfo);
+	};
 
-    const onChangeOptions = (event) => {
-        const newItemInfo = {
-            ...itemInfo,
-            status: event.target.value,
-        };
+	// const onChangeDate = (date, dateString) => {
+	// 	const newItemInfo = {
+	// 		...itemInfo,
+	// 		purchasedOn: dateString,
+	// 	};
+	// 	setItemInfo(newItemInfo);
+	// };
 
-        setItemInfo(newItemInfo);
-    };
+	// const onChangeOptions = (event) => {
+	// 	const newItemInfo = {
+	// 		...itemInfo,
+	// 		status: event.target.value,
+	// 	};
 
-    if (!itemInfo) return <Loader1 />;
+	// 	setItemInfo(newItemInfo);
+	// };
 
-    const {
-        name,
-        price,
-        longDescription,
-        shortDescription,
-        averageRating,
-        totalRating,
-        status,
-        amount,
-        imageURL,
-    } = itemInfo;
+	if (!itemInfo) return <Loader1 />;
 
-    console.log("itemInfo", itemInfo);
+	const {
+		name,
+		price,
+		description,
+		rate,
+		amount,
+		productImage: imageURL,
+	} = itemInfo;
 
-    const dataFields = itemInfo && Object.entries(itemInfo);
+	console.log("itemInfo", itemInfo);
 
-    return (
-        <div className="itemDetail" onSubmit={onSubmit}>
-            <figure>
-                <img src={imageURL} alt={name} />
-            </figure>
+	const dataFields = itemInfo && Object.entries(itemInfo);
 
-            <InputDash
-                type="text"
-                name="itemID"
-                value={id}
-                labelName="Product ID"
-                disabled
-            />
-            <InputDash
-                type="text"
-                name="name"
-                placeHolder="Name"
-                labelName="Name"
-                value={name}
-                disabled={!isEdit}
-                onChange={onFieldChange}
-            />
+	return (
+		<div className="itemDetail" onSubmit={onSubmit}>
+			<figure>
+				<img
+					src={imageURL}
+					alt={name}
+					style={{
+						maxHeight: "20rem",
+						maxWidth: "20rem",
+					}}
+				/>
+			</figure>
 
-            <InputDash
-                type="number"
-                name="price"
-                placeHolder="Price"
-                labelName="Price"
-                value={Math.round(price)}
-                disabled={!isEdit}
-                onChange={onFieldChange}
-            />
+			<InputDash
+				type="text"
+				name="itemID"
+				value={id}
+				labelName="Product ID"
+				disabled
+			/>
+			<InputDash
+				type="text"
+				name="name"
+				placeHolder="Name"
+				labelName="Name"
+				value={name}
+				disabled={!isEdit}
+				onChange={onFieldChange}
+			/>
 
-            <InputDash
-                type="number"
-                name="amount"
-                placeHolder="Amount"
-                labelName="Amount"
-                value={Math.round(amount)}
-                disabled={!isEdit}
-                onChange={onFieldChange}
-            />
+			<InputDash
+				type="number"
+				name="price"
+				placeHolder="Price"
+				labelName="Price"
+				value={Math.round(price)}
+				disabled={!isEdit}
+				onChange={onFieldChange}
+			/>
 
-            <InputDash
-                type="text"
-                name="averageRating"
-                placeHolder="Average Rating"
-                labelName="Average Rating"
-                value={averageRating}
-                disabled
-            />
+			<InputDash
+				type="number"
+				name="amount"
+				placeHolder="Amount"
+				labelName="Amount"
+				value={Math.round(amount)}
+				disabled={!isEdit}
+				onChange={onFieldChange}
+			/>
 
-            <InputDash
-                name="status"
-                options={options}
-                disabled={!isEdit}
-                value={status}
-                onChange={onChangeOptions}
-            />
+			<InputDash
+				type="text"
+				name="rate"
+				placeHolder="Rate"
+				labelName="Rate"
+				value={rate}
+				disabled
+			/>
+			{/* 
+			<InputDash
+				name="status"
+				options={options}
+				disabled={!isEdit}
+				value={status}
+				onChange={onChangeOptions}
+			/> */}
 
-            <InputDash
-                type="text"
-                placeHolder="Short Description"
-                labelName="Short Description"
-                value={shortDescription}
-                name="shotDescription"
-                disabled={!isEdit}
-                onChange={onFieldChange}
-            />
-            <InputDash
-                type="text"
-                placeHolder="Description"
-                labelName="Description"
-                value={longDescription}
-                name="longDescription"
-                disabled={!isEdit}
-                onChange={onFieldChange}
-            />
+			{/* <InputDash
+				type="text"
+				placeHolder="Short Description"
+				labelName="Short Description"
+				value={shortDescription}
+				name="shotDescription"
+				disabled={!isEdit}
+				onChange={onFieldChange}
+			/> */}
+			<InputDash
+				type="text"
+				placeHolder="Description"
+				labelName="Description"
+				value={description}
+				name="description"
+				disabled={!isEdit}
+				onChange={onFieldChange}
+			/>
 
-            {(isEdit && (
-                <React.Fragment>
-                    <button
-                        type="submit"
-                        className="btn btn-success mr-2"
-                        onClick={onSubmit}
-                    >
-                        Submit
-                    </button>
-                    <button className="btn btn-light" onClick={toggleEdit}>
-                        {" "}
-                        Cancel
-                    </button>
-                </React.Fragment>
-            )) || (
-                <React.Fragment>
-                    <button
-                        className="btn btn-success mr-2"
-                        onClick={toggleEdit}
-                        type="button"
-                    >
-                        Edit
-                    </button>
-                    <button
-                        className="btn btn-light"
-                        type="button"
-                        onClick={() => {
-                            deleteItem(itemInfo);
-                            resetItem();
-                        }}
-                    >
-                        Delete
-                    </button>
-                    <button className="btn btn-light" onClick={resetItem}>
-                        Back
-                    </button>
-                </React.Fragment>
-            )}
-        </div>
-    );
+			{(isEdit && (
+				<React.Fragment>
+					<button
+						type="submit"
+						className="btn btn-success mr-2"
+						onClick={onSubmit}
+					>
+						Submit
+					</button>
+					<button className="btn btn-light" onClick={toggleEdit}>
+						{" "}
+						Cancel
+					</button>
+				</React.Fragment>
+			)) || (
+				<React.Fragment>
+					<button
+						className="btn btn-success mr-2"
+						onClick={toggleEdit}
+						type="button"
+					>
+						Edit
+					</button>
+					<button
+						className="btn btn-light"
+						type="button"
+						onClick={() => {
+							deleteItem(itemInfo);
+							resetItem();
+						}}
+					>
+						Delete
+					</button>
+					<button className="btn btn-light" onClick={resetItem}>
+						Back
+					</button>
+				</React.Fragment>
+			)}
+		</div>
+	);
 };
 
 export default ProductDashDetail;
