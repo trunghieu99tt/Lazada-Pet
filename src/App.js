@@ -55,6 +55,8 @@ const App = () => {
 
 				if (response) {
 					const data = response?.data || {};
+
+
 					let currentUser = {};
 					if (data.isShop) {
 						const shopResponse = await axios.get("/shops");
@@ -70,7 +72,12 @@ const App = () => {
 						);
 					}
 
-					setCurrentUser(currentUser);
+					const final = {
+						...currentUser,
+						isShop: data.isShop,
+					};
+
+					setCurrentUser(final);
 				}
 			}
 		} catch (error) {}

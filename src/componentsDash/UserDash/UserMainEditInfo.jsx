@@ -168,7 +168,14 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
 			}
 		});
 
-		postData.append("gender", genderOptions[newData.gender]);
+		console.log("newData", newData);
+
+		console.log("typeof newData.gender", typeof newData.gender);
+		if (typeof newData.gender === "number") {
+			postData.append("gender", newData.gender);
+		} else {
+			postData.append("gender", genderOptions[newData.gender]);
+		}
 
 		if (avatar?.avatar) {
 			postData.append("avatar", avatar.avatar);

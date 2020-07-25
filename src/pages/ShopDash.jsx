@@ -1,4 +1,3 @@
-import { Statistic } from "antd";
 import React, { useState } from "react";
 import {
 	Finance,
@@ -8,6 +7,7 @@ import {
 	ShopDashSaleEventDetail,
 	ShopDashSideBar,
 	ShopDashTopNav,
+	Statistic,
 } from "../componentsDash/ShopDash";
 import OrderWrapper from "../componentsDash/ShopDash/Order/OrderWrapper";
 import ShopInfo from "../componentsDash/ShopDash/ShopInfo/ShopInfo";
@@ -31,8 +31,11 @@ const ShopDash = () => {
 			setID={handleChangeID}
 		/>,
 		<ProductDashDetail setCurrentPage={handleChangePage} id={id} />,
-		<OrderWrapper setCurrentPage={handleChangePage} />,
-		<OrderDetail setCurrentPage={handleChangePage} />,
+		<OrderWrapper
+			setCurrentPage={handleChangePage}
+			setID={handleChangeID}
+		/>,
+		<OrderDetail setCurrentPage={handleChangePage} id={id} />,
 		<ShopDashSaleEvent
 			setCurrentPage={handleChangePage}
 			setID={handleChangeID}

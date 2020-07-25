@@ -8,3 +8,10 @@ export const genderOptions = {
 	Female: 1,
 	Undefined: 2,
 };
+
+export const orderStatusOptions = {
+	Checking: 0,
+	Shipping: 1,
+	Done: 2,
+	Canceled: 3,
+};

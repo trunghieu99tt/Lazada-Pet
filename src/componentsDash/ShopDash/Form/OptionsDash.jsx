@@ -1,6 +1,13 @@
 import React from "react";
 
-const OptionsDash = ({ options, name, disabled, value, onChange }) => {
+const OptionsDash = ({
+	options,
+	name,
+	disabled,
+	value,
+	onChange,
+	defaultValue,
+}) => {
 	return (
 		<select
 			name={name}
@@ -11,7 +18,10 @@ const OptionsDash = ({ options, name, disabled, value, onChange }) => {
 			{options &&
 				options.length > 0 &&
 				options.map((item) => (
-					<option value={item} selected={item === value}>
+					<option
+						value={item}
+						selected={item === defaultValue || item === value}
+					>
 						{item}
 					</option>
 				))}

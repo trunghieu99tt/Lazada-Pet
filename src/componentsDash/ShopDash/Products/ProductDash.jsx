@@ -21,9 +21,7 @@ const ProductDash = ({ allProducts, setCurrentPage, setID, ...otherProps }) => {
 		const currentShop = shops.find(
 			(item) => item.username === currentUser.username
 		);
-
 		const shopID = currentShop?.id;
-
 		const filteredData = products?.filter((item) => item.shopId === shopID);
 
 		setData(filteredData);

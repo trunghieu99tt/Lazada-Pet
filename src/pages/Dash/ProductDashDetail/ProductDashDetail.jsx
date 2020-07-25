@@ -1,13 +1,21 @@
+import { message } from "antd";
 import React, { useEffect, useState } from "react";
 import axios from "../../../axios";
 import InputDash from "../../../componentsDash/ShopDash/Form/InputDash";
+import FormInput from "../../../componentsWeb/SmallComponents/Form/FormInput";
 import Loader1 from "../../../componentsWeb/SmallComponents/Loader1";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { API_URL_3 } from "../../../variables";
 
-const ProductDashDetail = ({ item, resetItem, deleteItem, id }) => {
+const ProductDashDetail = ({ item, id, setCurrentPage }) => {
 	const [itemInfo, setItemInfo] = useState(item);
 	const [isEdit, setIsEdit] = useState(false);
 	const [accessToken] = useLocalStorage("accessToken", null);
+	const [loading, setLoading] = useState(false);
+	const [avatar, setAvatar] = useState({
+		avatar: null,
+		avatarPreview: null,
+	});
 
 	useEffect(() => {
 		getData();
@@ -24,24 +32,85 @@ const ProductDashDetail = ({ item, resetItem, deleteItem, id }) => {
 	const toggleEdit = () => setIsEdit(!isEdit);
 
 	const onSubmit = async (event) => {
-		console.log("Clicked");
 		event.preventDefault();
-		const response = await axios.patch(`/products/${id}/`, itemInfo, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		});
-		console.log("response", response);
+		try {
+			const putData = new FormData();
+			const values = itemInfo && Object.entries(itemInfo);
+
+			values.forEach((item) => {
+				if (item[0] !== "productImage") {
+					putData.append(item[0], item[1]);
+				}
+			});
+
+			if (avatar?.avatar) {
+				putData.append("productImage", avatar.avatar);
+			}
+
+			setLoading(true);
+
+			const response = await axios.put(
+				`${API_URL_3}/products/${id}/`,
+				putData,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			if (response?.data) {
+				setItemInfo(response?.data);
+			}
+			message.success("Successfully updated");
+			setLoading(false);
+			setAvatar({
+				avatarPreview: null,
+				avatar: null,
+			});
+			toggleEdit();
+		} catch (error) {
+			message.error(error);
+		}
 	};
 
-	const onFieldChange = (event) => {
-		const { name, value } = event.target;
+	const onFieldChange = (event, file = false) => {
+		if (!file) {
+			const { name, value } = event.target;
 
-		const newItemInfo = {
-			...itemInfo,
-			[name]: value,
-		};
-		setItemInfo(newItemInfo);
+			const newItemInfo = {
+				...itemInfo,
+				[name]: value,
+			};
+			setItemInfo(newItemInfo);
+		} else {
+			const file = event.target.files[0];
+			setAvatar({
+				avatar: file,
+				avatarPreview: URL.createObjectURL(file),
+			});
+		}
+	};
+
+	const onDeleteItem = async () => {
+		try {
+			setLoading(true);
+
+			const response = await axios.delete(
+				`${API_URL_3}/products/${id}/`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			setLoading(false);
+			message.success("Deleted Successfully");
+			setCurrentPage(1);
+		} catch (error) {
+			message.error(error);
+		}
 	};
 
 	// const onChangeDate = (date, dateString) => {
@@ -72,22 +141,44 @@ const ProductDashDetail = ({ item, resetItem, deleteItem, id }) => {
 		productImage: imageURL,
 	} = itemInfo;
 
-	console.log("itemInfo", itemInfo);
+	// console.log("itemInfo", itemInfo);
 
-	const dataFields = itemInfo && Object.entries(itemInfo);
+	if (loading) return <Loader1 />;
 
 	return (
 		<div className="itemDetail" onSubmit={onSubmit}>
-			<figure>
-				<img
-					src={imageURL}
-					alt={name}
-					style={{
-						maxHeight: "20rem",
-						maxWidth: "20rem",
-					}}
-				/>
-			</figure>
+			<div className="row justify-content-between">
+				<figure>
+					<img
+						src={imageURL}
+						alt={name}
+						style={{
+							maxHeight: "20rem",
+							maxWidth: "20rem",
+						}}
+					/>
+				</figure>
+
+				{isEdit && (
+					<React.Fragment>
+						<FormInput
+							type="file"
+							handleChange={(event) => onFieldChange(event, true)}
+							name="productImage"
+							label="Product Image"
+						/>
+
+						{avatar?.avatarPreview && (
+							<figure className="userMainEditInfo__avatar">
+								<img
+									src={avatar.avatarPreview || ""}
+									alt={"pt"}
+								/>
+							</figure>
+						)}
+					</React.Fragment>
+				)}
+			</div>
 
 			<InputDash
 				type="text"
@@ -188,14 +279,14 @@ const ProductDashDetail = ({ item, resetItem, deleteItem, id }) => {
 					<button
 						className="btn btn-light"
 						type="button"
-						onClick={() => {
-							deleteItem(itemInfo);
-							resetItem();
-						}}
+						onClick={onDeleteItem}
 					>
 						Delete
 					</button>
-					<button className="btn btn-light" onClick={resetItem}>
+					<button
+						className="btn btn-light"
+						onClick={() => setCurrentPage(1)}
+					>
 						Back
 					</button>
 				</React.Fragment>
