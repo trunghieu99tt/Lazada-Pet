@@ -39,9 +39,11 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 	const handleSearchInput = (event) => {
 		const { value } = event.target;
 		const searchResult = initialData?.filter((item) => {
-			const name = item?.name?.toLowerCase();
-			return name.includes(value.toLowerCase());
+			return item && item?.id?.toString()?.includes(value.toLowerCase());
 		});
+
+		console.log("searchResult", searchResult);
+
 		setData(searchResult);
 	};
 
@@ -59,7 +61,7 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 				<h3>Orders List ({initialData?.length || 0})</h3>
 
 				<SearchDash
-					name="Search Order by id, name,..."
+					name="Search Order by id"
 					handleOnChange={handleSearchInput}
 				/>
 			</header>
@@ -79,6 +81,11 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 							className="group-container userOrdersList-item"
 							deliverystatus={filteredValue?.[0]}
 						>
+							<p className="userOrdersList-item__id">
+								<p>Order ID</p>
+								<p>{item.id}</p>
+							</p>
+
 							<figure className="userOrdersList-item__image-container">
 								<img
 									src={
