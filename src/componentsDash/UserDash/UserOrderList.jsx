@@ -61,7 +61,7 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 				<h3>Orders List ({initialData?.length || 0})</h3>
 
 				<SearchDash
-					name="Search Order by id"
+					name="Order by Order ID"
 					handleOnChange={handleSearchInput}
 				/>
 			</header>

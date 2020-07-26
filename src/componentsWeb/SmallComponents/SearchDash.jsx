@@ -6,7 +6,7 @@ const SearchDash = ({ name, handleOnChange }) => {
 			type="search"
 			placeholder={`Search ${name}`}
 			className="form-control search-dash"
-			onChange = {handleOnChange}
+			onChange={handleOnChange}
 		></input>
 	);
 };
