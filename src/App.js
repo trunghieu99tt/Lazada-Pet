@@ -59,7 +59,7 @@ const App = () => {
 
 					let currentUser = {};
 					if (data.isShop) {
-						const shopResponse = await axios.get("/shops");
+						const shopResponse = await axios.get("/shops/");
 						const shopsData = shopResponse?.data;
 						currentUser = shopsData.find(
 							(item) => item.username === data.username

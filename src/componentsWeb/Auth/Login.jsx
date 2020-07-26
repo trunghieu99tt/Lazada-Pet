@@ -33,7 +33,7 @@ const Login = ({ openRegister }) => {
 		const { password, username } = state;
 
 		try {
-			const tokens = await axios.post(`/auth/jwt/create`, {
+			const tokens = await axios.post(`/auth/jwt/create/`, {
 				username,
 				password,
 			});
@@ -52,14 +52,14 @@ const Login = ({ openRegister }) => {
 				if (user) {
 					let currentUser = {};
 					if (user.isShop) {
-						const shopResponse = await axios.get("/shops");
+						const shopResponse = await axios.get("/shops/");
 						const shopsData = shopResponse?.data;
 
 						currentUser = shopsData.find(
 							(item) => item.username === user.username
 						);
 					} else {
-						const userResponse = await axios.get("/customers");
+						const userResponse = await axios.get("/customers/");
 						const usersData = userResponse?.data;
 						currentUser = usersData.find(
 							(item) => item.username === user.username
@@ -70,8 +70,6 @@ const Login = ({ openRegister }) => {
 						...currentUser,
 						isShop: user.isShop,
 					};
-
-					console.log("final", final);
 
 					setCurrentUser(final);
 					history.push("/");

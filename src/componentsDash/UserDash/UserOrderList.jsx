@@ -19,8 +19,8 @@ const UserOrderList = ({ setID, setCurrentPage }) => {
 	}, []);
 
 	const getData = async () => {
-		const response = await axios.get(`/orders`);
-		const productsResponse = await axios.get("/products");
+		const response = await axios.get(`/orders/`);
+		const productsResponse = await axios.get("/products/");
 
 		const allOrders = response?.data || [];
 		const allProducts = productsResponse?.data || [];

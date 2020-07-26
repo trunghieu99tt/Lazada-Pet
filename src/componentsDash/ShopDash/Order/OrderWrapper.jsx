@@ -26,10 +26,10 @@ const OrderWrapper = ({ setCurrentPage, setID }) => {
 	}, []);
 
 	const getData = async () => {
-		const response = await axios.get(`/orders`);
-		const productsResponse = await axios.get("/products");
-		const shopResponse = await axios.get("/shops");
-		const userResponse = await axios.get("/customers");
+		const response = await axios.get(`/orders/`);
+		const productsResponse = await axios.get("/products/");
+		const shopResponse = await axios.get("/shops/");
+		const userResponse = await axios.get("/customers/");
 
 		const allOrders = response?.data || [];
 		const allProducts = productsResponse?.data || [];

@@ -32,7 +32,7 @@ export async function queryAllProducts() {
 	const allProducts = await axios({
 		method: "GET",
 		// url: `${API_URL}/products.json`,
-		url: `${API_URL_2}/products`,
+		url: `${API_URL_2}/products/`,
 	});
 
 	return allProducts;

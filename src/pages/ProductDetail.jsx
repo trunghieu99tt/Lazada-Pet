@@ -41,7 +41,7 @@ const ProductDetail = (props) => {
 	const getData = async () => {
 		const id = params?.id;
 
-		const response = await axios(`/products/${id}`);
+		const response = await axios(`/products/${id}/`);
 		setData(response?.data);
 	};
 

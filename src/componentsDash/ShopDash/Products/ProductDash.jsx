@@ -13,8 +13,8 @@ const ProductDash = ({ allProducts, setCurrentPage, setID, ...otherProps }) => {
 	}, []);
 
 	const getData = async () => {
-		const productResponse = await axios.get(`/products`);
-		const shopResponse = await axios.get("/shops");
+		const productResponse = await axios.get(`/products/`);
+		const shopResponse = await axios.get("/shops/");
 		const products = productResponse?.data || []; // Có shopId
 		const shops = shopResponse?.data || []; // có id của các shop
 

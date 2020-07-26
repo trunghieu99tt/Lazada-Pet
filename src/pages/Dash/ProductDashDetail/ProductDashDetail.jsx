@@ -22,7 +22,7 @@ const ProductDashDetail = ({ item, id, setCurrentPage }) => {
 	}, []);
 
 	const getData = async () => {
-		const response = await axios.get(`/products/${id}`);
+		const response = await axios.get(`/products/${id}/`);
 		const product = response?.data;
 		setItemInfo(product);
 	};

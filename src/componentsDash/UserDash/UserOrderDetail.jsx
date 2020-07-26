@@ -17,10 +17,10 @@ const UserOrderDetail = ({ id, setCurrentPage }) => {
 	}, [id]);
 
 	const getOrderData = async () => {
-		const response = await axios.get(`/orders/${id}`);
+		const response = await axios.get(`/orders/${id}/`);
 		const orderData = response?.data;
 		setOrderData(orderData);
-		const productsResponse = await axios.get("/products");
+		const productsResponse = await axios.get("/products/");
 		const allProducts = productsResponse?.data || [];
 		const filteredProduct =
 			allProducts.find((e) => e.id === orderData.productId) || {};

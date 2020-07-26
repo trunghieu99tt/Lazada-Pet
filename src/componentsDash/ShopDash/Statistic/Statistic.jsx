@@ -13,9 +13,9 @@ const Statistic = () => {
 	}, []);
 
 	const getData = async () => {
-		const response = await axios.get(`/orders`);
-		const shopResponse = await axios.get("/shops");
-		const userResponse = await axios.get("/customers");
+		const response = await axios.get(`/orders/`);
+		const shopResponse = await axios.get("/shops/");
+		const userResponse = await axios.get("/customers/");
 
 		const allOrders = response?.data || [];
 		const allShops = shopResponse?.data || [];

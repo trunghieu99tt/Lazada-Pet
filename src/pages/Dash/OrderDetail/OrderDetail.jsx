@@ -25,9 +25,9 @@ const ItemDetail = ({ id, setCurrentPage }) => {
 	}, []);
 
 	const getData = async () => {
-		const response = await axios.get(`/orders/${id}`);
-		const productsResponse = await axios.get("/products");
-		const userResponse = await axios.get("/customers");
+		const response = await axios.get(`/orders/${id}/`);
+		const productsResponse = await axios.get("/products/");
+		const userResponse = await axios.get("/customers/");
 
 		const allProducts = productsResponse?.data || [];
 		const allCustomers = userResponse?.data || [];

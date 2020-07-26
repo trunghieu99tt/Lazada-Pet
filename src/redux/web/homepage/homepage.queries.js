@@ -27,7 +27,7 @@ export async function queryLatestProducts(params) {
 		// 	limit || 20
 		// }`,
 
-		url: `${API_URL_2}/products`,
+		url: `${API_URL_2}/products/`,
 	});
 
 	return latestProducts;

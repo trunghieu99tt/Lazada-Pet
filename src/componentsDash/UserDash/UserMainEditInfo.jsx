@@ -107,7 +107,7 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
 
 	const getUserInfo = async () => {
 		try {
-			const res = await axios.post(`/auth/jwt/refresh`, {
+			const res = await axios.post(`/auth/jwt/refresh/`, {
 				refresh: refreshToken,
 			});
 			const accessToken = res?.data?.access;

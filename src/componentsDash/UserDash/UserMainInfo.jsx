@@ -26,7 +26,7 @@ const UserMainInfo = ({ setCurrentPage, setID }) => {
 			// 	`https://cors-anywhere.herokuapp.com/${API_URL_2}/customers`
 			// );
 
-			const response = await axios.get(`/customers`);
+			const response = await axios.get(`/customers/`);
 
 			const data = response?.data || [];
 
