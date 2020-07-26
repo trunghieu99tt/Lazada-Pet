@@ -31,8 +31,6 @@ const MyAccount = () => {
 
 	const isShop = user?.isShop;
 
-	console.log("user", user);
-
 	return (
 		<section className="header-myAccount">
 			{(user && (

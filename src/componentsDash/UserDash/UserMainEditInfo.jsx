@@ -145,7 +145,10 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
 	};
 
 	const validateData = () => {
-		return data.indexOf((item) => !item.value) === -1;
+		const values = data?.map((e) => e.value);
+		const filteredValues = values.map((e) => !!e).filter(Boolean);
+
+		return values.length === filteredValues.length;
 	};
 
 	const handleSubmit = () => {
@@ -168,9 +171,6 @@ const UserMainEditInfo = ({ setCurrentPage }) => {
 			}
 		});
 
-		console.log("newData", newData);
-
-		console.log("typeof newData.gender", typeof newData.gender);
 		if (typeof newData.gender === "number") {
 			postData.append("gender", newData.gender);
 		} else {

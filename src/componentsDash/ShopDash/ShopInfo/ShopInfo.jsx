@@ -130,8 +130,6 @@ const ShopInfo = ({ setCurrentPage, setID }) => {
 
 	if (!data) return <Loader1 />;
 
-	console.log("data", data);
-
 	const {
 		username,
 		email,
