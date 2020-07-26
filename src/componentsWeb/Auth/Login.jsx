@@ -91,6 +91,8 @@ const Login = ({ openRegister }) => {
 
 	const { password, username } = state;
 
+	console.log("");
+
 	return (
 		<div className="login-form">
 			<h3 className="component-heading">Login</h3>
