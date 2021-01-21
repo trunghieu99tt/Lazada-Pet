@@ -1,5 +1,3 @@
-const multi = require("multi-loader");
-
 module.exports = {
     module: {
         rules: [
@@ -8,7 +6,7 @@ module.exports = {
                 use: [
                     "style-loader",
                     {
-                        loader: multi("css-loader", "postcss-loader"),
+                        loader: "css-loader",
                         options: {
                             modules: true,
                             importLoaders: 1,

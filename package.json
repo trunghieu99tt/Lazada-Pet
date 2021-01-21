@@ -16,7 +16,6 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "cross-env": "7.x",
-    "multi-loader": "^0.1.0",
     "npm-run-all": "4.x",
     "postcss": "8.x",
     "postcss-cli": "8.x",

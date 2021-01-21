@@ -3,13 +3,16 @@ import ReactDOM from "react-dom";
 import "./styles/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
 
 import { RecoilRoot } from "recoil";
 
 ReactDOM.render(
-    <RecoilRoot>
-        <App />
-    </RecoilRoot>,
+    <BrowserRouter>
+        <RecoilRoot>
+            <App />
+        </RecoilRoot>
+    </BrowserRouter>,
     document.getElementById("root")
 );
 
