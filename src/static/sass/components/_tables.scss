@@ -1,0 +1,59 @@
+.data-table {
+    background-color: #fff;
+    padding: 3rem;
+
+    &-header {
+        .ant-picker-range {
+            border-radius: 15px;
+            margin: 0 10px;
+        }
+    }
+
+    &-select-container {
+        font-size: 15px;
+    }
+
+    &-select {
+        padding: 1rem 1.5rem;
+        font-size: 15px;
+        border: 1px solid #f3f3f3;
+        margin: 0 1rem;
+    }
+
+    &-main {
+        margin-top: 2rem;
+
+        thead {
+            tr {
+                th {
+                    font-weight: bold;
+
+                    svg {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+
+        &__row {
+            &:hover {
+                background: rgba(0, 194, 146, 0.3);
+            }
+        }
+    }
+
+    &-icons {
+        width: 25px;
+        height: 25px;
+        margin: 0 1rem;
+        cursor: pointer;
+    }
+
+    .ant-pagination-options {
+        display: none;
+    }
+
+    &-footer {
+        margin: 2rem 0;
+    }
+}
