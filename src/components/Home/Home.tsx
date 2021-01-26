@@ -1,22 +1,14 @@
 import * as React from "react";
-import { useRecoilValueLoadable } from "recoil";
 
-// states
-import { allProducts } from "../../recoil/states/products.state";
+// components
+import Banner from "../Banner";
 
 const Home = () => {
-    const products = useRecoilValueLoadable(allProducts);
-
-    console.log("products", products);
-
-    switch (products.state) {
-        case "hasValue":
-            return <div>Hello World</div>;
-        case "loading":
-            return <div>Loading...</div>;
-        case "hasError":
-            throw products.contents;
-    }
+    return (
+        <section>
+            <Banner />
+        </section>
+    );
 };
 
 export default Home;

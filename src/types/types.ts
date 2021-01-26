@@ -20,6 +20,19 @@ export type Product = {
     category: string;
 };
 
-export type Products = {
-    pages: Array<Object>;
+export type SiteInfo = {
+    logo: string;
+    menu: Array<string>;
+    copyRight?: string;
+    description?: string;
+    meta_title?: string;
+    meta_descriptioN?: string;
+};
+
+export type Banner = {
+    background: string;
+    image: string;
+    title: string;
+    description: string;
+    url: string;
 };

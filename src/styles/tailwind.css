@@ -13,3 +13,17 @@
 /* Stop purging. */
 
 /* Your own custom utilities */
+.button--1 {
+    padding: 20px 50px;
+    background: #f04336;
+    display: inline-block;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.button--1:hover {
+    color: #fff;
+}
