@@ -1,0 +1,21 @@
+.item {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+}
+
+.item::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    transform: translateY(-50%);
+    clip-path: circle(0);
+    transform-origin: center;
+    background: #fff;
+    z-index: -1;
+}
+
+.item:hover a {
+    color: var(--red);
+}

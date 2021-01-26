@@ -1,0 +1,16 @@
+.loader {
+    transform: translate(-50%, -50%);
+    filter: url(#gooey);
+}
+
+.loader span:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #03a9f4;
+    background: linear-gradient(#fce4ec, #03a9f4);
+}
