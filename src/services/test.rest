@@ -1,8 +1,0 @@
-POST 'http://proptit.social:8080/auth/jwt/create/'
-
-content-type: application/json
-
-{
-    "username": "admin",
-    "password": "theanh"
-}
