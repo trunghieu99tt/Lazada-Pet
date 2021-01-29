@@ -4,6 +4,7 @@ const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
 };
+
 const client = axios.create({
     baseURL: process.env.REACT_APP_API_URL || "http://localhost:3001/api/v1",
     headers,

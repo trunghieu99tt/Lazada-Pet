@@ -19,3 +19,8 @@
 .item:hover a {
     color: var(--red);
 }
+
+.item:hover::after {
+    clip-path: circle(150%);
+    transition: 0.5s;
+}

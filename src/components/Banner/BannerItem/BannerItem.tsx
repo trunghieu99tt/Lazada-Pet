@@ -24,7 +24,7 @@ const BannerItem = ({
                 backgroundSize: "cover",
             }}
         >
-            <div className="container h-full">
+            <div className="container m-auto h-full">
                 <div className="flex h-full items-center">
                     <div className="md:w-full lg:w-1/2">
                         <div className="text-8xl text-white font-black mb-2">

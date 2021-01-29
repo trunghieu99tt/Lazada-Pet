@@ -28,4 +28,6 @@ const encodeStr = (encodeStr: string): string => {
     }
 };
 
-export { encodeStr };
+const shallowMerge = (...args: any[]) => Object.assign({}, ...args);
+
+export { encodeStr, shallowMerge };

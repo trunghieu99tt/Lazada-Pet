@@ -22,28 +22,29 @@ const Navigation = () => {
 
     if (!siteInfo) return <NavigationSkeleton />;
 
+    if (!siteInfo.menu || !siteInfo.menu.length) return null;
+
     const { menu } = siteInfo!;
 
     return (
         <React.Fragment>
-            {menu?.length > 0 &&
-                menu.map((item) => {
-                    return (
-                        <li
-                            className={cb(
-                                "relative block overflow-hidden p-2",
-                                classes.item
-                            )}
+            {menu!.map((item) => {
+                return (
+                    <li
+                        className={cb(
+                            "relative block overflow-hidden p-8",
+                            classes.item
+                        )}
+                    >
+                        <Link
+                            className="relative leading-9 text-3xl font-bold text-white"
+                            to={`/${encodeStr(item)}`}
                         >
-                            <Link
-                                className="relative leading-9 text-3xl uppercase font-bold text-white"
-                                to={`/${encodeStr(item)}`}
-                            >
-                                {item}
-                            </Link>
-                        </li>
-                    );
-                })}
+                            {item}
+                        </Link>
+                    </li>
+                );
+            })}
         </React.Fragment>
     );
 };
